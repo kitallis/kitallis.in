@@ -1,3 +1,3 @@
 # kitallis.in
 
-it's actually kitallis.me.
+it's actually [http://kitallis.me](kitallis.me).
