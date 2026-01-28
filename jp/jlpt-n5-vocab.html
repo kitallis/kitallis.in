@@ -1,0 +1,5440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Kana</th>
+<th>Kanji</th>
+<th>Type</th>
+<th>Definition/s</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>0</td>
+<td>ああ</td>
+<td></td>
+<td>int</td>
+<td>Ah!, Oh!</td>
+</tr>
+<tr>
+<td>1</td>
+<td>あう</td>
+<td>会う</td>
+<td>u-v</td>
+<td>to meet, to see</td>
+</tr>
+<tr>
+<td>2</td>
+<td>あお</td>
+<td>青</td>
+<td>n</td>
+<td>blue</td>
+</tr>
+<tr>
+<td>3</td>
+<td>あおい</td>
+<td>青い</td>
+<td>adj</td>
+<td>blue</td>
+</tr>
+<tr>
+<td>4</td>
+<td>あか</td>
+<td>赤</td>
+<td>n</td>
+<td>red</td>
+</tr>
+<tr>
+<td>5</td>
+<td>あかい</td>
+<td>赤い</td>
+<td>adj</td>
+<td>red</td>
+</tr>
+<tr>
+<td>6</td>
+<td>あかるい</td>
+<td>明るい</td>
+<td>adj</td>
+<td>bright, cheerful</td>
+</tr>
+<tr>
+<td>7</td>
+<td>あき</td>
+<td>秋</td>
+<td>n-adv</td>
+<td>autumn, fall</td>
+</tr>
+<tr>
+<td>8</td>
+<td>あく</td>
+<td>開く</td>
+<td>u-v,vi</td>
+<td>to open, to become open</td>
+</tr>
+<tr>
+<td>9</td>
+<td>あける</td>
+<td>開ける</td>
+<td>ru-v</td>
+<td>to open</td>
+</tr>
+<tr>
+<td>10</td>
+<td>あげる</td>
+<td>上げる</td>
+<td>ru-v</td>
+<td>to give</td>
+</tr>
+<tr>
+<td>11</td>
+<td>あさ</td>
+<td>朝</td>
+<td>n-adv,n-t</td>
+<td>morning</td>
+</tr>
+<tr>
+<td>12</td>
+<td>あさごはん</td>
+<td>朝御飯</td>
+<td>n</td>
+<td>breakfast</td>
+</tr>
+<tr>
+<td>13</td>
+<td>あさって</td>
+<td></td>
+<td>n-adv,n-t</td>
+<td>day after tomorrow</td>
+</tr>
+<tr>
+<td>14</td>
+<td>あし</td>
+<td>足</td>
+<td>n</td>
+<td>foot, leg</td>
+</tr>
+<tr>
+<td>15</td>
+<td>あした</td>
+<td></td>
+<td>n-t</td>
+<td>tomorrow</td>
+</tr>
+<tr>
+<td>16</td>
+<td>あそこ</td>
+<td></td>
+<td>n</td>
+<td>there, over there, that place</td>
+</tr>
+<tr>
+<td>17</td>
+<td>あそぶ</td>
+<td>遊ぶ</td>
+<td>u-v</td>
+<td>to play, to enjoy oneself</td>
+</tr>
+<tr>
+<td>18</td>
+<td>あたたかい</td>
+<td>暖かい</td>
+<td>adj</td>
+<td>warm, mild</td>
+</tr>
+<tr>
+<td>19</td>
+<td>あたま</td>
+<td>頭</td>
+<td>n</td>
+<td>head</td>
+</tr>
+<tr>
+<td>20</td>
+<td>あたらしい</td>
+<td>新しい</td>
+<td>adj</td>
+<td>new</td>
+</tr>
+<tr>
+<td>21</td>
+<td>あちら</td>
+<td></td>
+<td>n</td>
+<td>there, yonder, that</td>
+</tr>
+<tr>
+<td>22</td>
+<td>あつい</td>
+<td>暑い</td>
+<td>adj</td>
+<td>hot, warm</td>
+</tr>
+<tr>
+<td>23</td>
+<td>あつい</td>
+<td>熱い</td>
+<td>adj</td>
+<td>hot (thing)</td>
+</tr>
+<tr>
+<td>24</td>
+<td>あつい</td>
+<td>厚い</td>
+<td>adj</td>
+<td>kind, warm(hearted), thick, deep</td>
+</tr>
+<tr>
+<td>25</td>
+<td>あっち</td>
+<td></td>
+<td>n col</td>
+<td>over there</td>
+</tr>
+<tr>
+<td>26</td>
+<td>あと</td>
+<td>後</td>
+<td>adj-no,n</td>
+<td>afterwards, since then, in the future</td>
+</tr>
+<tr>
+<td>27</td>
+<td>あなた</td>
+<td></td>
+<td>n</td>
+<td>you</td>
+</tr>
+<tr>
+<td>28</td>
+<td>あに</td>
+<td>兄</td>
+<td>n</td>
+<td>(hum) older brother</td>
+</tr>
+<tr>
+<td>29</td>
+<td>あね</td>
+<td>姉</td>
+<td>n</td>
+<td>(hum) older sister</td>
+</tr>
+<tr>
+<td>30</td>
+<td>あの</td>
+<td></td>
+<td>pren-adj</td>
+<td>that over there</td>
+</tr>
+<tr>
+<td>31</td>
+<td>あの</td>
+<td></td>
+<td>int</td>
+<td>um...</td>
+</tr>
+<tr>
+<td>32</td>
+<td>アパート</td>
+<td></td>
+<td>n,adv</td>
+<td>apartment (abbr)</td>
+</tr>
+<tr>
+<td>33</td>
+<td>あびる</td>
+<td></td>
+<td>ru-v</td>
+<td>to bathe, to shower</td>
+</tr>
+<tr>
+<td>34</td>
+<td>あぶない</td>
+<td>危ない</td>
+<td>adj</td>
+<td>dangerous, critical, watch out!</td>
+</tr>
+<tr>
+<td>35</td>
+<td>あまい</td>
+<td>甘い</td>
+<td>adj,expr</td>
+<td>generous, sweet</td>
+</tr>
+<tr>
+<td>36</td>
+<td>あまり</td>
+<td></td>
+<td>na-adj,adv,n,n-suf</td>
+<td>not very, not much</td>
+</tr>
+<tr>
+<td>37</td>
+<td>あめ</td>
+<td>雨</td>
+<td>n</td>
+<td>rain</td>
+</tr>
+<tr>
+<td>38</td>
+<td>あめ</td>
+<td>飴</td>
+<td>n</td>
+<td>(hard) candy, toffee</td>
+</tr>
+<tr>
+<td>39</td>
+<td>あらう</td>
+<td>洗う</td>
+<td>u-v</td>
+<td>to wash</td>
+</tr>
+<tr>
+<td>40</td>
+<td>ある [存在]</td>
+<td></td>
+<td>u-v-i</td>
+<td>to be</td>
+</tr>
+<tr>
+<td>41</td>
+<td>ある [所有]</td>
+<td></td>
+<td>u-v-i</td>
+<td>to have</td>
+</tr>
+<tr>
+<td>42</td>
+<td>あるく</td>
+<td>歩く</td>
+<td>u-v</td>
+<td>to walk</td>
+</tr>
+<tr>
+<td>43</td>
+<td>あれ</td>
+<td></td>
+<td>int,n</td>
+<td>that, that thing</td>
+</tr>
+<tr>
+<td>44</td>
+<td>いい/よい</td>
+<td></td>
+<td>adj</td>
+<td>good</td>
+</tr>
+<tr>
+<td>45</td>
+<td>いいえ</td>
+<td></td>
+<td>int,n</td>
+<td>no, not at all</td>
+</tr>
+<tr>
+<td>46</td>
+<td>いう</td>
+<td>言う</td>
+<td>u-v</td>
+<td>to say</td>
+</tr>
+<tr>
+<td>47</td>
+<td>いえ</td>
+<td>家</td>
+<td>suf</td>
+<td>house, family</td>
+</tr>
+<tr>
+<td>48</td>
+<td>いかが</td>
+<td></td>
+<td>na-adj,adv,n</td>
+<td>how, in what way</td>
+</tr>
+<tr>
+<td>49</td>
+<td>いく/ゆく</td>
+<td>行く</td>
+<td>u-v</td>
+<td>to go</td>
+</tr>
+<tr>
+<td>50</td>
+<td>いくつ</td>
+<td></td>
+<td>n</td>
+<td>how many?, how old?</td>
+</tr>
+<tr>
+<td>51</td>
+<td>いくら</td>
+<td></td>
+<td>adv,n</td>
+<td>how much?, how many?</td>
+</tr>
+<tr>
+<td>52</td>
+<td>いけ</td>
+<td>池</td>
+<td>n</td>
+<td>pond</td>
+</tr>
+<tr>
+<td>53</td>
+<td>いしゃ</td>
+<td>医者</td>
+<td>n</td>
+<td>doctor (medical)</td>
+</tr>
+<tr>
+<td>54</td>
+<td>いす</td>
+<td></td>
+<td>n</td>
+<td>chair</td>
+</tr>
+<tr>
+<td>55</td>
+<td>いそがしい</td>
+<td>忙しい</td>
+<td>adj</td>
+<td>busy, irritated</td>
+</tr>
+<tr>
+<td>56</td>
+<td>いたい</td>
+<td>痛い</td>
+<td>adj</td>
+<td>painful</td>
+</tr>
+<tr>
+<td>57</td>
+<td>いち</td>
+<td>一</td>
+<td>num</td>
+<td>one</td>
+</tr>
+<tr>
+<td>58</td>
+<td>いちにち</td>
+<td>一日</td>
+<td>n</td>
+<td>1 day (duration)</td>
+</tr>
+<tr>
+<td>59</td>
+<td>いちばん</td>
+<td></td>
+<td>n-adv</td>
+<td>best, first, number one</td>
+</tr>
+<tr>
+<td>60</td>
+<td>いつ</td>
+<td></td>
+<td>gn-adv</td>
+<td>when</td>
+</tr>
+<tr>
+<td>61</td>
+<td>いつか</td>
+<td>五日</td>
+<td>n</td>
+<td>five days, the fifth day (of the month)</td>
+</tr>
+<tr>
+<td>62</td>
+<td>いっしょ</td>
+<td>一緒</td>
+<td>adv,n</td>
+<td>together</td>
+</tr>
+<tr>
+<td>63</td>
+<td>いつつ</td>
+<td>五つ</td>
+<td>n</td>
+<td>five</td>
+</tr>
+<tr>
+<td>64</td>
+<td>いつも</td>
+<td></td>
+<td>adv,n</td>
+<td>always, every time</td>
+</tr>
+<tr>
+<td>65</td>
+<td>いぬ</td>
+<td>犬</td>
+<td></td>
+<td>dog</td>
+</tr>
+<tr>
+<td>66</td>
+<td>いま</td>
+<td>今</td>
+<td></td>
+<td>now</td>
+</tr>
+<tr>
+<td>67</td>
+<td>いみ</td>
+<td>意味</td>
+<td>n,vs</td>
+<td>meaning</td>
+</tr>
+<tr>
+<td>68</td>
+<td>いもうと</td>
+<td>妹</td>
+<td>n</td>
+<td>younger sister</td>
+</tr>
+<tr>
+<td>69</td>
+<td>いや</td>
+<td>嫌</td>
+<td>na-adj,n</td>
+<td>disagreeable, no</td>
+</tr>
+<tr>
+<td>70</td>
+<td>いりぐち</td>
+<td>入口</td>
+<td>n</td>
+<td>entrance, gate</td>
+</tr>
+<tr>
+<td>71</td>
+<td>いる</td>
+<td>居る</td>
+<td>u-v</td>
+<td>(hum) to be (animate), to exist</td>
+</tr>
+<tr>
+<td>72</td>
+<td>いる</td>
+<td>要る</td>
+<td>u-v</td>
+<td>to need</td>
+</tr>
+<tr>
+<td>73</td>
+<td>いれる</td>
+<td>入れる</td>
+<td>ru-v</td>
+<td>to put in</td>
+</tr>
+<tr>
+<td>74</td>
+<td>いろ</td>
+<td>色</td>
+<td>n</td>
+<td>colour</td>
+</tr>
+<tr>
+<td>75</td>
+<td>いろいろ</td>
+<td></td>
+<td>na-adj,adj-no,adv,n</td>
+<td>various</td>
+</tr>
+<tr>
+<td>76</td>
+<td>うえ</td>
+<td>上</td>
+<td>no-adj,n-adv,n,n-suf</td>
+<td>above, on top of</td>
+</tr>
+<tr>
+<td>77</td>
+<td>うしろ</td>
+<td>後ろ</td>
+<td>n</td>
+<td>behind, rear</td>
+</tr>
+<tr>
+<td>78</td>
+<td>うすい</td>
+<td>薄い</td>
+<td>adj</td>
+<td>thin, weak</td>
+</tr>
+<tr>
+<td>79</td>
+<td>うた</td>
+<td>歌</td>
+<td>n</td>
+<td>song</td>
+</tr>
+<tr>
+<td>80</td>
+<td>うたう</td>
+<td>歌う</td>
+<td>u-v</td>
+<td>to sing</td>
+</tr>
+<tr>
+<td>81</td>
+<td>うち</td>
+<td></td>
+<td>n</td>
+<td>house (one&#39;s own)</td>
+</tr>
+<tr>
+<td>82</td>
+<td>うまれる</td>
+<td>生まれる</td>
+<td>ru-v</td>
+<td>to be born</td>
+</tr>
+<tr>
+<td>83</td>
+<td>うみ</td>
+<td>海</td>
+<td>n</td>
+<td>sea, beach</td>
+</tr>
+<tr>
+<td>84</td>
+<td>うる</td>
+<td>売る</td>
+<td>u-v</td>
+<td>to sell</td>
+</tr>
+<tr>
+<td>85</td>
+<td>うるさい</td>
+<td></td>
+<td>adj</td>
+<td>noisy, loud, annoying</td>
+</tr>
+<tr>
+<td>86</td>
+<td>うわぎ</td>
+<td>上着</td>
+<td>n</td>
+<td>coat, jacket</td>
+</tr>
+<tr>
+<td>87</td>
+<td>え</td>
+<td>絵</td>
+<td>n,n-suf</td>
+<td>picture, drawing, painting, sketch</td>
+</tr>
+<tr>
+<td>88</td>
+<td>えいが</td>
+<td>映画</td>
+<td>n</td>
+<td>movie, film</td>
+</tr>
+<tr>
+<td>89</td>
+<td>えいがかん</td>
+<td>映画館</td>
+<td>n</td>
+<td>movie theatre (theater), cinema</td>
+</tr>
+<tr>
+<td>90</td>
+<td>えいご</td>
+<td>英語</td>
+<td>n</td>
+<td>the English language</td>
+</tr>
+<tr>
+<td>91</td>
+<td>ええ</td>
+<td></td>
+<td>conj,int,n</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>92</td>
+<td>えき</td>
+<td>駅</td>
+<td>n</td>
+<td>station</td>
+</tr>
+<tr>
+<td>93</td>
+<td>エレベーター</td>
+<td></td>
+<td>n</td>
+<td>elevator</td>
+</tr>
+<tr>
+<td>94</td>
+<td>～えん</td>
+<td>～円</td>
+<td>n</td>
+<td>yen (currency)</td>
+</tr>
+<tr>
+<td>95</td>
+<td>えんぴつ</td>
+<td>鉛筆</td>
+<td>n</td>
+<td>pencil</td>
+</tr>
+<tr>
+<td>96</td>
+<td>お～</td>
+<td></td>
+<td>prefix</td>
+<td>honourable ～ (honorific)</td>
+</tr>
+<tr>
+<td>97</td>
+<td>おいしい</td>
+<td></td>
+<td>adj</td>
+<td>delicious, tasty</td>
+</tr>
+<tr>
+<td>98</td>
+<td>おおい</td>
+<td>多い</td>
+<td>adj</td>
+<td>many</td>
+</tr>
+<tr>
+<td>99</td>
+<td>おおきい</td>
+<td>大きい</td>
+<td>adj</td>
+<td>big</td>
+</tr>
+<tr>
+<td>100</td>
+<td>おおきな</td>
+<td>大きな</td>
+<td>na-adj</td>
+<td>big</td>
+</tr>
+<tr>
+<td>101</td>
+<td>おおぜい</td>
+<td>大勢</td>
+<td>n</td>
+<td>great number of people</td>
+</tr>
+<tr>
+<td>102</td>
+<td>おかあさん</td>
+<td>お母さん</td>
+<td>n</td>
+<td>(hon) mother</td>
+</tr>
+<tr>
+<td>103</td>
+<td>おかし</td>
+<td>お菓子</td>
+<td>n</td>
+<td>confections, sweets, candy</td>
+</tr>
+<tr>
+<td>104</td>
+<td>おかね</td>
+<td>お金</td>
+<td>n</td>
+<td>money</td>
+</tr>
+<tr>
+<td>105</td>
+<td>おきる</td>
+<td>起きる</td>
+<td>ru-v</td>
+<td>to get up, to rise</td>
+</tr>
+<tr>
+<td>106</td>
+<td>おく</td>
+<td>置く</td>
+<td>u-v</td>
+<td>to put, to place</td>
+</tr>
+<tr>
+<td>107</td>
+<td>おくさん</td>
+<td>奥さん</td>
+<td>n</td>
+<td>(hon) wife</td>
+</tr>
+<tr>
+<td>108</td>
+<td>おさけ</td>
+<td>お酒</td>
+<td>n</td>
+<td>alcohol, sake (rice wine)</td>
+</tr>
+<tr>
+<td>109</td>
+<td>おさら</td>
+<td>お皿</td>
+<td>n</td>
+<td>plate, dish</td>
+</tr>
+<tr>
+<td>110</td>
+<td>おじ・さん</td>
+<td>伯父/叔父・さん</td>
+<td>n</td>
+<td>uncle, middle aged man</td>
+</tr>
+<tr>
+<td>111</td>
+<td>おじいさん</td>
+<td></td>
+<td>n</td>
+<td>grandfather, male senior citizen</td>
+</tr>
+<tr>
+<td>112</td>
+<td>おしえる</td>
+<td>教える</td>
+<td>ru-v</td>
+<td>to teach, to inform</td>
+</tr>
+<tr>
+<td>113</td>
+<td>おす</td>
+<td>押す</td>
+<td>u-v,vt</td>
+<td>to push, to press</td>
+</tr>
+<tr>
+<td>114</td>
+<td>おそい</td>
+<td>遅い</td>
+<td>adj</td>
+<td>late, slow</td>
+</tr>
+<tr>
+<td>115</td>
+<td>おちゃ</td>
+<td>お茶</td>
+<td>n</td>
+<td>tea (green)</td>
+</tr>
+<tr>
+<td>116</td>
+<td>おてあらい</td>
+<td>お手洗い</td>
+<td></td>
+<td>toilet, lavatory, bathroom</td>
+</tr>
+<tr>
+<td>117</td>
+<td>おとうさん</td>
+<td>お父さん</td>
+<td>n</td>
+<td>(hon) father</td>
+</tr>
+<tr>
+<td>118</td>
+<td>おとうと</td>
+<td>弟</td>
+<td>n</td>
+<td>younger brother</td>
+</tr>
+<tr>
+<td>119</td>
+<td>おとこ</td>
+<td>男</td>
+<td>n</td>
+<td>man</td>
+</tr>
+<tr>
+<td>120</td>
+<td>おとこのこ</td>
+<td>男の子</td>
+<td>n</td>
+<td>boy</td>
+</tr>
+<tr>
+<td>121</td>
+<td>おととい</td>
+<td></td>
+<td>n-adv,n-t</td>
+<td>day before yesterday</td>
+</tr>
+<tr>
+<td>122</td>
+<td>おととし</td>
+<td></td>
+<td>n-adv,n-t</td>
+<td>year before last</td>
+</tr>
+<tr>
+<td>123</td>
+<td>おとな</td>
+<td>大人</td>
+<td>n</td>
+<td>adult</td>
+</tr>
+<tr>
+<td>124</td>
+<td>おなか</td>
+<td></td>
+<td>n</td>
+<td>stomach</td>
+</tr>
+<tr>
+<td>125</td>
+<td>おなじ</td>
+<td>同じ</td>
+<td>na-adj,n</td>
+<td>same, identical, similar</td>
+</tr>
+<tr>
+<td>126</td>
+<td>おにいさん</td>
+<td>お兄さん</td>
+<td>n</td>
+<td>(hon) older brother</td>
+</tr>
+<tr>
+<td>127</td>
+<td>おねえさん</td>
+<td>お姉さん</td>
+<td>n</td>
+<td>(hon) older sister</td>
+</tr>
+<tr>
+<td>128</td>
+<td>おばさん</td>
+<td>伯母さん/叔母さん</td>
+<td>n</td>
+<td>aunt</td>
+</tr>
+<tr>
+<td>129</td>
+<td>おばあさん</td>
+<td></td>
+<td>n</td>
+<td>grandmother, female senior-citizen</td>
+</tr>
+<tr>
+<td>130</td>
+<td>おふろ</td>
+<td>お風呂</td>
+<td>n</td>
+<td>bath</td>
+</tr>
+<tr>
+<td>131</td>
+<td>おべんとう</td>
+<td>お弁当</td>
+<td>n</td>
+<td>boxed lunch</td>
+</tr>
+<tr>
+<td>132</td>
+<td>おぼえる</td>
+<td>覚える</td>
+<td>ru-v</td>
+<td>to remember, to memorize</td>
+</tr>
+<tr>
+<td>133</td>
+<td>おまわりさん</td>
+<td></td>
+<td>n</td>
+<td>policeman (friendly term)</td>
+</tr>
+<tr>
+<td>134</td>
+<td>おもい</td>
+<td>重い</td>
+<td>adj</td>
+<td>heavy</td>
+</tr>
+<tr>
+<td>135</td>
+<td>おもしろい</td>
+<td></td>
+<td>adj</td>
+<td>interesting, amusing</td>
+</tr>
+<tr>
+<td>136</td>
+<td>およぐ</td>
+<td>泳ぐ</td>
+<td>u-v</td>
+<td>to swim</td>
+</tr>
+<tr>
+<td>137</td>
+<td>おりる</td>
+<td>降りる</td>
+<td>ru-v</td>
+<td>to alight (eg from bus), to get off</td>
+</tr>
+<tr>
+<td>138</td>
+<td>おわる</td>
+<td>終る</td>
+<td>u-v</td>
+<td>to finish, to close</td>
+</tr>
+<tr>
+<td>139</td>
+<td>おんがく</td>
+<td>音楽</td>
+<td>n</td>
+<td>music</td>
+</tr>
+<tr>
+<td>140</td>
+<td>おんな</td>
+<td>女</td>
+<td>n</td>
+<td>woman, girl, daughter</td>
+</tr>
+<tr>
+<td>141</td>
+<td>おんなのこ</td>
+<td>女の子</td>
+<td>n</td>
+<td>girl</td>
+</tr>
+<tr>
+<td>142</td>
+<td>～かい</td>
+<td>～回</td>
+<td>n</td>
+<td>counter for occurrences</td>
+</tr>
+<tr>
+<td>143</td>
+<td>～かい</td>
+<td>～階</td>
+<td>n</td>
+<td>counter for storeys of a building</td>
+</tr>
+<tr>
+<td>144</td>
+<td>がいこく</td>
+<td>外国</td>
+<td>n</td>
+<td>foreign country</td>
+</tr>
+<tr>
+<td>145</td>
+<td>がいこくじん</td>
+<td>外国人</td>
+<td>n</td>
+<td>foreigner</td>
+</tr>
+<tr>
+<td>146</td>
+<td>かいしゃ</td>
+<td>会社</td>
+<td>n</td>
+<td>company, corporation</td>
+</tr>
+<tr>
+<td>147</td>
+<td>かいだん</td>
+<td>階段</td>
+<td>n</td>
+<td>stairs</td>
+</tr>
+<tr>
+<td>148</td>
+<td>かいもの</td>
+<td>買い物</td>
+<td>n</td>
+<td>shopping</td>
+</tr>
+<tr>
+<td>149</td>
+<td>かう</td>
+<td>買う</td>
+<td>u-v</td>
+<td>to buy</td>
+</tr>
+<tr>
+<td>150</td>
+<td>かえす</td>
+<td>返す</td>
+<td>u-v,vt</td>
+<td>to return something</td>
+</tr>
+<tr>
+<td>151</td>
+<td>かえる</td>
+<td>帰る</td>
+<td>u-v</td>
+<td>to go home, to return</td>
+</tr>
+<tr>
+<td>152</td>
+<td>かお</td>
+<td>顔</td>
+<td>n</td>
+<td>face (person)</td>
+</tr>
+<tr>
+<td>153</td>
+<td>かかる</td>
+<td></td>
+<td>u-v,vi</td>
+<td>to take (eg time, money)</td>
+</tr>
+<tr>
+<td>154</td>
+<td>かぎ</td>
+<td></td>
+<td>n</td>
+<td>key/s</td>
+</tr>
+<tr>
+<td>155</td>
+<td>かく</td>
+<td>書く</td>
+<td>u-v</td>
+<td>to write</td>
+</tr>
+<tr>
+<td>156</td>
+<td>がくせい</td>
+<td>学生</td>
+<td>n</td>
+<td>student</td>
+</tr>
+<tr>
+<td>157</td>
+<td>～かげつ</td>
+<td>～か月</td>
+<td>suf</td>
+<td>(number of) months</td>
+</tr>
+<tr>
+<td>158</td>
+<td>かける</td>
+<td></td>
+<td>ru-v</td>
+<td>to put on (eg glasses)</td>
+</tr>
+<tr>
+<td>159</td>
+<td>かける</td>
+<td></td>
+<td>ru-v</td>
+<td>to dial/call (eg phone)</td>
+</tr>
+<tr>
+<td>160</td>
+<td>かさ</td>
+<td>傘</td>
+<td>n</td>
+<td>umbrella</td>
+</tr>
+<tr>
+<td>161</td>
+<td>かす</td>
+<td>貸す</td>
+<td>u-v</td>
+<td>to lend</td>
+</tr>
+<tr>
+<td>162</td>
+<td>かぜ</td>
+<td>風</td>
+<td>n</td>
+<td>wind, breeze</td>
+</tr>
+<tr>
+<td>163</td>
+<td>かぜ</td>
+<td>風邪</td>
+<td>n</td>
+<td>cold, illness</td>
+</tr>
+<tr>
+<td>164</td>
+<td>かた</td>
+<td>方</td>
+<td>n</td>
+<td>person</td>
+</tr>
+<tr>
+<td>165</td>
+<td>かぞく</td>
+<td>家族</td>
+<td>n</td>
+<td>family</td>
+</tr>
+<tr>
+<td>166</td>
+<td>かたかな</td>
+<td>片仮名</td>
+<td>n</td>
+<td>katakana</td>
+</tr>
+<tr>
+<td>167</td>
+<td>～がつ</td>
+<td>～月</td>
+<td>suf</td>
+<td>month of year</td>
+</tr>
+<tr>
+<td>168</td>
+<td>がっこう</td>
+<td>学校</td>
+<td>n</td>
+<td>school</td>
+</tr>
+<tr>
+<td>169</td>
+<td>カップ</td>
+<td></td>
+<td>n</td>
+<td>cup</td>
+</tr>
+<tr>
+<td>170</td>
+<td>かてい</td>
+<td>家庭</td>
+<td>n</td>
+<td>home, household</td>
+</tr>
+<tr>
+<td>171</td>
+<td>かど</td>
+<td>角</td>
+<td>n</td>
+<td>corner (e.g. desk)</td>
+</tr>
+<tr>
+<td>172</td>
+<td>かばん</td>
+<td></td>
+<td>n</td>
+<td>bag, basket</td>
+</tr>
+<tr>
+<td>173</td>
+<td>かびん</td>
+<td>花瓶</td>
+<td>n</td>
+<td>(flower) vase</td>
+</tr>
+<tr>
+<td>174</td>
+<td>かぶる</td>
+<td></td>
+<td>u-v</td>
+<td>to wear, to put on (head)</td>
+</tr>
+<tr>
+<td>175</td>
+<td>かみ</td>
+<td>紙</td>
+<td>n</td>
+<td>paper</td>
+</tr>
+<tr>
+<td>176</td>
+<td>カメラ</td>
+<td></td>
+<td>n</td>
+<td>camera</td>
+</tr>
+<tr>
+<td>177</td>
+<td>かようび</td>
+<td>火曜日</td>
+<td>n-adv,n</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td>178</td>
+<td>からい</td>
+<td>辛い</td>
+<td>adj</td>
+<td>spicy, salty</td>
+</tr>
+<tr>
+<td>179</td>
+<td>からだ</td>
+<td>体</td>
+<td>n</td>
+<td>body</td>
+</tr>
+<tr>
+<td>180</td>
+<td>かりる</td>
+<td>借りる</td>
+<td>ru-v</td>
+<td>to borrow, to have a loan</td>
+</tr>
+<tr>
+<td>181</td>
+<td>～がる</td>
+<td></td>
+<td>suf</td>
+<td>feel</td>
+</tr>
+<tr>
+<td>182</td>
+<td>かるい</td>
+<td>軽い</td>
+<td>adj</td>
+<td>light, non-serious, minor</td>
+</tr>
+<tr>
+<td>183</td>
+<td>カレー</td>
+<td></td>
+<td>n</td>
+<td>curry</td>
+</tr>
+<tr>
+<td>184</td>
+<td>カレンダー</td>
+<td></td>
+<td>n</td>
+<td>calendar</td>
+</tr>
+<tr>
+<td>185</td>
+<td>かわ</td>
+<td>川/河</td>
+<td>n</td>
+<td>river</td>
+</tr>
+<tr>
+<td>186</td>
+<td>～がわ</td>
+<td>側</td>
+<td>n-suf</td>
+<td>～ side</td>
+</tr>
+<tr>
+<td>187</td>
+<td>かわいい</td>
+<td></td>
+<td>adj</td>
+<td>cute, charming</td>
+</tr>
+<tr>
+<td>188</td>
+<td>かんじ</td>
+<td>漢字</td>
+<td>n</td>
+<td>kanji, Chinese character</td>
+</tr>
+<tr>
+<td>189</td>
+<td>き</td>
+<td>木</td>
+<td>n</td>
+<td>tree, wood</td>
+</tr>
+<tr>
+<td>190</td>
+<td>きいろ</td>
+<td>黄色</td>
+<td>n</td>
+<td>yellow</td>
+</tr>
+<tr>
+<td>191</td>
+<td>きいろい</td>
+<td>黄色い</td>
+<td>adj</td>
+<td>yellow</td>
+</tr>
+<tr>
+<td>192</td>
+<td>きえる</td>
+<td>消える</td>
+<td>ru-v</td>
+<td>to go out, to vanish</td>
+</tr>
+<tr>
+<td>193</td>
+<td>きく</td>
+<td>聞く</td>
+<td>u-v</td>
+<td>to hear, to listen, to ask</td>
+</tr>
+<tr>
+<td>194</td>
+<td>きた</td>
+<td>北</td>
+<td></td>
+<td>north</td>
+</tr>
+<tr>
+<td>195</td>
+<td>ギター</td>
+<td></td>
+<td>n</td>
+<td>guitar</td>
+</tr>
+<tr>
+<td>196</td>
+<td>きたない</td>
+<td>汚い</td>
+<td>adj</td>
+<td>dirty, messy</td>
+</tr>
+<tr>
+<td>197</td>
+<td>きっさてん</td>
+<td>喫茶店</td>
+<td>n</td>
+<td>coffee lounge</td>
+</tr>
+<tr>
+<td>198</td>
+<td>きって</td>
+<td>切手</td>
+<td>n</td>
+<td>stamp (eg. postage)</td>
+</tr>
+<tr>
+<td>199</td>
+<td>きっぷ</td>
+<td>切符</td>
+<td>n</td>
+<td>ticket</td>
+</tr>
+<tr>
+<td>200</td>
+<td>きのう</td>
+<td>昨日</td>
+<td>n-adv,n-t</td>
+<td>yesterday</td>
+</tr>
+<tr>
+<td>201</td>
+<td>きゅう</td>
+<td>九</td>
+<td>num</td>
+<td>nine</td>
+</tr>
+<tr>
+<td>202</td>
+<td>ぎゅうにく</td>
+<td>牛肉</td>
+<td>n</td>
+<td>beef</td>
+</tr>
+<tr>
+<td>203</td>
+<td>ぎゅうにゅう</td>
+<td>牛乳</td>
+<td>n</td>
+<td>milk</td>
+</tr>
+<tr>
+<td>204</td>
+<td>きょう</td>
+<td>今日</td>
+<td>n-t</td>
+<td>today, this day</td>
+</tr>
+<tr>
+<td>205</td>
+<td>きょうしつ</td>
+<td>教室</td>
+<td>n</td>
+<td>classroom</td>
+</tr>
+<tr>
+<td>206</td>
+<td>きょうだい</td>
+<td>兄弟</td>
+<td>n</td>
+<td>siblings (brothers and sisters)</td>
+</tr>
+<tr>
+<td>207</td>
+<td>きょねん</td>
+<td>去年</td>
+<td>n-adv,n-t</td>
+<td>last year</td>
+</tr>
+<tr>
+<td>208</td>
+<td>きらい</td>
+<td>嫌い</td>
+<td>na-adj,n</td>
+<td>dislike, hate</td>
+</tr>
+<tr>
+<td>209</td>
+<td>きる</td>
+<td>切る</td>
+<td>suf,u-v</td>
+<td>to cut, to chop</td>
+</tr>
+<tr>
+<td>210</td>
+<td>きる</td>
+<td>着る</td>
+<td>ru-v</td>
+<td>to wear, to put on (from shoulders down)</td>
+</tr>
+<tr>
+<td>211</td>
+<td>きれい</td>
+<td></td>
+<td>na-adj</td>
+<td>pretty, clean, nice, tidy</td>
+</tr>
+<tr>
+<td>212</td>
+<td>キロ/キログラム</td>
+<td></td>
+<td>n,pref</td>
+<td>kilo (kilogram)</td>
+</tr>
+<tr>
+<td>213</td>
+<td>キロ/キロメートル</td>
+<td></td>
+<td>n,pref</td>
+<td>kilo (kilometre)</td>
+</tr>
+<tr>
+<td>214</td>
+<td>ぎんこう</td>
+<td>銀行</td>
+<td>n</td>
+<td>bank</td>
+</tr>
+<tr>
+<td>215</td>
+<td>きんようび</td>
+<td>金曜日</td>
+<td>n-adv,n</td>
+<td>Friday</td>
+</tr>
+<tr>
+<td>216</td>
+<td>く</td>
+<td>九</td>
+<td>number</td>
+<td>nine</td>
+</tr>
+<tr>
+<td>217</td>
+<td>くすり</td>
+<td>薬</td>
+<td>n</td>
+<td>medicine</td>
+</tr>
+<tr>
+<td>218</td>
+<td>ください</td>
+<td></td>
+<td>kana only</td>
+<td>(with te-form verb) please do for me</td>
+</tr>
+<tr>
+<td>219</td>
+<td>くだもの</td>
+<td>果物</td>
+<td>n</td>
+<td>fruit</td>
+</tr>
+<tr>
+<td>220</td>
+<td>くち</td>
+<td>口</td>
+<td>n</td>
+<td>mouth, orifice, opening</td>
+</tr>
+<tr>
+<td>221</td>
+<td>くつ</td>
+<td>靴</td>
+<td>n</td>
+<td>shoes, footwear</td>
+</tr>
+<tr>
+<td>222</td>
+<td>くつした</td>
+<td>靴下</td>
+<td>n</td>
+<td>socks</td>
+</tr>
+<tr>
+<td>223</td>
+<td>くに</td>
+<td>国</td>
+<td>n</td>
+<td>country</td>
+</tr>
+<tr>
+<td>224</td>
+<td>くもり</td>
+<td>曇り</td>
+<td>adv</td>
+<td>cloudiness, cloudy weather</td>
+</tr>
+<tr>
+<td>225</td>
+<td>くもる</td>
+<td>曇る</td>
+<td>u-v</td>
+<td>to become cloudy, to become dim</td>
+</tr>
+<tr>
+<td>226</td>
+<td>くらい</td>
+<td>暗い</td>
+<td>adj</td>
+<td>dark, gloomy</td>
+</tr>
+<tr>
+<td>227</td>
+<td>～くらい/ぐらい</td>
+<td></td>
+<td>suf</td>
+<td>approximate (quantity)</td>
+</tr>
+<tr>
+<td>228</td>
+<td>クラス</td>
+<td></td>
+<td>n</td>
+<td>class</td>
+</tr>
+<tr>
+<td>229</td>
+<td>グラム</td>
+<td></td>
+<td>n</td>
+<td>gram</td>
+</tr>
+<tr>
+<td>230</td>
+<td>くる</td>
+<td>来る</td>
+<td>vk</td>
+<td>to come</td>
+</tr>
+<tr>
+<td>231</td>
+<td>くるま</td>
+<td>車</td>
+<td>n</td>
+<td>car, vehicle</td>
+</tr>
+<tr>
+<td>232</td>
+<td>くろ</td>
+<td>黒</td>
+<td>n</td>
+<td>black</td>
+</tr>
+<tr>
+<td>233</td>
+<td>くろい</td>
+<td>黒い</td>
+<td>adj</td>
+<td>black</td>
+</tr>
+<tr>
+<td>234</td>
+<td>けいかん</td>
+<td>警官</td>
+<td>n</td>
+<td>policeman</td>
+</tr>
+<tr>
+<td>235</td>
+<td>けさ</td>
+<td>今朝</td>
+<td>n-temp</td>
+<td>this morning</td>
+</tr>
+<tr>
+<td>236</td>
+<td>けす</td>
+<td>消す</td>
+<td>u-v</td>
+<td>to erase, to delete, to turn off power</td>
+</tr>
+<tr>
+<td>237</td>
+<td>けっこう</td>
+<td>結構</td>
+<td>na-adj,n-adv,n</td>
+<td>nice, enough</td>
+</tr>
+<tr>
+<td>238</td>
+<td>けっこん（する）</td>
+<td>結婚</td>
+<td>adj-no,n,vs</td>
+<td>marriage</td>
+</tr>
+<tr>
+<td>239</td>
+<td>げつようび</td>
+<td>月曜日</td>
+<td>n-adv,n</td>
+<td>Monday</td>
+</tr>
+<tr>
+<td>240</td>
+<td>げんかん</td>
+<td>玄関</td>
+<td>n</td>
+<td>entrance-way, entry hall</td>
+</tr>
+<tr>
+<td>241</td>
+<td>げんき</td>
+<td>元気</td>
+<td>na-adj,n</td>
+<td>health</td>
+</tr>
+<tr>
+<td>242</td>
+<td>～こ</td>
+<td>～個</td>
+<td>n,suf</td>
+<td>counter for small items</td>
+</tr>
+<tr>
+<td>243</td>
+<td>ご</td>
+<td>五</td>
+<td>num</td>
+<td>five</td>
+</tr>
+<tr>
+<td>244</td>
+<td>～ご</td>
+<td>～語</td>
+<td>n,n-suf</td>
+<td>word, language</td>
+</tr>
+<tr>
+<td>245</td>
+<td>こうえん</td>
+<td>公園</td>
+<td>n</td>
+<td>(public) park</td>
+</tr>
+<tr>
+<td>246</td>
+<td>こうさてん</td>
+<td>交差点</td>
+<td>n</td>
+<td>intersection</td>
+</tr>
+<tr>
+<td>247</td>
+<td>こうちゃ</td>
+<td>紅茶</td>
+<td>n</td>
+<td>black tea</td>
+</tr>
+<tr>
+<td>248</td>
+<td>こうばん</td>
+<td>交番</td>
+<td>n</td>
+<td>police box</td>
+</tr>
+<tr>
+<td>249</td>
+<td>こえ</td>
+<td>声</td>
+<td>n</td>
+<td>voice</td>
+</tr>
+<tr>
+<td>250</td>
+<td>コート</td>
+<td></td>
+<td>n</td>
+<td>coat</td>
+</tr>
+<tr>
+<td>251</td>
+<td>コーヒー</td>
+<td></td>
+<td>n</td>
+<td>coffee</td>
+</tr>
+<tr>
+<td>252</td>
+<td>ここ</td>
+<td></td>
+<td>n</td>
+<td>here, this place</td>
+</tr>
+<tr>
+<td>253</td>
+<td>ごご</td>
+<td>午後</td>
+<td>n-adv,n-t</td>
+<td>afternoon, P.M.</td>
+</tr>
+<tr>
+<td>254</td>
+<td>ここのか</td>
+<td>九日</td>
+<td></td>
+<td>nine days, the ninth day (of the month)</td>
+</tr>
+<tr>
+<td>255</td>
+<td>ここのつ</td>
+<td>九つ</td>
+<td>n</td>
+<td>nine</td>
+</tr>
+<tr>
+<td>256</td>
+<td>ごぜん</td>
+<td>午前</td>
+<td>n-adv,n-t</td>
+<td>morning, A.M.</td>
+</tr>
+<tr>
+<td>257</td>
+<td>こたえる</td>
+<td>答える</td>
+<td>ru-v</td>
+<td>to answer, to reply</td>
+</tr>
+<tr>
+<td>258</td>
+<td>こちら</td>
+<td></td>
+<td>n</td>
+<td>this eg person, way</td>
+</tr>
+<tr>
+<td>259</td>
+<td>こっち</td>
+<td></td>
+<td>n</td>
+<td>this eg person, way</td>
+</tr>
+<tr>
+<td>260</td>
+<td>コップ</td>
+<td></td>
+<td>n</td>
+<td>cup</td>
+</tr>
+<tr>
+<td>261</td>
+<td>ことし</td>
+<td>今年</td>
+<td>n-adv,n-t</td>
+<td>this year</td>
+</tr>
+<tr>
+<td>262</td>
+<td>ことば</td>
+<td>言葉</td>
+<td>n</td>
+<td>word</td>
+</tr>
+<tr>
+<td>263</td>
+<td>こども</td>
+<td>子供</td>
+<td>n</td>
+<td>child, children</td>
+</tr>
+<tr>
+<td>264</td>
+<td>この</td>
+<td></td>
+<td>adj-pn,int</td>
+<td>this</td>
+</tr>
+<tr>
+<td>265</td>
+<td>ごはん</td>
+<td>御飯</td>
+<td>n</td>
+<td>rice (cooked), meal</td>
+</tr>
+<tr>
+<td>266</td>
+<td>コピー・する</td>
+<td></td>
+<td>n,p-suru</td>
+<td>to copy</td>
+</tr>
+<tr>
+<td>267</td>
+<td>こまる</td>
+<td>困る</td>
+<td>u-v</td>
+<td>to be worried, to be bothered</td>
+</tr>
+<tr>
+<td>268</td>
+<td>これ</td>
+<td></td>
+<td>int,n</td>
+<td>this</td>
+</tr>
+<tr>
+<td>269</td>
+<td>～ころ/～ごろ</td>
+<td></td>
+<td>n-suf</td>
+<td>about, approximately (time)</td>
+</tr>
+<tr>
+<td>270</td>
+<td>こんげつ</td>
+<td>今月</td>
+<td>n-adv,n-t</td>
+<td>this month</td>
+</tr>
+<tr>
+<td>271</td>
+<td>こんしゅう</td>
+<td>今週</td>
+<td>n-adv,n-t</td>
+<td>this week</td>
+</tr>
+<tr>
+<td>272</td>
+<td>こんな</td>
+<td></td>
+<td>na-adj,adj-pn,adv,n</td>
+<td>such, like this</td>
+</tr>
+<tr>
+<td>273</td>
+<td>こんばん</td>
+<td>今晩</td>
+<td>n-adv,n-t</td>
+<td>tonight, this evening</td>
+</tr>
+<tr>
+<td>274</td>
+<td>さあ</td>
+<td></td>
+<td>conj,int</td>
+<td>come now, well</td>
+</tr>
+<tr>
+<td>275</td>
+<td>～さい</td>
+<td>～歳</td>
+<td>suf</td>
+<td>～years-old</td>
+</tr>
+<tr>
+<td>276</td>
+<td>さいふ</td>
+<td>財布</td>
+<td>n</td>
+<td>wallet</td>
+</tr>
+<tr>
+<td>277</td>
+<td>さかな</td>
+<td>魚</td>
+<td>n</td>
+<td>fish</td>
+</tr>
+<tr>
+<td>278</td>
+<td>さき</td>
+<td>先</td>
+<td>adj-no,n,n-suf,pref</td>
+<td>the future, former, previous</td>
+</tr>
+<tr>
+<td>279</td>
+<td>さく</td>
+<td>咲く</td>
+<td>u-v</td>
+<td>to bloom</td>
+</tr>
+<tr>
+<td>280</td>
+<td>さくぶん</td>
+<td>作文</td>
+<td>n</td>
+<td>composition, writing</td>
+</tr>
+<tr>
+<td>281</td>
+<td>さす</td>
+<td>差す</td>
+<td>u-v</td>
+<td>to raise (stretch out) hands, to raise (eg umbrella)</td>
+</tr>
+<tr>
+<td>282</td>
+<td>～さつ</td>
+<td>～冊</td>
+<td>n</td>
+<td>counter for books</td>
+</tr>
+<tr>
+<td>283</td>
+<td>ざっし</td>
+<td>雑誌</td>
+<td>n</td>
+<td>magazine</td>
+</tr>
+<tr>
+<td>284</td>
+<td>さとう</td>
+<td>砂糖</td>
+<td>n</td>
+<td>sugar</td>
+</tr>
+<tr>
+<td>285</td>
+<td>さむい</td>
+<td>寒い</td>
+<td>adj</td>
+<td>cold (e.g. weather)</td>
+</tr>
+<tr>
+<td>286</td>
+<td>さらいねん</td>
+<td>さ来年</td>
+<td>n-adv,n-t</td>
+<td>year after next</td>
+</tr>
+<tr>
+<td>287</td>
+<td>～さん</td>
+<td></td>
+<td>suf</td>
+<td>Mr or Mrs</td>
+</tr>
+<tr>
+<td>288</td>
+<td>さん</td>
+<td>三</td>
+<td>num</td>
+<td>three</td>
+</tr>
+<tr>
+<td>289</td>
+<td>さんぽ（する）</td>
+<td>散歩</td>
+<td>n,vs</td>
+<td>walk, stroll</td>
+</tr>
+<tr>
+<td>290</td>
+<td>し</td>
+<td>四</td>
+<td>num</td>
+<td>four</td>
+</tr>
+<tr>
+<td>291</td>
+<td>～じ</td>
+<td>～時</td>
+<td>suf</td>
+<td>time (～ O&#39;clock)</td>
+</tr>
+<tr>
+<td>292</td>
+<td>しお</td>
+<td>塩</td>
+<td>n</td>
+<td>salt</td>
+</tr>
+<tr>
+<td>293</td>
+<td>しかし</td>
+<td></td>
+<td>conj</td>
+<td>however, but</td>
+</tr>
+<tr>
+<td>294</td>
+<td>じかん</td>
+<td>時間</td>
+<td>n-adv,n</td>
+<td>time</td>
+</tr>
+<tr>
+<td>295</td>
+<td>～じかん</td>
+<td>～時間</td>
+<td>suf</td>
+<td>～hours</td>
+</tr>
+<tr>
+<td>296</td>
+<td>しごと</td>
+<td>仕事</td>
+<td>adj-no,n</td>
+<td>work, occupation, employment</td>
+</tr>
+<tr>
+<td>297</td>
+<td>じしょ</td>
+<td>辞書</td>
+<td>n</td>
+<td>dictionary</td>
+</tr>
+<tr>
+<td>298</td>
+<td>しずか</td>
+<td>静か</td>
+<td>na-adj</td>
+<td>quiet, peaceful</td>
+</tr>
+<tr>
+<td>299</td>
+<td>した</td>
+<td>下</td>
+<td>n</td>
+<td>under, below, beneath</td>
+</tr>
+<tr>
+<td>300</td>
+<td>しち</td>
+<td>七</td>
+<td>num</td>
+<td>seven</td>
+</tr>
+<tr>
+<td>301</td>
+<td>しつもん</td>
+<td>質問</td>
+<td>n,vs</td>
+<td>question, inquiry</td>
+</tr>
+<tr>
+<td>302</td>
+<td>じてんしゃ</td>
+<td>自転車</td>
+<td>n</td>
+<td>bicycle</td>
+</tr>
+<tr>
+<td>303</td>
+<td>じどうしゃ</td>
+<td>自動車</td>
+<td>n</td>
+<td>automobile</td>
+</tr>
+<tr>
+<td>304</td>
+<td>しぬ</td>
+<td>死ぬ</td>
+<td>v5n</td>
+<td>to die</td>
+</tr>
+<tr>
+<td>305</td>
+<td>じびき</td>
+<td>字引</td>
+<td>n</td>
+<td>dictionary</td>
+</tr>
+<tr>
+<td>306</td>
+<td>じぶん</td>
+<td>自分</td>
+<td>n</td>
+<td>myself, oneself</td>
+</tr>
+<tr>
+<td>307</td>
+<td>しまる</td>
+<td>閉まる</td>
+<td>u-v,vi</td>
+<td>to close, to be closed</td>
+</tr>
+<tr>
+<td>308</td>
+<td>しめる</td>
+<td>閉める</td>
+<td>ru-v,vt</td>
+<td>to close, to shut</td>
+</tr>
+<tr>
+<td>309</td>
+<td>しめる</td>
+<td>締める</td>
+<td>ru-v</td>
+<td>to tie, to fasten</td>
+</tr>
+<tr>
+<td>310</td>
+<td>じゃ/じゃあ</td>
+<td></td>
+<td>conj,int</td>
+<td>well, well then</td>
+</tr>
+<tr>
+<td>311</td>
+<td>しゃしん</td>
+<td>写真</td>
+<td>n</td>
+<td>photograph</td>
+</tr>
+<tr>
+<td>312</td>
+<td>シャツ</td>
+<td></td>
+<td>n</td>
+<td>shirt, singlet</td>
+</tr>
+<tr>
+<td>313</td>
+<td>シャワー</td>
+<td></td>
+<td>n</td>
+<td>shower</td>
+</tr>
+<tr>
+<td>314</td>
+<td>じゅう</td>
+<td>十</td>
+<td>num</td>
+<td>ten</td>
+</tr>
+<tr>
+<td>315</td>
+<td>～じゅう</td>
+<td>～中</td>
+<td>suf</td>
+<td>during, while</td>
+</tr>
+<tr>
+<td>316</td>
+<td>～しゅうかん</td>
+<td>～週間</td>
+<td>suf</td>
+<td>～weeks</td>
+</tr>
+<tr>
+<td>317</td>
+<td>じゅぎょう</td>
+<td>授業</td>
+<td>n,vs</td>
+<td>lesson, class work</td>
+</tr>
+<tr>
+<td>318</td>
+<td>しゅくだい</td>
+<td>宿題</td>
+<td>n</td>
+<td>homework</td>
+</tr>
+<tr>
+<td>319</td>
+<td>じょうず</td>
+<td>上手</td>
+<td>na-adj,n</td>
+<td>skill, skillful, dexterity</td>
+</tr>
+<tr>
+<td>320</td>
+<td>じょうぶ</td>
+<td>丈夫</td>
+<td>na-adj,n</td>
+<td>strong, solid, durable</td>
+</tr>
+<tr>
+<td>321</td>
+<td>しょうゆ</td>
+<td></td>
+<td>n</td>
+<td>soy sauce</td>
+</tr>
+<tr>
+<td>322</td>
+<td>しょくどう</td>
+<td>食堂</td>
+<td>n</td>
+<td>cafeteria, dining hall</td>
+</tr>
+<tr>
+<td>323</td>
+<td>しる</td>
+<td>知る</td>
+<td>u-v</td>
+<td>to know, to understand</td>
+</tr>
+<tr>
+<td>324</td>
+<td>しろ</td>
+<td>白</td>
+<td>n</td>
+<td>white</td>
+</tr>
+<tr>
+<td>325</td>
+<td>しろい</td>
+<td>白い</td>
+<td>adj</td>
+<td>white</td>
+</tr>
+<tr>
+<td>326</td>
+<td>～にん</td>
+<td>～人</td>
+<td>n,suf</td>
+<td>counter for people</td>
+</tr>
+<tr>
+<td>327</td>
+<td>しんぶん</td>
+<td>新聞</td>
+<td>n</td>
+<td>newspaper</td>
+</tr>
+<tr>
+<td>328</td>
+<td>すいようび</td>
+<td>水曜日</td>
+<td>n-adv,n</td>
+<td>Wednesday</td>
+</tr>
+<tr>
+<td>329</td>
+<td>すう</td>
+<td>吸う</td>
+<td>u-v</td>
+<td>to smoke, to breathe in, to suck</td>
+</tr>
+<tr>
+<td>330</td>
+<td>スカート</td>
+<td></td>
+<td>n</td>
+<td>skirt</td>
+</tr>
+<tr>
+<td>331</td>
+<td>すき</td>
+<td>好き</td>
+<td>na-adj,n</td>
+<td>liking, fondness, love</td>
+</tr>
+<tr>
+<td>332</td>
+<td>～すぎ</td>
+<td></td>
+<td>suf</td>
+<td>to exceed, ～ too much</td>
+</tr>
+<tr>
+<td>333</td>
+<td>すくない</td>
+<td>少ない</td>
+<td>adj</td>
+<td>a few, scarce</td>
+</tr>
+<tr>
+<td>334</td>
+<td>すぐ・に</td>
+<td></td>
+<td>adv</td>
+<td>immediately, instantly</td>
+</tr>
+<tr>
+<td>335</td>
+<td>すこし</td>
+<td>少し</td>
+<td>adv,n</td>
+<td>little, few</td>
+</tr>
+<tr>
+<td>336</td>
+<td>すずしい</td>
+<td>涼しい</td>
+<td>adj</td>
+<td>cool, refreshing</td>
+</tr>
+<tr>
+<td>337</td>
+<td>～ずつ</td>
+<td></td>
+<td>suf</td>
+<td>at a time, gradually</td>
+</tr>
+<tr>
+<td>338</td>
+<td>ストーブ</td>
+<td></td>
+<td>n</td>
+<td>heater (lit: stove)</td>
+</tr>
+<tr>
+<td>339</td>
+<td>スプーン</td>
+<td></td>
+<td>n</td>
+<td>spoon</td>
+</tr>
+<tr>
+<td>340</td>
+<td>スポーツ</td>
+<td></td>
+<td>n</td>
+<td>sport</td>
+</tr>
+<tr>
+<td>341</td>
+<td>ズボン</td>
+<td></td>
+<td>n</td>
+<td>trousers (fr: jupon)</td>
+</tr>
+<tr>
+<td>342</td>
+<td>すむ</td>
+<td>住む</td>
+<td>u-v</td>
+<td>to reside, to live in</td>
+</tr>
+<tr>
+<td>343</td>
+<td>スリッパ</td>
+<td></td>
+<td>n</td>
+<td>slippers</td>
+</tr>
+<tr>
+<td>344</td>
+<td>する</td>
+<td></td>
+<td>vs-i</td>
+<td>to do, to try</td>
+</tr>
+<tr>
+<td>345</td>
+<td>すわる</td>
+<td>座る</td>
+<td>u-v</td>
+<td>to sit</td>
+</tr>
+<tr>
+<td>346</td>
+<td>せい</td>
+<td>背</td>
+<td>n</td>
+<td>height, stature</td>
+</tr>
+<tr>
+<td>347</td>
+<td>せいと</td>
+<td>生徒</td>
+<td>n</td>
+<td>pupil</td>
+</tr>
+<tr>
+<td>348</td>
+<td>セーター</td>
+<td></td>
+<td>n</td>
+<td>sweater, jumper</td>
+</tr>
+<tr>
+<td>349</td>
+<td>せっけん</td>
+<td>石鹸</td>
+<td>n</td>
+<td>soap</td>
+</tr>
+<tr>
+<td>350</td>
+<td>せびろ</td>
+<td>背広</td>
+<td>n</td>
+<td>business suit</td>
+</tr>
+<tr>
+<td>351</td>
+<td>せまい</td>
+<td>狭い</td>
+<td>adj</td>
+<td>narrow, confined, small</td>
+</tr>
+<tr>
+<td>352</td>
+<td>ゼロ</td>
+<td></td>
+<td>n</td>
+<td>zero</td>
+</tr>
+<tr>
+<td>353</td>
+<td>せん</td>
+<td>千</td>
+<td></td>
+<td>thousand, many</td>
+</tr>
+<tr>
+<td>354</td>
+<td>せんげつ</td>
+<td>先月</td>
+<td>n-adv,n-t</td>
+<td>last month</td>
+</tr>
+<tr>
+<td>355</td>
+<td>せんしゅう</td>
+<td>先週</td>
+<td>n-adv,n-t</td>
+<td>last week, the week before</td>
+</tr>
+<tr>
+<td>356</td>
+<td>せんせい</td>
+<td>先生</td>
+<td>n</td>
+<td>teacher, master, doctor</td>
+</tr>
+<tr>
+<td>357</td>
+<td>せんたく</td>
+<td>洗濯</td>
+<td>n,vs</td>
+<td>washing, laundry</td>
+</tr>
+<tr>
+<td>358</td>
+<td>ぜんぶ</td>
+<td>全部</td>
+<td>n-adv,n-t</td>
+<td>all, entire, whole</td>
+</tr>
+<tr>
+<td>359</td>
+<td>そう/そうです</td>
+<td></td>
+<td></td>
+<td>appears, to be the case</td>
+</tr>
+<tr>
+<td>360</td>
+<td>そうじ（する）</td>
+<td>掃除</td>
+<td>n,vs</td>
+<td>cleaning, sweeping</td>
+</tr>
+<tr>
+<td>361</td>
+<td>そうして/そして</td>
+<td></td>
+<td>conj</td>
+<td>and, like that</td>
+</tr>
+<tr>
+<td>362</td>
+<td>そこ</td>
+<td></td>
+<td>n</td>
+<td>that place, there</td>
+</tr>
+<tr>
+<td>363</td>
+<td>そちら</td>
+<td></td>
+<td>n</td>
+<td>over there</td>
+</tr>
+<tr>
+<td>364</td>
+<td>そっち</td>
+<td></td>
+<td>n</td>
+<td>over there</td>
+</tr>
+<tr>
+<td>365</td>
+<td>そと</td>
+<td>外</td>
+<td>n</td>
+<td>outside, exterior</td>
+</tr>
+<tr>
+<td>366</td>
+<td>その</td>
+<td></td>
+<td>adj-pn</td>
+<td>that</td>
+</tr>
+<tr>
+<td>367</td>
+<td>そば</td>
+<td></td>
+<td>n</td>
+<td>near, close, beside</td>
+</tr>
+<tr>
+<td>368</td>
+<td>そら</td>
+<td>空</td>
+<td>n</td>
+<td>sky</td>
+</tr>
+<tr>
+<td>369</td>
+<td>それ</td>
+<td></td>
+<td>n</td>
+<td>it, that</td>
+</tr>
+<tr>
+<td>370</td>
+<td>それから</td>
+<td></td>
+<td>uk</td>
+<td>and then, after that</td>
+</tr>
+<tr>
+<td>371</td>
+<td>それでは</td>
+<td></td>
+<td>exp</td>
+<td>in that situation, well then...</td>
+</tr>
+<tr>
+<td>372</td>
+<td>～だい</td>
+<td>～台</td>
+<td>suf</td>
+<td>counter for vehicles/machines</td>
+</tr>
+<tr>
+<td>373</td>
+<td>だいがく</td>
+<td>大学</td>
+<td>n</td>
+<td>university</td>
+</tr>
+<tr>
+<td>374</td>
+<td>たいしかん</td>
+<td>大使館</td>
+<td>n</td>
+<td>embassy</td>
+</tr>
+<tr>
+<td>375</td>
+<td>だいじょうぶ</td>
+<td>大丈夫</td>
+<td>na-adj,adv,n</td>
+<td>safe, all right, O.K.</td>
+</tr>
+<tr>
+<td>376</td>
+<td>だいすき</td>
+<td>大好き</td>
+<td>na-adj,n</td>
+<td>very likeable, like very much</td>
+</tr>
+<tr>
+<td>377</td>
+<td>たいせつ</td>
+<td>大切</td>
+<td>na-adj,n</td>
+<td>important</td>
+</tr>
+<tr>
+<td>378</td>
+<td>だいどころ</td>
+<td>台所</td>
+<td>n</td>
+<td>kitchen</td>
+</tr>
+<tr>
+<td>379</td>
+<td>たいへん</td>
+<td></td>
+<td>na-adj,adv,n</td>
+<td>very</td>
+</tr>
+<tr>
+<td>380</td>
+<td>たいへん</td>
+<td></td>
+<td>na-adj,adv,n</td>
+<td>difficult situation, tough situation</td>
+</tr>
+<tr>
+<td>381</td>
+<td>たかい</td>
+<td>高い</td>
+<td>adj</td>
+<td>tall, high</td>
+</tr>
+<tr>
+<td>382</td>
+<td>たかい</td>
+<td>高い</td>
+<td>adj</td>
+<td>expensive</td>
+</tr>
+<tr>
+<td>383</td>
+<td>～だけ</td>
+<td></td>
+<td>prt</td>
+<td>only ～, just ～</td>
+</tr>
+<tr>
+<td>384</td>
+<td>たくさん</td>
+<td></td>
+<td>na-adj,adv,n</td>
+<td>many, a lot, much</td>
+</tr>
+<tr>
+<td>385</td>
+<td>タクシー</td>
+<td></td>
+<td>n</td>
+<td>taxi</td>
+</tr>
+<tr>
+<td>386</td>
+<td>だす</td>
+<td>出す</td>
+<td>u-v</td>
+<td>to put out, to send</td>
+</tr>
+<tr>
+<td>387</td>
+<td>～たち</td>
+<td></td>
+<td>n-suf</td>
+<td>plural suffix</td>
+</tr>
+<tr>
+<td>388</td>
+<td>たつ</td>
+<td>立つ</td>
+<td>u-v</td>
+<td>to stand</td>
+</tr>
+<tr>
+<td>389</td>
+<td>たて</td>
+<td></td>
+<td>n</td>
+<td>length, height</td>
+</tr>
+<tr>
+<td>390</td>
+<td>たてもの</td>
+<td>建物</td>
+<td>n</td>
+<td>building</td>
+</tr>
+<tr>
+<td>391</td>
+<td>たのしい</td>
+<td>楽しい</td>
+<td>adj</td>
+<td>enjoyable, fun</td>
+</tr>
+<tr>
+<td>392</td>
+<td>たのむ</td>
+<td>頼む</td>
+<td>u-v</td>
+<td>to request, to ask</td>
+</tr>
+<tr>
+<td>393</td>
+<td>たばこ</td>
+<td></td>
+<td>n</td>
+<td>tobacco, cigarettes</td>
+</tr>
+<tr>
+<td>394</td>
+<td>たぶん</td>
+<td></td>
+<td>adv,n</td>
+<td>perhaps, probably</td>
+</tr>
+<tr>
+<td>395</td>
+<td>たべもの</td>
+<td>食べ物</td>
+<td>n</td>
+<td>food</td>
+</tr>
+<tr>
+<td>396</td>
+<td>たべる</td>
+<td>食べる</td>
+<td>ru-v</td>
+<td>to eat</td>
+</tr>
+<tr>
+<td>397</td>
+<td>たまご</td>
+<td>卵</td>
+<td>n</td>
+<td>egg(s)</td>
+</tr>
+<tr>
+<td>398</td>
+<td>だれ</td>
+<td>誰</td>
+<td>n</td>
+<td>who</td>
+</tr>
+<tr>
+<td>399</td>
+<td>だれか</td>
+<td>誰か</td>
+<td>n</td>
+<td>someone, somebody</td>
+</tr>
+<tr>
+<td>400</td>
+<td>たんじょうび</td>
+<td>誕生日</td>
+<td>n</td>
+<td>birthday</td>
+</tr>
+<tr>
+<td>401</td>
+<td>だんだん</td>
+<td></td>
+<td>adv,n</td>
+<td>gradually, by degrees</td>
+</tr>
+<tr>
+<td>402</td>
+<td>ちいさい</td>
+<td>小さい</td>
+<td>adj</td>
+<td>small, little</td>
+</tr>
+<tr>
+<td>403</td>
+<td>ちいさな</td>
+<td>小さな</td>
+<td>na-adj</td>
+<td>small, little</td>
+</tr>
+<tr>
+<td>404</td>
+<td>ちかい</td>
+<td>近い</td>
+<td>adj,suf</td>
+<td>near, close by, short</td>
+</tr>
+<tr>
+<td>405</td>
+<td>ちがう</td>
+<td>違う</td>
+<td>u-v</td>
+<td>to differ (from)</td>
+</tr>
+<tr>
+<td>406</td>
+<td>ちかく</td>
+<td>近く</td>
+<td>n-adv,n</td>
+<td>near</td>
+</tr>
+<tr>
+<td>407</td>
+<td>ちかてつ</td>
+<td>地下鉄</td>
+<td>n</td>
+<td>underground train, subway</td>
+</tr>
+<tr>
+<td>408</td>
+<td>ちず</td>
+<td>地図</td>
+<td>n</td>
+<td>map</td>
+</tr>
+<tr>
+<td>409</td>
+<td>ちち</td>
+<td>父</td>
+<td>n</td>
+<td>(one&#39;s own) father</td>
+</tr>
+<tr>
+<td>410</td>
+<td>ちゃいろ</td>
+<td>茶色</td>
+<td>n</td>
+<td>brown</td>
+</tr>
+<tr>
+<td>411</td>
+<td>ちゃわん</td>
+<td></td>
+<td>n</td>
+<td>rice bowl</td>
+</tr>
+<tr>
+<td>412</td>
+<td>～ちゅう</td>
+<td>～中</td>
+<td>suf</td>
+<td>during, while ～ing</td>
+</tr>
+<tr>
+<td>413</td>
+<td>ちょうど</td>
+<td></td>
+<td>gn</td>
+<td>just, right, exactly</td>
+</tr>
+<tr>
+<td>414</td>
+<td>ちょっと</td>
+<td></td>
+<td>adv,int</td>
+<td>a little, somewhat</td>
+</tr>
+<tr>
+<td>415</td>
+<td>ついたち</td>
+<td>一日</td>
+<td>n</td>
+<td>for one day, first of month</td>
+</tr>
+<tr>
+<td>416</td>
+<td>つかう</td>
+<td>使う</td>
+<td>u-v</td>
+<td>to use</td>
+</tr>
+<tr>
+<td>417</td>
+<td>つかれる</td>
+<td>疲れる</td>
+<td>ru-v</td>
+<td>to get tired, to tire</td>
+</tr>
+<tr>
+<td>418</td>
+<td>つぎ</td>
+<td>次</td>
+<td>n</td>
+<td>next</td>
+</tr>
+<tr>
+<td>419</td>
+<td>つく</td>
+<td>着く</td>
+<td>u-v</td>
+<td>to arrive at, to reach</td>
+</tr>
+<tr>
+<td>420</td>
+<td>つくえ</td>
+<td>机</td>
+<td>n</td>
+<td>desk</td>
+</tr>
+<tr>
+<td>421</td>
+<td>つくる</td>
+<td>作る</td>
+<td>u-v</td>
+<td>to make, to create</td>
+</tr>
+<tr>
+<td>422</td>
+<td>つける</td>
+<td></td>
+<td>ru-v,vt</td>
+<td>to turn on (eg a light)</td>
+</tr>
+<tr>
+<td>423</td>
+<td>つとめる</td>
+<td>勤める</td>
+<td>ru-v</td>
+<td>to serve, to work (for)</td>
+</tr>
+<tr>
+<td>424</td>
+<td>つまらない</td>
+<td></td>
+<td>adj</td>
+<td>insignificant, boring</td>
+</tr>
+<tr>
+<td>425</td>
+<td>つめたい</td>
+<td>冷たい</td>
+<td>adj</td>
+<td>cold (to the touch)</td>
+</tr>
+<tr>
+<td>426</td>
+<td>つよい</td>
+<td>強い</td>
+<td>adj</td>
+<td>strong, powerful</td>
+</tr>
+<tr>
+<td>427</td>
+<td>て</td>
+<td>手</td>
+<td>n</td>
+<td>hand</td>
+</tr>
+<tr>
+<td>428</td>
+<td>テープ</td>
+<td></td>
+<td>n</td>
+<td>tape</td>
+</tr>
+<tr>
+<td>429</td>
+<td>テープレコーダー</td>
+<td></td>
+<td>n</td>
+<td>tape recorder</td>
+</tr>
+<tr>
+<td>430</td>
+<td>テーブル</td>
+<td></td>
+<td>n</td>
+<td>table</td>
+</tr>
+<tr>
+<td>431</td>
+<td>でかける</td>
+<td>出かける</td>
+<td>ru-v</td>
+<td>to depart, to go out</td>
+</tr>
+<tr>
+<td>432</td>
+<td>てがみ</td>
+<td>手紙</td>
+<td>n</td>
+<td>letter</td>
+</tr>
+<tr>
+<td>433</td>
+<td>できる</td>
+<td></td>
+<td>ru-v</td>
+<td>to be able to</td>
+</tr>
+<tr>
+<td>434</td>
+<td>でぐち</td>
+<td>出口</td>
+<td>n</td>
+<td>exit</td>
+</tr>
+<tr>
+<td>435</td>
+<td>テスト</td>
+<td></td>
+<td>n,vs</td>
+<td>test</td>
+</tr>
+<tr>
+<td>436</td>
+<td>では</td>
+<td></td>
+<td>expr</td>
+<td>with that...</td>
+</tr>
+<tr>
+<td>437</td>
+<td>デパート</td>
+<td></td>
+<td>n</td>
+<td>department store</td>
+</tr>
+<tr>
+<td>438</td>
+<td>でも</td>
+<td></td>
+<td>conj,prt</td>
+<td>but, however</td>
+</tr>
+<tr>
+<td>439</td>
+<td>でる</td>
+<td>出る</td>
+<td>ru-v</td>
+<td>to appear, to leave</td>
+</tr>
+<tr>
+<td>440</td>
+<td>テレビ</td>
+<td></td>
+<td>n</td>
+<td>television, TV</td>
+</tr>
+<tr>
+<td>441</td>
+<td>てんき</td>
+<td>天気</td>
+<td>n</td>
+<td>weather</td>
+</tr>
+<tr>
+<td>442</td>
+<td>でんき</td>
+<td>電気</td>
+<td>n</td>
+<td>electricity, (electric) light</td>
+</tr>
+<tr>
+<td>443</td>
+<td>でんしゃ</td>
+<td>電車</td>
+<td>n</td>
+<td>electric train</td>
+</tr>
+<tr>
+<td>444</td>
+<td>でんわ</td>
+<td>電話</td>
+<td>n,vs</td>
+<td>telephone</td>
+</tr>
+<tr>
+<td>445</td>
+<td>と</td>
+<td>戸</td>
+<td>n</td>
+<td>door (Japanese style)</td>
+</tr>
+<tr>
+<td>446</td>
+<td>～ど</td>
+<td>～度</td>
+<td>n-suf</td>
+<td>counter for occurrences</td>
+</tr>
+<tr>
+<td>447</td>
+<td>ドア</td>
+<td></td>
+<td>n</td>
+<td>door (Western style)</td>
+</tr>
+<tr>
+<td>448</td>
+<td>トイレ</td>
+<td></td>
+<td>n</td>
+<td>toilet</td>
+</tr>
+<tr>
+<td>449</td>
+<td>どう</td>
+<td></td>
+<td>adv</td>
+<td>how, in what way</td>
+</tr>
+<tr>
+<td>450</td>
+<td>どうして</td>
+<td></td>
+<td>adv,int</td>
+<td>why?, for what reason</td>
+</tr>
+<tr>
+<td>451</td>
+<td>どうぞ</td>
+<td></td>
+<td>adv</td>
+<td>please, kindly, by all means</td>
+</tr>
+<tr>
+<td>452</td>
+<td>どうぶつ</td>
+<td>動物</td>
+<td>n</td>
+<td>animal</td>
+</tr>
+<tr>
+<td>453</td>
+<td>どうも</td>
+<td></td>
+<td>adv,int</td>
+<td>thanks, very</td>
+</tr>
+<tr>
+<td>454</td>
+<td>とお</td>
+<td>十</td>
+<td>num</td>
+<td>ten</td>
+</tr>
+<tr>
+<td>455</td>
+<td>とおい</td>
+<td>遠い</td>
+<td>adj</td>
+<td>far, distant</td>
+</tr>
+<tr>
+<td>456</td>
+<td>とおか</td>
+<td>十日</td>
+<td></td>
+<td>ten days, the tenth (day of the month)</td>
+</tr>
+<tr>
+<td>457</td>
+<td>～とき</td>
+<td>～時</td>
+<td>adv,n</td>
+<td>at the time of ～</td>
+</tr>
+<tr>
+<td>458</td>
+<td>ときどき</td>
+<td>時々</td>
+<td>adv,n</td>
+<td>sometimes</td>
+</tr>
+<tr>
+<td>459</td>
+<td>とけい</td>
+<td>時計</td>
+<td>n</td>
+<td>watch, clock</td>
+</tr>
+<tr>
+<td>460</td>
+<td>どこ</td>
+<td></td>
+<td>n</td>
+<td>where, what place</td>
+</tr>
+<tr>
+<td>461</td>
+<td>ところ</td>
+<td>所</td>
+<td>n</td>
+<td>place</td>
+</tr>
+<tr>
+<td>462</td>
+<td>とし</td>
+<td>年</td>
+<td>n</td>
+<td>year, age</td>
+</tr>
+<tr>
+<td>463</td>
+<td>としょかん</td>
+<td>図書館</td>
+<td>n</td>
+<td>library</td>
+</tr>
+<tr>
+<td>464</td>
+<td>どちら</td>
+<td></td>
+<td>n</td>
+<td>which, which way</td>
+</tr>
+<tr>
+<td>465</td>
+<td>どっち</td>
+<td></td>
+<td>n</td>
+<td>which one, which way</td>
+</tr>
+<tr>
+<td>466</td>
+<td>とても</td>
+<td></td>
+<td>adv</td>
+<td>very</td>
+</tr>
+<tr>
+<td>467</td>
+<td>どなた</td>
+<td></td>
+<td>n</td>
+<td>who</td>
+</tr>
+<tr>
+<td>468</td>
+<td>となり</td>
+<td>隣</td>
+<td>n</td>
+<td>next to, next door to</td>
+</tr>
+<tr>
+<td>469</td>
+<td>どの</td>
+<td></td>
+<td>pren-adj</td>
+<td>which</td>
+</tr>
+<tr>
+<td>470</td>
+<td>とぶ</td>
+<td>飛ぶ</td>
+<td>u-v</td>
+<td>to fly, to hop</td>
+</tr>
+<tr>
+<td>471</td>
+<td>とまる</td>
+<td>止まる</td>
+<td>u-v</td>
+<td>to come to a halt</td>
+</tr>
+<tr>
+<td>472</td>
+<td>ともだち</td>
+<td>友達</td>
+<td>n</td>
+<td>friend</td>
+</tr>
+<tr>
+<td>473</td>
+<td>どようび</td>
+<td>土曜日</td>
+<td>n-adv,n</td>
+<td>Saturday</td>
+</tr>
+<tr>
+<td>474</td>
+<td>とり</td>
+<td>鳥</td>
+<td>n</td>
+<td>bird</td>
+</tr>
+<tr>
+<td>475</td>
+<td>とりにく</td>
+<td>とり肉</td>
+<td>n</td>
+<td>chicken meat</td>
+</tr>
+<tr>
+<td>476</td>
+<td>とる</td>
+<td>取る</td>
+<td>u-v</td>
+<td>to take</td>
+</tr>
+<tr>
+<td>477</td>
+<td>とる</td>
+<td>撮る</td>
+<td>u-v</td>
+<td>to take (a photo)</td>
+</tr>
+<tr>
+<td>478</td>
+<td>どれ</td>
+<td></td>
+<td>n</td>
+<td>which (of three or more)</td>
+</tr>
+<tr>
+<td>479</td>
+<td>どんな</td>
+<td></td>
+<td>na-adj,adj-pn,n</td>
+<td>what, what kind of</td>
+</tr>
+<tr>
+<td>480</td>
+<td>ない</td>
+<td></td>
+<td>adj</td>
+<td>there isn&#39;t, doesn&#39;t have</td>
+</tr>
+<tr>
+<td>481</td>
+<td>ナイフ</td>
+<td></td>
+<td>n</td>
+<td>knife</td>
+</tr>
+<tr>
+<td>482</td>
+<td>なか</td>
+<td>中</td>
+<td>n</td>
+<td>inside, middle, among</td>
+</tr>
+<tr>
+<td>483</td>
+<td>ながい</td>
+<td>長い</td>
+<td>adj</td>
+<td>long</td>
+</tr>
+<tr>
+<td>484</td>
+<td>～ながら</td>
+<td></td>
+<td>prt</td>
+<td>while ~ing, during, although</td>
+</tr>
+<tr>
+<td>485</td>
+<td>なく</td>
+<td>鳴く</td>
+<td>u-v</td>
+<td>to sing (bird), to make sound (animal)</td>
+</tr>
+<tr>
+<td>486</td>
+<td>なくす</td>
+<td>無くす</td>
+<td>u-v</td>
+<td>to lose something</td>
+</tr>
+<tr>
+<td>487</td>
+<td>なぜ</td>
+<td></td>
+<td>adv</td>
+<td>why</td>
+</tr>
+<tr>
+<td>488</td>
+<td>なつ</td>
+<td>夏</td>
+<td>n-adv,n-t</td>
+<td>summer</td>
+</tr>
+<tr>
+<td>489</td>
+<td>なつやすみ</td>
+<td>夏休み</td>
+<td>n</td>
+<td>summer vacation, summer holiday</td>
+</tr>
+<tr>
+<td>490</td>
+<td>～など</td>
+<td></td>
+<td>n,n-suf,prt</td>
+<td>et cetera</td>
+</tr>
+<tr>
+<td>491</td>
+<td>ななつ</td>
+<td>七つ</td>
+<td>n</td>
+<td>seven</td>
+</tr>
+<tr>
+<td>492</td>
+<td>なん/なに</td>
+<td>何</td>
+<td>int,n</td>
+<td>what</td>
+</tr>
+<tr>
+<td>493</td>
+<td>なのか</td>
+<td>七日</td>
+<td>n-adv</td>
+<td>seven days, the seventh day (of the month)</td>
+</tr>
+<tr>
+<td>494</td>
+<td>なまえ</td>
+<td>名前</td>
+<td>n</td>
+<td>name</td>
+</tr>
+<tr>
+<td>495</td>
+<td>ならう</td>
+<td>習う</td>
+<td>u-v</td>
+<td>to learn</td>
+</tr>
+<tr>
+<td>496</td>
+<td>ならぶ</td>
+<td>並ぶ</td>
+<td>u-v,vi</td>
+<td>to line up, to stand in a line</td>
+</tr>
+<tr>
+<td>497</td>
+<td>ならべる</td>
+<td>並べる</td>
+<td>ru-v,vt</td>
+<td>to line up, to set up</td>
+</tr>
+<tr>
+<td>498</td>
+<td>なる</td>
+<td></td>
+<td>u-v</td>
+<td>to become</td>
+</tr>
+<tr>
+<td>499</td>
+<td>なん～</td>
+<td>何～</td>
+<td></td>
+<td>what sort of ～</td>
+</tr>
+<tr>
+<td>500</td>
+<td>に</td>
+<td>二</td>
+<td>num</td>
+<td>two</td>
+</tr>
+<tr>
+<td>501</td>
+<td>にぎやか</td>
+<td></td>
+<td>na-adj,n</td>
+<td>bustling, busy</td>
+</tr>
+<tr>
+<td>502</td>
+<td>にく</td>
+<td>肉</td>
+<td>n</td>
+<td>meat</td>
+</tr>
+<tr>
+<td>503</td>
+<td>にし</td>
+<td>西</td>
+<td>n</td>
+<td>west</td>
+</tr>
+<tr>
+<td>504</td>
+<td>～にち</td>
+<td>～日</td>
+<td></td>
+<td>～ day of the month, for ～ days</td>
+</tr>
+<tr>
+<td>505</td>
+<td>にちようび</td>
+<td>日曜日</td>
+<td>n-adv,n</td>
+<td>Sunday</td>
+</tr>
+<tr>
+<td>506</td>
+<td>にもつ</td>
+<td>荷物</td>
+<td>n</td>
+<td>luggage</td>
+</tr>
+<tr>
+<td>507</td>
+<td>ニュース</td>
+<td></td>
+<td>n</td>
+<td>news</td>
+</tr>
+<tr>
+<td>508</td>
+<td>にわ</td>
+<td>庭</td>
+<td>n</td>
+<td>garden</td>
+</tr>
+<tr>
+<td>509</td>
+<td>～にん</td>
+<td>～人</td>
+<td></td>
+<td>counter for people</td>
+</tr>
+<tr>
+<td>510</td>
+<td>ぬぐ</td>
+<td>脱ぐ</td>
+<td>u-v</td>
+<td>to take off clothes</td>
+</tr>
+<tr>
+<td>511</td>
+<td>ぬるい</td>
+<td>温い</td>
+<td>adj</td>
+<td>lukewarm</td>
+</tr>
+<tr>
+<td>512</td>
+<td>ネクタイ</td>
+<td></td>
+<td>n</td>
+<td>tie, necktie</td>
+</tr>
+<tr>
+<td>513</td>
+<td>ねこ</td>
+<td>猫</td>
+<td>n</td>
+<td>cat</td>
+</tr>
+<tr>
+<td>514</td>
+<td>ねる</td>
+<td>寝る</td>
+<td>ru-v</td>
+<td>to go to bed, to sleep</td>
+</tr>
+<tr>
+<td>515</td>
+<td>～ねん</td>
+<td>～年</td>
+<td></td>
+<td>～ years</td>
+</tr>
+<tr>
+<td>516</td>
+<td>ノート</td>
+<td></td>
+<td>n</td>
+<td>notebook, exercise book</td>
+</tr>
+<tr>
+<td>517</td>
+<td>のぼる</td>
+<td>登る</td>
+<td>u-v</td>
+<td>to climb</td>
+</tr>
+<tr>
+<td>518</td>
+<td>のみもの</td>
+<td>飲み物</td>
+<td>n</td>
+<td>drink, beverage</td>
+</tr>
+<tr>
+<td>519</td>
+<td>のむ</td>
+<td>飲む</td>
+<td>u-v</td>
+<td>to drink</td>
+</tr>
+<tr>
+<td>520</td>
+<td>のる</td>
+<td>乗る</td>
+<td>u-v</td>
+<td>to get on, to ride in, to board</td>
+</tr>
+<tr>
+<td>521</td>
+<td>は</td>
+<td>歯</td>
+<td>n</td>
+<td>tooth</td>
+</tr>
+<tr>
+<td>522</td>
+<td>パーティー</td>
+<td></td>
+<td>n</td>
+<td>party</td>
+</tr>
+<tr>
+<td>523</td>
+<td>はい</td>
+<td></td>
+<td>conj,int</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>524</td>
+<td>～はい</td>
+<td>～杯</td>
+<td>n</td>
+<td>counter for cupfuls</td>
+</tr>
+<tr>
+<td>525</td>
+<td>はいざら</td>
+<td>灰皿</td>
+<td>n</td>
+<td>ashtray</td>
+</tr>
+<tr>
+<td>526</td>
+<td>はいる</td>
+<td>入る</td>
+<td>u-v</td>
+<td>to enter, to contain, to hold</td>
+</tr>
+<tr>
+<td>527</td>
+<td>はがき</td>
+<td>葉書</td>
+<td>n</td>
+<td>postcard</td>
+</tr>
+<tr>
+<td>528</td>
+<td>はく</td>
+<td></td>
+<td>u-v</td>
+<td>to wear, to put on (trousers)</td>
+</tr>
+<tr>
+<td>529</td>
+<td>はこ</td>
+<td>箱</td>
+<td>n</td>
+<td>box</td>
+</tr>
+<tr>
+<td>530</td>
+<td>はし</td>
+<td>橋</td>
+<td>n</td>
+<td>bridge</td>
+</tr>
+<tr>
+<td>531</td>
+<td>はし</td>
+<td></td>
+<td>n</td>
+<td>chopsticks</td>
+</tr>
+<tr>
+<td>532</td>
+<td>はじまる</td>
+<td>始まる</td>
+<td>u-v,vi</td>
+<td>to begin</td>
+</tr>
+<tr>
+<td>533</td>
+<td>はじめ</td>
+<td>初め/始め</td>
+<td>expr</td>
+<td>beginning, start</td>
+</tr>
+<tr>
+<td>534</td>
+<td>はじめて</td>
+<td>初めて</td>
+<td>adv,n</td>
+<td>for the first time</td>
+</tr>
+<tr>
+<td>535</td>
+<td>はしる</td>
+<td>走る</td>
+<td>u-v</td>
+<td>to run</td>
+</tr>
+<tr>
+<td>536</td>
+<td>バス</td>
+<td></td>
+<td>n</td>
+<td>bus</td>
+</tr>
+<tr>
+<td>537</td>
+<td>バター</td>
+<td></td>
+<td>n</td>
+<td>butter</td>
+</tr>
+<tr>
+<td>538</td>
+<td>はたち</td>
+<td>二十歳</td>
+<td>n</td>
+<td>20 years old, 20th year</td>
+</tr>
+<tr>
+<td>539</td>
+<td>はたらく</td>
+<td>働く</td>
+<td>u-v</td>
+<td>to work</td>
+</tr>
+<tr>
+<td>540</td>
+<td>はち</td>
+<td>八</td>
+<td>num</td>
+<td>eight</td>
+</tr>
+<tr>
+<td>541</td>
+<td>はつか</td>
+<td>二十日</td>
+<td>n</td>
+<td>twenty days, twentieth (day of the month)</td>
+</tr>
+<tr>
+<td>542</td>
+<td>はな</td>
+<td>花</td>
+<td>n</td>
+<td>flower</td>
+</tr>
+<tr>
+<td>543</td>
+<td>はな</td>
+<td>鼻</td>
+<td>n</td>
+<td>nose</td>
+</tr>
+<tr>
+<td>544</td>
+<td>はなし</td>
+<td>話</td>
+<td>n</td>
+<td>talk, story</td>
+</tr>
+<tr>
+<td>545</td>
+<td>はなす</td>
+<td>話す</td>
+<td>u-v</td>
+<td>to speak</td>
+</tr>
+<tr>
+<td>546</td>
+<td>はは</td>
+<td>母</td>
+<td>n</td>
+<td>(one&#39;s own) mother</td>
+</tr>
+<tr>
+<td>547</td>
+<td>はやい</td>
+<td>早い</td>
+<td>adj</td>
+<td>early</td>
+</tr>
+<tr>
+<td>548</td>
+<td>はやい</td>
+<td>速い</td>
+<td>adj</td>
+<td>quick, fast</td>
+</tr>
+<tr>
+<td>549</td>
+<td>はる</td>
+<td>春</td>
+<td>n-adv,n-t</td>
+<td>spring</td>
+</tr>
+<tr>
+<td>550</td>
+<td>はる</td>
+<td>貼る</td>
+<td>u-v</td>
+<td>to stick, to paste</td>
+</tr>
+<tr>
+<td>551</td>
+<td>はれ</td>
+<td>晴れ</td>
+<td>ru-v</td>
+<td>clear weather</td>
+</tr>
+<tr>
+<td>552</td>
+<td>はれる</td>
+<td>晴れる</td>
+<td>ru-v</td>
+<td>to be sunny</td>
+</tr>
+<tr>
+<td>553</td>
+<td>はん</td>
+<td>半</td>
+<td>n-adv,n,n-suf</td>
+<td>half</td>
+</tr>
+<tr>
+<td>554</td>
+<td>ばん</td>
+<td>晩</td>
+<td>n-adv,n-t</td>
+<td>evening</td>
+</tr>
+<tr>
+<td>555</td>
+<td>～ばん</td>
+<td>～番</td>
+<td>n-adv,n-t</td>
+<td>～st/th best</td>
+</tr>
+<tr>
+<td>556</td>
+<td>パン</td>
+<td></td>
+<td>n</td>
+<td>bread</td>
+</tr>
+<tr>
+<td>557</td>
+<td>ハンカチ</td>
+<td></td>
+<td>n</td>
+<td>handkerchief</td>
+</tr>
+<tr>
+<td>558</td>
+<td>ばんごう</td>
+<td>番号</td>
+<td>n</td>
+<td>number</td>
+</tr>
+<tr>
+<td>559</td>
+<td>ばんごはん</td>
+<td>晩御飯</td>
+<td>n</td>
+<td>dinner, evening meal</td>
+</tr>
+<tr>
+<td>560</td>
+<td>はんぶん</td>
+<td>半分</td>
+<td></td>
+<td>half</td>
+</tr>
+<tr>
+<td>561</td>
+<td>ひがし</td>
+<td>東</td>
+<td>n</td>
+<td>east</td>
+</tr>
+<tr>
+<td>562</td>
+<td>～ひき</td>
+<td>～匹</td>
+<td></td>
+<td>counter for small animals</td>
+</tr>
+<tr>
+<td>563</td>
+<td>ひく</td>
+<td>引く</td>
+<td>u-v</td>
+<td>to pull</td>
+</tr>
+<tr>
+<td>564</td>
+<td>ひく</td>
+<td>弾く</td>
+<td>u-v</td>
+<td>to play (piano, guitar)</td>
+</tr>
+<tr>
+<td>565</td>
+<td>ひくい</td>
+<td>低い</td>
+<td>adj</td>
+<td>short, low</td>
+</tr>
+<tr>
+<td>566</td>
+<td>ひこうき</td>
+<td>飛行機</td>
+<td>n</td>
+<td>aeroplane, airplane</td>
+</tr>
+<tr>
+<td>567</td>
+<td>ひだり</td>
+<td>左</td>
+<td>n</td>
+<td>left hand side</td>
+</tr>
+<tr>
+<td>568</td>
+<td>ひと</td>
+<td>人</td>
+<td>n</td>
+<td>man, person</td>
+</tr>
+<tr>
+<td>569</td>
+<td>ひとつ</td>
+<td>一つ</td>
+<td>n</td>
+<td>one</td>
+</tr>
+<tr>
+<td>570</td>
+<td>ひとつき</td>
+<td>一月</td>
+<td></td>
+<td>one month</td>
+</tr>
+<tr>
+<td>571</td>
+<td>ひとり</td>
+<td>一人</td>
+<td>n</td>
+<td>one person</td>
+</tr>
+<tr>
+<td>572</td>
+<td>ひま</td>
+<td>暇</td>
+<td>na-adj,n</td>
+<td>free time, leisure</td>
+</tr>
+<tr>
+<td>573</td>
+<td>ひゃく</td>
+<td>百</td>
+<td>num</td>
+<td>100, hundred</td>
+</tr>
+<tr>
+<td>574</td>
+<td>びょういん</td>
+<td>病院</td>
+<td>n</td>
+<td>hospital</td>
+</tr>
+<tr>
+<td>575</td>
+<td>びょうき</td>
+<td>病気</td>
+<td>n</td>
+<td>illness, disease, sickness</td>
+</tr>
+<tr>
+<td>576</td>
+<td>ひらがな</td>
+<td>平仮名</td>
+<td>n</td>
+<td>hiragana</td>
+</tr>
+<tr>
+<td>577</td>
+<td>ひる</td>
+<td>昼</td>
+<td>n-adv,n-t</td>
+<td>noon, daytime</td>
+</tr>
+<tr>
+<td>578</td>
+<td>ひるごはん</td>
+<td>昼御飯</td>
+<td>n</td>
+<td>lunch, midday meal</td>
+</tr>
+<tr>
+<td>579</td>
+<td>ひろい</td>
+<td>広い</td>
+<td>adj</td>
+<td>spacious, wide</td>
+</tr>
+<tr>
+<td>580</td>
+<td>フィルム</td>
+<td></td>
+<td>n</td>
+<td>film (roll of)</td>
+</tr>
+<tr>
+<td>581</td>
+<td>ふうとう</td>
+<td>封筒</td>
+<td>n</td>
+<td>envelope</td>
+</tr>
+<tr>
+<td>582</td>
+<td>プール</td>
+<td></td>
+<td>n</td>
+<td>swimming pool</td>
+</tr>
+<tr>
+<td>583</td>
+<td>フォーク</td>
+<td></td>
+<td>n</td>
+<td>fork</td>
+</tr>
+<tr>
+<td>584</td>
+<td>ふく</td>
+<td>吹く</td>
+<td>u-v</td>
+<td>to blow (wind, etc)</td>
+</tr>
+<tr>
+<td>585</td>
+<td>ふく</td>
+<td>服</td>
+<td>n,n-suf</td>
+<td>clothes</td>
+</tr>
+<tr>
+<td>586</td>
+<td>ふたつ</td>
+<td>二つ</td>
+<td>n</td>
+<td>two</td>
+</tr>
+<tr>
+<td>587</td>
+<td>ぶたにく</td>
+<td>豚肉</td>
+<td>n</td>
+<td>pork</td>
+</tr>
+<tr>
+<td>588</td>
+<td>ふたり</td>
+<td>二人</td>
+<td>n</td>
+<td>two people</td>
+</tr>
+<tr>
+<td>589</td>
+<td>ふつか</td>
+<td>二日</td>
+<td>n</td>
+<td>second day of the month, two days</td>
+</tr>
+<tr>
+<td>590</td>
+<td>ふとい</td>
+<td>太い</td>
+<td>adj</td>
+<td>fat, thick</td>
+</tr>
+<tr>
+<td>591</td>
+<td>ふゆ</td>
+<td>冬</td>
+<td>n-adv,n-t</td>
+<td>winter</td>
+</tr>
+<tr>
+<td>592</td>
+<td>ふる</td>
+<td>降る</td>
+<td>u-v</td>
+<td>to precipitate, to fall (e.g. rain)</td>
+</tr>
+<tr>
+<td>593</td>
+<td>ふるい</td>
+<td>古い</td>
+<td>adj</td>
+<td>old (not person), aged, ancient</td>
+</tr>
+<tr>
+<td>594</td>
+<td>ふろ</td>
+<td></td>
+<td>n</td>
+<td>bath</td>
+</tr>
+<tr>
+<td>595</td>
+<td>～ふん</td>
+<td>～分</td>
+<td>suf</td>
+<td>～minutes</td>
+</tr>
+<tr>
+<td>596</td>
+<td>ぶんしょう</td>
+<td>文章</td>
+<td>suf</td>
+<td>sentence, text</td>
+</tr>
+<tr>
+<td>597</td>
+<td>ページ</td>
+<td></td>
+<td>n</td>
+<td>page</td>
+</tr>
+<tr>
+<td>598</td>
+<td>へた</td>
+<td>下手</td>
+<td>na-adj,n</td>
+<td>unskillful, poor</td>
+</tr>
+<tr>
+<td>599</td>
+<td>ベッド</td>
+<td></td>
+<td>n</td>
+<td>bed</td>
+</tr>
+<tr>
+<td>600</td>
+<td>ペット</td>
+<td></td>
+<td>n</td>
+<td>pet</td>
+</tr>
+<tr>
+<td>601</td>
+<td>へや</td>
+<td>部屋</td>
+<td>n</td>
+<td>room</td>
+</tr>
+<tr>
+<td>602</td>
+<td>へん</td>
+<td>辺</td>
+<td>n</td>
+<td>area, vicinity</td>
+</tr>
+<tr>
+<td>603</td>
+<td>ペン</td>
+<td></td>
+<td>n</td>
+<td>pen</td>
+</tr>
+<tr>
+<td>604</td>
+<td>べんきょう（する）</td>
+<td>勉強</td>
+<td>n,vs</td>
+<td>study, diligence</td>
+</tr>
+<tr>
+<td>605</td>
+<td>べんり</td>
+<td>便利</td>
+<td>na-adj,n</td>
+<td>convenient, handy</td>
+</tr>
+<tr>
+<td>606</td>
+<td>ほう</td>
+<td></td>
+<td></td>
+<td>way</td>
+</tr>
+<tr>
+<td>607</td>
+<td>ぼうし</td>
+<td>帽子</td>
+<td>n</td>
+<td>hat</td>
+</tr>
+<tr>
+<td>608</td>
+<td>ボールペン</td>
+<td></td>
+<td>n</td>
+<td>ball-point pen</td>
+</tr>
+<tr>
+<td>609</td>
+<td>ほか</td>
+<td>外</td>
+<td>n</td>
+<td>other place, the rest</td>
+</tr>
+<tr>
+<td>610</td>
+<td>ポケット</td>
+<td></td>
+<td>n</td>
+<td>pocket</td>
+</tr>
+<tr>
+<td>611</td>
+<td>ほしい</td>
+<td>欲しい</td>
+<td>adj</td>
+<td>want, in need of, desire</td>
+</tr>
+<tr>
+<td>612</td>
+<td>ポスト</td>
+<td></td>
+<td>n</td>
+<td>post</td>
+</tr>
+<tr>
+<td>613</td>
+<td>ほそい</td>
+<td>細い</td>
+<td>adj</td>
+<td>thin, slender, fine</td>
+</tr>
+<tr>
+<td>614</td>
+<td>ボタン</td>
+<td></td>
+<td>n</td>
+<td>button</td>
+</tr>
+<tr>
+<td>615</td>
+<td>ホテル</td>
+<td></td>
+<td>n</td>
+<td>hotel</td>
+</tr>
+<tr>
+<td>616</td>
+<td>ほん</td>
+<td>本</td>
+<td>n</td>
+<td>book</td>
+</tr>
+<tr>
+<td>617</td>
+<td>～ほん</td>
+<td>～本</td>
+<td></td>
+<td>counter for long cylindrical things</td>
+</tr>
+<tr>
+<td>618</td>
+<td>ほんだな</td>
+<td>本棚</td>
+<td>n</td>
+<td>bookshelves</td>
+</tr>
+<tr>
+<td>619</td>
+<td>ほんとう</td>
+<td></td>
+<td>adv</td>
+<td>reality, truth</td>
+</tr>
+<tr>
+<td>620</td>
+<td>～まい</td>
+<td>～枚</td>
+<td></td>
+<td>counter for flat things</td>
+</tr>
+<tr>
+<td>621</td>
+<td>まいあさ</td>
+<td>毎朝</td>
+<td>n-adv,n-t</td>
+<td>every morning</td>
+</tr>
+<tr>
+<td>622</td>
+<td>まいげつ/まいつき</td>
+<td>毎月</td>
+<td>n-adv,n</td>
+<td>every month, monthly</td>
+</tr>
+<tr>
+<td>623</td>
+<td>まいしゅう</td>
+<td>毎週</td>
+<td>n-adv,n-t</td>
+<td>every week</td>
+</tr>
+<tr>
+<td>624</td>
+<td>まいにち</td>
+<td>毎日</td>
+<td>n-adv,n-t</td>
+<td>every day</td>
+</tr>
+<tr>
+<td>625</td>
+<td>まいねん/まいとし</td>
+<td>毎年</td>
+<td>n-t</td>
+<td>every year, annually</td>
+</tr>
+<tr>
+<td>626</td>
+<td>まいばん</td>
+<td>毎晩</td>
+<td>n-adv,n-t</td>
+<td>every night</td>
+</tr>
+<tr>
+<td>627</td>
+<td>まえ</td>
+<td>前</td>
+<td>n-adv,n-t,suf</td>
+<td>before, in front</td>
+</tr>
+<tr>
+<td>628</td>
+<td>～まえ</td>
+<td>～前</td>
+<td>suf</td>
+<td>in front of ～</td>
+</tr>
+<tr>
+<td>629</td>
+<td>まがる</td>
+<td>曲る</td>
+<td>u-v</td>
+<td>to turn, to bend</td>
+</tr>
+<tr>
+<td>630</td>
+<td>まずい</td>
+<td></td>
+<td>adj</td>
+<td>unappetising, unpleasant (taste)</td>
+</tr>
+<tr>
+<td>631</td>
+<td>また</td>
+<td></td>
+<td>adv,conj,n</td>
+<td>again, and</td>
+</tr>
+<tr>
+<td>632</td>
+<td>まだ</td>
+<td></td>
+<td>adv</td>
+<td>yet, still, besides</td>
+</tr>
+<tr>
+<td>633</td>
+<td>まち</td>
+<td>町</td>
+<td>n</td>
+<td>town, city</td>
+</tr>
+<tr>
+<td>634</td>
+<td>まつ</td>
+<td>待つ</td>
+<td>u-v</td>
+<td>to wait</td>
+</tr>
+<tr>
+<td>635</td>
+<td>まっすぐ</td>
+<td></td>
+<td>na-adj,adv,n</td>
+<td>straight (ahead), direct</td>
+</tr>
+<tr>
+<td>636</td>
+<td>マッチ</td>
+<td></td>
+<td>n</td>
+<td>match</td>
+</tr>
+<tr>
+<td>637</td>
+<td>まど</td>
+<td>窓</td>
+<td>n</td>
+<td>window</td>
+</tr>
+<tr>
+<td>638</td>
+<td>まるい</td>
+<td>丸い/円い</td>
+<td>adj</td>
+<td>round, circular</td>
+</tr>
+<tr>
+<td>639</td>
+<td>まん</td>
+<td>万</td>
+<td>adv,num</td>
+<td>ten thousand, everything</td>
+</tr>
+<tr>
+<td>640</td>
+<td>まんねんひつ</td>
+<td>万年筆</td>
+<td>n</td>
+<td>fountain pen</td>
+</tr>
+<tr>
+<td>641</td>
+<td>みがく</td>
+<td>磨く</td>
+<td>u-v</td>
+<td>to brush (teeth)</td>
+</tr>
+<tr>
+<td>642</td>
+<td>みぎ</td>
+<td>右</td>
+<td>n</td>
+<td>right hand side</td>
+</tr>
+<tr>
+<td>643</td>
+<td>みじかい</td>
+<td>短い</td>
+<td>adj</td>
+<td>short</td>
+</tr>
+<tr>
+<td>644</td>
+<td>みず</td>
+<td>水</td>
+<td>n</td>
+<td>water</td>
+</tr>
+<tr>
+<td>645</td>
+<td>みせ</td>
+<td>店</td>
+<td>n,n-suf</td>
+<td>store, shop, establishment</td>
+</tr>
+<tr>
+<td>646</td>
+<td>みせる</td>
+<td>見せる</td>
+<td>ru-v</td>
+<td>to show, to display</td>
+</tr>
+<tr>
+<td>647</td>
+<td>みち</td>
+<td>道</td>
+<td>n</td>
+<td>road, street</td>
+</tr>
+<tr>
+<td>648</td>
+<td>みっか</td>
+<td>三日</td>
+<td>n</td>
+<td>three days, the third day (of the month)</td>
+</tr>
+<tr>
+<td>649</td>
+<td>みっつ</td>
+<td>三つ</td>
+<td>n</td>
+<td>three</td>
+</tr>
+<tr>
+<td>650</td>
+<td>みどり</td>
+<td>緑</td>
+<td>n</td>
+<td>green</td>
+</tr>
+<tr>
+<td>651</td>
+<td>みなさん</td>
+<td>皆さん</td>
+<td>n</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>652</td>
+<td>みなみ</td>
+<td>南</td>
+<td>n,vs</td>
+<td>South, proceeding south</td>
+</tr>
+<tr>
+<td>653</td>
+<td>みみ</td>
+<td>耳</td>
+<td>n</td>
+<td>ear</td>
+</tr>
+<tr>
+<td>654</td>
+<td>みる</td>
+<td>見る</td>
+<td>ru-v</td>
+<td>to see, to watch</td>
+</tr>
+<tr>
+<td>655</td>
+<td>みんな</td>
+<td></td>
+<td>adv,n</td>
+<td>all, everyone, everybody</td>
+</tr>
+<tr>
+<td>656</td>
+<td>むいか</td>
+<td>六日</td>
+<td></td>
+<td>six days, sixth (day of month)</td>
+</tr>
+<tr>
+<td>657</td>
+<td>むこう</td>
+<td>向こう</td>
+<td>n</td>
+<td>beyond, over there</td>
+</tr>
+<tr>
+<td>658</td>
+<td>むずかしい</td>
+<td>難しい</td>
+<td>adj</td>
+<td>difficult</td>
+</tr>
+<tr>
+<td>659</td>
+<td>むっつ</td>
+<td>六つ</td>
+<td>num</td>
+<td>six</td>
+</tr>
+<tr>
+<td>660</td>
+<td>むら</td>
+<td>村</td>
+<td>num</td>
+<td>village</td>
+</tr>
+<tr>
+<td>661</td>
+<td>め</td>
+<td>目</td>
+<td>n</td>
+<td>eye, eyeball</td>
+</tr>
+<tr>
+<td>662</td>
+<td>メートル</td>
+<td></td>
+<td>n</td>
+<td>metre, meter</td>
+</tr>
+<tr>
+<td>663</td>
+<td>めがね</td>
+<td>眼鏡</td>
+<td>n</td>
+<td>spectacles, glasses</td>
+</tr>
+<tr>
+<td>664</td>
+<td>もう</td>
+<td></td>
+<td>adv,int</td>
+<td>already</td>
+</tr>
+<tr>
+<td>665</td>
+<td>もう</td>
+<td></td>
+<td>adv,int</td>
+<td>again</td>
+</tr>
+<tr>
+<td>666</td>
+<td>もくようび</td>
+<td>木曜日</td>
+<td>n-adv,n</td>
+<td>Thursday</td>
+</tr>
+<tr>
+<td>667</td>
+<td>もしもし</td>
+<td></td>
+<td>conj,int</td>
+<td>hello (on phone)</td>
+</tr>
+<tr>
+<td>668</td>
+<td>もつ</td>
+<td>持つ</td>
+<td>u-v</td>
+<td>(1) to hold, to carry, (2) to possess</td>
+</tr>
+<tr>
+<td>669</td>
+<td>もっと</td>
+<td></td>
+<td>adv</td>
+<td>more, longer, farther</td>
+</tr>
+<tr>
+<td>670</td>
+<td>もの</td>
+<td>物</td>
+<td>n</td>
+<td>thing, object</td>
+</tr>
+<tr>
+<td>671</td>
+<td>もん</td>
+<td>門</td>
+<td>n,n-suf</td>
+<td>gate</td>
+</tr>
+<tr>
+<td>672</td>
+<td>もんだい</td>
+<td>問題</td>
+<td>n</td>
+<td>problem, question</td>
+</tr>
+<tr>
+<td>673</td>
+<td>～や</td>
+<td>屋</td>
+<td>n</td>
+<td>～ shop</td>
+</tr>
+<tr>
+<td>674</td>
+<td>やおや</td>
+<td>八百屋</td>
+<td>n</td>
+<td>greengrocer</td>
+</tr>
+<tr>
+<td>675</td>
+<td>やさい</td>
+<td>野菜</td>
+<td>n</td>
+<td>vegetable</td>
+</tr>
+<tr>
+<td>676</td>
+<td>やさしい</td>
+<td>易しい</td>
+<td>adj</td>
+<td>easy, plain, simple</td>
+</tr>
+<tr>
+<td>677</td>
+<td>やすい</td>
+<td>安い</td>
+<td>adj</td>
+<td>cheap, inexpensive</td>
+</tr>
+<tr>
+<td>678</td>
+<td>やすみ</td>
+<td>休み</td>
+<td>n</td>
+<td>rest, vacation, holiday</td>
+</tr>
+<tr>
+<td>679</td>
+<td>やすむ</td>
+<td>休む</td>
+<td>u-v,vi</td>
+<td>to rest, to have a break, to take a day off</td>
+</tr>
+<tr>
+<td>680</td>
+<td>やっつ</td>
+<td>八つ</td>
+<td>num</td>
+<td>eight</td>
+</tr>
+<tr>
+<td>681</td>
+<td>やま</td>
+<td>山</td>
+<td>n</td>
+<td>mountain</td>
+</tr>
+<tr>
+<td>682</td>
+<td>やる</td>
+<td></td>
+<td>u-v</td>
+<td>to do</td>
+</tr>
+<tr>
+<td>683</td>
+<td>ゆうがた</td>
+<td>夕方</td>
+<td>n-adv,n-t</td>
+<td>evening</td>
+</tr>
+<tr>
+<td>684</td>
+<td>ゆうはん</td>
+<td>夕飯</td>
+<td>n</td>
+<td>dinner</td>
+</tr>
+<tr>
+<td>685</td>
+<td>ゆうびんきょく</td>
+<td>郵便局</td>
+<td>n</td>
+<td>post office</td>
+</tr>
+<tr>
+<td>686</td>
+<td>ゆうべ</td>
+<td>昨夜</td>
+<td>n</td>
+<td>last night</td>
+</tr>
+<tr>
+<td>687</td>
+<td>ゆうめい</td>
+<td>有名</td>
+<td>na-adj,n</td>
+<td>famous</td>
+</tr>
+<tr>
+<td>688</td>
+<td>ゆき</td>
+<td>雪</td>
+<td>n</td>
+<td>snow</td>
+</tr>
+<tr>
+<td>689</td>
+<td>ゆっくり・と</td>
+<td></td>
+<td>adv,n</td>
+<td>slowly, at ease</td>
+</tr>
+<tr>
+<td>690</td>
+<td>ようか</td>
+<td>八日</td>
+<td>n</td>
+<td>eight days, the eighth (day of the month)</td>
+</tr>
+<tr>
+<td>691</td>
+<td>ようふく</td>
+<td>洋服</td>
+<td>n</td>
+<td>Western-style clothes</td>
+</tr>
+<tr>
+<td>692</td>
+<td>よく</td>
+<td></td>
+<td>adv</td>
+<td>frequently, often</td>
+</tr>
+<tr>
+<td>693</td>
+<td>よく</td>
+<td></td>
+<td>adv</td>
+<td>well, skillfully</td>
+</tr>
+<tr>
+<td>694</td>
+<td>よこ</td>
+<td>横</td>
+<td>n</td>
+<td>beside, side, width</td>
+</tr>
+<tr>
+<td>695</td>
+<td>よっか</td>
+<td>四日</td>
+<td>n</td>
+<td>(1) 4th day of month, (2) four days</td>
+</tr>
+<tr>
+<td>696</td>
+<td>よっつ</td>
+<td>四つ</td>
+<td>n</td>
+<td>four</td>
+</tr>
+<tr>
+<td>697</td>
+<td>よぶ</td>
+<td>呼ぶ</td>
+<td>u-v</td>
+<td>to call out, to invite</td>
+</tr>
+<tr>
+<td>698</td>
+<td>よむ</td>
+<td>読む</td>
+<td>u-v</td>
+<td>to read</td>
+</tr>
+<tr>
+<td>699</td>
+<td>よる</td>
+<td>夜</td>
+<td>n</td>
+<td>evening, night</td>
+</tr>
+<tr>
+<td>700</td>
+<td>よわい</td>
+<td>弱い</td>
+<td>adj</td>
+<td>weak, feable</td>
+</tr>
+<tr>
+<td>701</td>
+<td>らいげつ</td>
+<td>来月</td>
+<td>n-adv,n-t</td>
+<td>next month</td>
+</tr>
+<tr>
+<td>702</td>
+<td>らいしゅう</td>
+<td>来週</td>
+<td></td>
+<td>next week</td>
+</tr>
+<tr>
+<td>703</td>
+<td>らいねん</td>
+<td>来年</td>
+<td>n-adv,n-t</td>
+<td>next year</td>
+</tr>
+<tr>
+<td>704</td>
+<td>ラジオ</td>
+<td></td>
+<td>n</td>
+<td>radio</td>
+</tr>
+<tr>
+<td>705</td>
+<td>ラジカセ</td>
+<td></td>
+<td>n</td>
+<td>radio cassette player</td>
+</tr>
+<tr>
+<td>706</td>
+<td>りっぱ</td>
+<td></td>
+<td>na-adj,n</td>
+<td>splendid, fine</td>
+</tr>
+<tr>
+<td>707</td>
+<td>りゅうがくせい</td>
+<td>留学生</td>
+<td>n</td>
+<td>overseas student</td>
+</tr>
+<tr>
+<td>708</td>
+<td>りょうしん</td>
+<td>両親</td>
+<td>n</td>
+<td>parents, both parents</td>
+</tr>
+<tr>
+<td>709</td>
+<td>りょうり</td>
+<td>料理</td>
+<td>n,vs</td>
+<td>cooking, cuisine</td>
+</tr>
+<tr>
+<td>710</td>
+<td>りょこう</td>
+<td>旅行</td>
+<td>n,vs</td>
+<td>travel, trip</td>
+</tr>
+<tr>
+<td>711</td>
+<td>れい</td>
+<td>零</td>
+<td>n</td>
+<td>zero, nought</td>
+</tr>
+<tr>
+<td>712</td>
+<td>れいぞうこ</td>
+<td>冷蔵庫</td>
+<td>n</td>
+<td>refrigerator</td>
+</tr>
+<tr>
+<td>713</td>
+<td>レコード</td>
+<td></td>
+<td>n</td>
+<td>record</td>
+</tr>
+<tr>
+<td>714</td>
+<td>レストラン</td>
+<td></td>
+<td>n</td>
+<td>restaurant</td>
+</tr>
+<tr>
+<td>715</td>
+<td>れんしゅう（する）</td>
+<td>練習</td>
+<td>n,vs</td>
+<td>(to) practice</td>
+</tr>
+<tr>
+<td>716</td>
+<td>ろうか</td>
+<td>廊下</td>
+<td>n</td>
+<td>corridor</td>
+</tr>
+<tr>
+<td>717</td>
+<td>ろく</td>
+<td>六</td>
+<td>num</td>
+<td>six</td>
+</tr>
+<tr>
+<td>718</td>
+<td>ワイシャツ</td>
+<td></td>
+<td>n</td>
+<td>shirt (lit: white shirt), business shirt</td>
+</tr>
+<tr>
+<td>719</td>
+<td>わかい</td>
+<td>若い</td>
+<td>adj</td>
+<td>young</td>
+</tr>
+<tr>
+<td>720</td>
+<td>わかる</td>
+<td>分かる</td>
+<td>u-v</td>
+<td>to understand</td>
+</tr>
+<tr>
+<td>721</td>
+<td>わすれる</td>
+<td>忘れる</td>
+<td>ru-v</td>
+<td>to forget</td>
+</tr>
+<tr>
+<td>722</td>
+<td>わたし</td>
+<td>私</td>
+<td>adj-no,n</td>
+<td>I, myself</td>
+</tr>
+<tr>
+<td>723</td>
+<td>わたくし</td>
+<td>私</td>
+<td>adj-no,n</td>
+<td>I, myself</td>
+</tr>
+<tr>
+<td>724</td>
+<td>わたす</td>
+<td>渡す</td>
+<td>u-v</td>
+<td>to pass over, to hand over</td>
+</tr>
+<tr>
+<td>725</td>
+<td>わたる</td>
+<td>渡る</td>
+<td>u-v</td>
+<td>to cross over, to go across</td>
+</tr>
+<tr>
+<td>726</td>
+<td>わるい</td>
+<td>悪い</td>
+<td>adj</td>
+<td>bad, inferior</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</body>
+
+</html>
