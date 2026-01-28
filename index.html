@@ -9,11 +9,20 @@
     />
     <title>kitallis.in</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="preload" href="hero/IMG_0002.jpg" as="image" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="hero/IMG_0002.jpg"
+      as="image"
+      fetchpriority="high"
+    />
     <link rel="preload" href="hero/IMG_1118.jpg" as="image" />
     <link rel="preload" href="hero/IMG_3353.jpg" as="image" />
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
         font-family: "Newsreader", Georgia, serif;
         font-size: 14px;
@@ -26,25 +35,52 @@
         padding: 2rem;
         line-height: 1.6;
       }
-      main { max-width: 600px; }
+      main {
+        max-width: 600px;
+      }
+      .section {
+        margin-bottom: 2rem;
+      }
+      .section > * {
+        margin-bottom: 0.5rem;
+      }
+      .section > *:last-child {
+        margin-bottom: 0;
+      }
       .avatar {
         width: 400px;
         height: 300px;
         max-width: 100%;
         border-radius: 4px;
-        margin-bottom: 1.5rem;
         filter: grayscale(100%);
         opacity: 0.85;
         object-fit: cover;
       }
-      .section { margin-bottom: 2rem; }
-      .tagline { color: #888; margin-bottom: 0.25rem; }
-      .interests { color: #999; }
-      a { color: #c9c9c9; text-decoration: none; border-bottom: 1px solid #444; }
-      a:hover { color: #fff; border-color: #888; }
-      .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+      .tagline {
+        color: #888;
+      }
+      .interests {
+        color: #999;
+      }
+      a {
+        color: #c9c9c9;
+        text-decoration: none;
+        border-bottom: 1px solid #444;
+      }
+      a:hover {
+        color: #fff;
+        border-color: #888;
+      }
+      .links {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
       @media (max-width: 480px) {
-        .links { flex-direction: column; gap: 0.75rem; }
+        .links {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
       }
     </style>
     <link
@@ -62,29 +98,29 @@
   </head>
   <body>
     <main>
-      <img
-        src="hero/IMG_0002.jpg"
-        alt="akshay gupta"
-        class="avatar"
-        id="avatar"
-        width="400"
-        height="300"
-        fetchpriority="high"
-      />
-      <script>
-        const images = [
-          "hero/IMG_0002.jpg",
-          "hero/IMG_1118.jpg",
-          "hero/IMG_3353.jpg",
-        ];
-        document.getElementById("avatar").src =
-          images[Math.floor(Math.random() * images.length)];
-      </script>
       <div class="section">
+        <img
+          src="hero/IMG_0002.jpg"
+          alt="akshay gupta"
+          class="avatar"
+          id="avatar"
+          width="400"
+          height="300"
+          fetchpriority="high"
+        />
+        <script>
+          const images = [
+            "hero/IMG_0002.jpg",
+            "hero/IMG_1118.jpg",
+            "hero/IMG_3353.jpg",
+          ];
+          document.getElementById("avatar").src =
+            images[Math.floor(Math.random() * images.length)];
+        </script>
         <p class="tagline">akshay gupta (kitallis) on the web</p>
         <p class="interests">
-          products · distsys · data pipelines · clojure · bicycles · lego · cats ·
-          japanese
+          products · distsys · data pipelines · clojure · bicycles · lego · cats
+          · japanese
         </p>
       </div>
 
@@ -97,14 +133,16 @@
         </p>
       </div>
 
-      <nav class="links">
+      <div class="section">
+        <nav class="links">
         <a href="mailto:mail@kitallis.in">mail</a>
         <a href="https://github.com/kitallis">github</a>
         <a href="https://www.linkedin.com/in/kitallis">linkedin</a>
         <a href="https://kitallis.mataroa.blog">blog</a>
         <a href="https://bsky.app/profile/repartee.party">bluesky</a>
         <a href="https://soundcloud.com/kitallis">soundcloud</a>
-      </nav>
+        </nav>
+      </div>
     </main>
   </body>
 </html>
