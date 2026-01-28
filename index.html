@@ -37,9 +37,9 @@
         opacity: 0.85;
         object-fit: cover;
       }
+      .section { margin-bottom: 2rem; }
       .tagline { color: #888; margin-bottom: 0.25rem; }
-      .about { margin-bottom: 2rem; }
-      .interests { color: #999; margin-bottom: 2rem; }
+      .interests { color: #999; }
       a { color: #c9c9c9; text-decoration: none; border-bottom: 1px solid #444; }
       a:hover { color: #fff; border-color: #888; }
       .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
@@ -80,20 +80,22 @@
         document.getElementById("avatar").src =
           images[Math.floor(Math.random() * images.length)];
       </script>
-      <p class="tagline">akshay gupta (kitallis) on the web</p>
-      <p class="interests">
-        products · distsys · data pipelines · clojure · bicycles · lego · cats ·
-        japanese
-      </p>
+      <div class="section">
+        <p class="tagline">akshay gupta (kitallis) on the web</p>
+        <p class="interests">
+          products · distsys · data pipelines · clojure · bicycles · lego · cats ·
+          japanese
+        </p>
+      </div>
 
-      <section class="about">
+      <div class="section">
         <p>
           Founded <a href="https://tramline.app">Tramline</a>—release
           coordination for mobile app teams. Previously, founding member at
           <a href="https://nilenso.com">nilenso</a>—a member-owned software
           cooperative.
         </p>
-      </section>
+      </div>
 
       <nav class="links">
         <a href="mailto:mail@kitallis.in">mail</a>
