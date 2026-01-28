@@ -1,3 +1,0 @@
-# kitallis.in
-
-Personal homepage.
