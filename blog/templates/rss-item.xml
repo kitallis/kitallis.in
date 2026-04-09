@@ -1,0 +1,7 @@
+<item>
+      <title>{{title}}</title>
+      <link>https://kitallis.in/blog/{{slug}}/</link>
+      <guid>https://kitallis.in/blog/{{slug}}/</guid>
+      <pubDate>{{pub-date}}</pubDate>
+      <description><![CDATA[{{content}}]]></description>
+    </item>

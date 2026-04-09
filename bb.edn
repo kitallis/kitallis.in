@@ -1,0 +1,2 @@
+{:deps {markdown-clj/markdown-clj {:mvn/version "1.12.2"}
+        org.babashka/http-server {:mvn/version "0.1.13"}}}
