@@ -5,7 +5,7 @@ date: 2022-02-16
 
 The Apple pencil's [double-tap](https://support.apple.com/en-in/HT211774) to erase feature completely breaks my brain and habit from using pencils from years past.
 
-![apple-pencil.jpeg](../images/apple-pencil.jpeg)
+![apple-pencil.jpeg](/blog/images/apple-pencil.jpeg)
 
 The tap is far too sensitive and it keeps switching over to erase-mode as I readjust the pencil in my hand (a very normal thing to do).
 
