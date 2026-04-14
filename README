@@ -1,7 +1,7 @@
 Personal homepage.
 
 ```bash
-bb blog.clj serve            # dev server + drafts at localhost:1313
-bb blog.clj build            # production build (no drafts)
-bb blog.clj new "Post Title" # new draft in blog/drafts/
+make serve         # dev server + drafts at localhost:1313
+make build         # production build (no drafts)
+make draft "title" # new draft in blog/drafts/
 ```
