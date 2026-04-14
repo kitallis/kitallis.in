@@ -68,6 +68,9 @@
       border-bottom-color: #444;
     }
     .content tbody tr:last-child td { border-bottom: none; }
+    hr { border: none; border-top: 1px solid #333; margin: 2rem 0; }
+    footer { font-size: 0.75em; }
+    .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
   </style>
   <link
     rel="preload"
@@ -84,7 +87,7 @@
 </head>
 <body>
   <main>
-    <nav><a href="/blog/">&larr; blog</a></nav>
+    <nav><a href="/">kitallis</a></nav>
     <article>
       <h1>{{title}}{{draft-tag}}</h1>
       <time>{{date}}</time>
@@ -92,6 +95,15 @@
         {{content}}
       </div>
     </article>
+    <hr />
+    <footer>
+      <nav class="links">
+        <a href="mailto:mail@kitallis.in">mail</a>
+        <a href="https://github.com/kitallis">github</a>
+        <a href="https://bsky.app/profile/repartee.party">bluesky</a>
+        <a href="/blog/rss.xml">rss</a>
+      </nav>
+    </footer>
   </main>
 </body>
 </html>

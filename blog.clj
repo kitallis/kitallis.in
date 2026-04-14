@@ -21,8 +21,6 @@
 (def post-link-template (slurp (str templates-dir "/post-link.html")))
 (def rss-template (slurp (str templates-dir "/rss.xml")))
 (def rss-item-template (slurp (str templates-dir "/rss-item.xml")))
-(def redirect-template (slurp (str templates-dir "/redirect.html")))
-
 (defn render [template vars]
   (reduce-kv (fn [html k v]
                (str/replace html (str "{{" (name k) "}}") (or v "")))
@@ -67,7 +65,7 @@
     {:title (or (:title meta) name-part)
      :date date
      :display-date (->display-date date)
-     :slug (str date "-" name-part)
+     :slug name-part
      :name-part name-part
      :draft? draft?
      :html (md/md-to-html-string body)}))
@@ -93,15 +91,12 @@
           {:slug slug :date display-date :title title :draft-tag (draft-tag draft?)}))
 
 (defn clean! []
-  (doseq [f ["index.html" "rss.xml"]]
-    (when (fs/exists? (str blog-dir "/" f))
-      (fs/delete (str blog-dir "/" f))))
-  (doseq [entry (fs/list-dir blog-dir)]
-    (when (and (fs/directory? entry)
-               (not (contains? #{"posts" "drafts" "images" "templates"}
-                               (str (fs/file-name entry))))
-               (fs/exists? (fs/path entry "index.html")))
-      (fs/delete-tree entry)))
+  (when (fs/exists? "index.html")
+    (fs/delete "index.html"))
+  (when (fs/exists? (str blog-dir "/rss.xml"))
+    (fs/delete (str blog-dir "/rss.xml")))
+  (when (fs/exists? (str blog-dir "/index.html"))
+    (fs/delete (str blog-dir "/index.html")))
   (when (fs/exists? "p")
     (fs/delete-tree "p")))
 
@@ -110,13 +105,13 @@
   (let [posts (load-posts include-drafts?)
         sorted (sort-by :date #(compare %2 %1) posts)
         n-drafts (count (filter :draft? posts))]
-    ;; index
-    (spit (str blog-dir "/index.html")
+    ;; index (root page)
+    (spit "index.html"
           (render index-template
                   {:posts (str/join "\n      " (map post-link sorted))}))
     ;; posts
     (doseq [{:keys [slug title display-date html draft?] :as post} posts]
-      (let [dir (str blog-dir "/" slug)]
+      (let [dir (str "p/" slug)]
         (fs/create-dirs dir)
         (spit (str dir "/index.html")
               (render post-template
@@ -124,14 +119,6 @@
                        :date display-date
                        :content html
                        :draft-tag (draft-tag draft?)}))))
-    ;; legacy /p/<slug>/ redirects (published only)
-    (doseq [{:keys [name-part slug draft?]} posts]
-      (when-not draft?
-        (let [dir (str "p/" name-part)]
-          (fs/create-dirs dir)
-          (spit (str dir "/index.html")
-                (render redirect-template
-                        {:target (str "/blog/" slug "/")})))))
     ;; rss (published posts only)
     (let [published (remove :draft? sorted)]
       (spit (str blog-dir "/rss.xml")

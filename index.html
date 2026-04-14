@@ -10,6 +10,12 @@
     <title>kitallis.in</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="blog — kitallis.in"
+      href="/blog/rss.xml"
+    />
+    <link
       rel="preload"
       href="hero/IMG_0002.jpg"
       as="image"
@@ -24,7 +30,12 @@
         box-sizing: border-box;
       }
       body {
-        font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family:
+          "Bricolage Grotesque",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
         font-weight: 300;
         font-size: 20px;
         background: oklch(20% 0.0195 232.58);
@@ -77,6 +88,38 @@
         gap: 1.5rem;
         flex-wrap: wrap;
       }
+      .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .posts a {
+        border-bottom: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+      }
+      .posts a:hover {
+        color: #fff;
+      }
+      .date {
+        color: #666;
+        white-space: nowrap;
+        font-size: 0.8em;
+      }
+      .draft-tag {
+        color: #b58900;
+        font-size: 0.85em;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #333;
+        margin: 2rem 0;
+      }
+      footer {
+        font-size: 0.75em;
+      }
       @media (max-width: 480px) {
         .links {
           flex-direction: column;
@@ -88,7 +131,10 @@
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400&display=swap"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <noscript>
       <link
@@ -127,23 +173,35 @@
 
       <div class="section">
         <p>
-          Founded <a href="https://tramline.app">Tramline</a>—release
+          Founded <a href="https://tramline.app">🚃 Tramline</a>—release
           coordination for mobile app teams. Previously, founding member at
-          <a href="https://nilenso.com">nilenso</a>—a member-owned software
+          <a href="https://nilenso.com">🌀 nilenso</a>—a member-owned software
           cooperative.
         </p>
       </div>
 
+      <hr />
+
       <div class="section">
+        <div class="posts"><a href="/p/heating-up-food/"><span class="title">heating up food</span><span class="date">February 18, 2026</span></a>
+      <a href="/p/organic-iterations/"><span class="title">organic iterations</span><span class="date">October 12, 2025</span></a>
+      <a href="/p/serve/"><span class="title">serve</span><span class="date">March 23, 2022</span></a>
+      <a href="/p/apple-pencil-double-tap/"><span class="title">apple pencil double tap</span><span class="date">February 16, 2022</span></a>
+      <a href="/p/car-driving-adulthood-skills/"><span class="title">car driving adulthood skills</span><span class="date">February 3, 2022</span></a></div>
+      </div>
+
+      <hr />
+
+      <footer>
         <nav class="links">
           <a href="mailto:mail@kitallis.in">mail</a>
           <a href="https://github.com/kitallis">github</a>
           <a href="https://www.linkedin.com/in/kitallis">linkedin</a>
-          <a href="https://blog.kitallis.in">blog</a>
           <a href="https://bsky.app/profile/repartee.party">bluesky</a>
           <a href="https://soundcloud.com/kitallis">soundcloud</a>
+          <a href="/blog/rss.xml">rss</a>
         </nav>
-      </div>
+      </footer>
     </main>
   </body>
 </html>
