@@ -21,6 +21,7 @@
 (def post-link-template (slurp (str templates-dir "/post-link.html")))
 (def rss-template (slurp (str templates-dir "/rss.xml")))
 (def rss-item-template (slurp (str templates-dir "/rss-item.xml")))
+(def frontmatter-template (slurp (str templates-dir "/frontmatter.md")))
 (defn render [template vars]
   (reduce-kv (fn [html k v]
                (str/replace html (str "{{" (name k) "}}") (or v "")))
@@ -28,17 +29,7 @@
 
 ;; -- Parsing --
 
-(defn parse-frontmatter [content]
-  (when (str/starts-with? content "---\n")
-    (let [end (str/index-of content "\n---\n" 4)]
-      (when end
-        {:meta (->> (subs content 4 end)
-                    str/split-lines
-                    (keep (fn [line]
-                            (when-let [[_ k v] (re-matches #"(\w[\w-]*):\s+(.*)" line)]
-                              [(keyword k) (str/trim v)])))
-                    (into {}))
-         :body (subs content (+ end 5))}))))
+(def ^:private iso-fmt (java.text.SimpleDateFormat. "yyyy-MM-dd"))
 
 (defn ->rfc822 [date-str]
   (let [ld (java.time.LocalDate/parse date-str)
@@ -54,21 +45,22 @@
 (defn parse-post [file draft?]
   (let [content (slurp (str file))
         filename (str (fs/file-name file))
-        {:keys [meta body]} (or (parse-frontmatter content)
-                                {:meta {} :body content})
+        {:keys [metadata html]} (md/md-to-html-string-with-meta content)
         has-date? (re-find #"^\d{4}-\d{2}-\d{2}-" filename)
         filename-date (when has-date? (subs filename 0 10))
-        date (or (:date meta) filename-date (str (java.time.LocalDate/now)))
+        date (if-let [d (:date metadata)]
+               (.format iso-fmt d)
+               (or filename-date (str (java.time.LocalDate/now))))
         name-part (if has-date?
                     (subs filename 11 (- (count filename) 3))
                     (subs filename 0 (- (count filename) 3)))]
-    {:title (or (:title meta) name-part)
+    {:title (or (:title metadata) name-part)
      :date date
      :display-date (->display-date date)
      :slug name-part
      :name-part name-part
      :draft? draft?
-     :html (md/md-to-html-string body)}))
+     :html html}))
 
 ;; -- Build --
 
@@ -155,7 +147,7 @@
     (when (fs/exists? file)
       (println (str "Already exists: " file))
       (System/exit 1))
-    (spit file (str "---\ntitle: " title "\ndate: " today "\n---\n\n"))
+    (spit file (render frontmatter-template {:title title :date today}))
     (println (str "Created " file))))
 
 ;; -- Serve --
