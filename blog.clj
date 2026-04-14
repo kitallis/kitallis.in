@@ -85,8 +85,10 @@
 (defn clean! []
   (when (fs/exists? "index.html")
     (fs/delete "index.html"))
-  (when (fs/exists? (str blog-dir "/rss.xml"))
-    (fs/delete (str blog-dir "/rss.xml")))
+  (when (fs/exists? "rss.xml")
+    (fs/delete "rss.xml"))
+  (when (fs/exists? "rss")
+    (fs/delete-tree "rss"))
   (when (fs/exists? (str blog-dir "/index.html"))
     (fs/delete (str blog-dir "/index.html")))
   (when (fs/exists? "p")
@@ -112,16 +114,18 @@
                        :content html
                        :draft-tag (draft-tag draft?)}))))
     ;; rss (published posts only)
-    (let [published (remove :draft? sorted)]
-      (spit (str blog-dir "/rss.xml")
-            (render rss-template
-                    {:items (str/join "\n    "
-                              (map (fn [{:keys [title slug date html]}]
-                                     (render rss-item-template
-                                             {:title title :slug slug
-                                              :pub-date (->rfc822 date)
-                                              :content html}))
-                                   published))})))
+    (let [published (remove :draft? sorted)
+          rss (render rss-template
+                      {:items (str/join "\n    "
+                                (map (fn [{:keys [title slug date html]}]
+                                       (render rss-item-template
+                                               {:title title :slug slug
+                                                :pub-date (->rfc822 date)
+                                                :content html}))
+                                     published))})]
+      (spit "rss.xml" rss)
+      (fs/create-dirs "rss")
+      (spit "rss/index.xml" rss))
     (println (str "Built " (count posts) " posts"
                   (when (pos? n-drafts)
                     (str " (" n-drafts " drafts)"))))))
