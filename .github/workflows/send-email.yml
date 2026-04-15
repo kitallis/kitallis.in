@@ -3,8 +3,6 @@ name: Send email
 on:
   push:
     branches: [master]
-    paths:
-      - "blog/posts/*.md"
 
 jobs:
   send:
@@ -23,7 +21,7 @@ jobs:
           LISTMONK_API_USER: ${{ secrets.LISTMONK_API_USER }}
           LISTMONK_URL: ${{ vars.LISTMONK_URL }}
           LISTMONK_LIST_ID: ${{ vars.LISTMONK_LIST_ID }}
-        run: bb blog.clj send-unsent
+        run: bb email.clj send-unsent
 
       - name: Commit sent record
         run: |
