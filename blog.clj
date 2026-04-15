@@ -22,6 +22,7 @@
 (def rss-template (slurp (str templates-dir "/rss.xml")))
 (def rss-item-template (slurp (str templates-dir "/rss-item.xml")))
 (def frontmatter-template (slurp (str templates-dir "/frontmatter.md")))
+(def newsletter-template (slurp (str templates-dir "/newsletter.html")))
 (defn render [template vars]
   (reduce-kv (fn [html k v]
                (str/replace html (str "{{" (name k) "}}") (or v "")))
@@ -89,6 +90,8 @@
     (fs/delete "rss.xml"))
   (when (fs/exists? "rss")
     (fs/delete-tree "rss"))
+  (when (fs/exists? "subscribe")
+    (fs/delete-tree "subscribe"))
   (when (fs/exists? (str blog-dir "/index.html"))
     (fs/delete (str blog-dir "/index.html")))
   (when (fs/exists? "p")
@@ -126,6 +129,9 @@
       (spit "rss.xml" rss)
       (fs/create-dirs "rss")
       (spit "rss/index.xml" rss))
+    ;; newsletter page
+    (fs/create-dirs "subscribe")
+    (spit "subscribe/index.html" newsletter-template)
     (println (str "Built " (count posts) " posts"
                   (when (pos? n-drafts)
                     (str " (" n-drafts " drafts)"))))))

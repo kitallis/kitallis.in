@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>newsletter — kitallis.in</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 300;
+      font-size: 20px;
+      background: oklch(20% 0.0195 232.58);
+      color: hsl(210, 12%, 85%, 0.85);
+      min-height: 100vh;
+      padding: 3rem 2rem;
+      line-height: 1.6;
+    }
+    main { max-width: 700px; margin: 0 auto; }
+    nav { margin-bottom: 2rem; }
+    a { color: #c9c9c9; text-decoration: none; border-bottom: 1px solid #444; }
+    a:hover { color: #fff; border-color: #888; }
+    p { margin-bottom: 1rem; }
+    form { margin-top: 1rem; }
+    input[type="email"], input[type="text"] {
+      background: transparent;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: hsl(210, 12%, 85%, 0.85);
+      font-family: inherit;
+      font-weight: 300;
+      font-size: 0.9em;
+      padding: 0.5rem 0.75rem;
+      width: 100%;
+      max-width: 300px;
+    }
+    input[type="email"]::placeholder, input[type="text"]::placeholder { color: #666; }
+    input[type="email"]:focus, input[type="text"]:focus { outline: none; border-color: #888; }
+    input[type="submit"] {
+      background: transparent;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #c9c9c9;
+      font-family: inherit;
+      font-weight: 300;
+      font-size: 0.9em;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    input[type="submit"]:hover { color: #fff; border-color: #888; }
+    hr { border: none; border-top: 1px solid #333; margin: 2rem 0; }
+    footer { font-size: 0.75em; color: #888; }
+    footer a { color: #888; }
+    footer a:hover { color: #fff; }
+    .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  </style>
+  <link
+    rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400&display=swap"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
+</head>
+<body>
+  <main>
+    <nav><a href="/" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a></nav>
+    <form method="post" action="https://newsletter.kitallis.in/subscription/form">
+      <input type="hidden" name="nonce" />
+      <input type="hidden" name="l" value="1b38b757-8ad8-45b9-ad14-8e233bc4bdc5" />
+      <p><input type="email" name="email" required placeholder="your@email.com" /></p>
+      <p><input type="text" name="name" placeholder="name (optional)" /></p>
+      <p><input type="submit" value="Subscribe" /></p>
+    </form>
+  </main>
+</body>
+</html>
