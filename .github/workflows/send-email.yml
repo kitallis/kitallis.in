@@ -1,0 +1,33 @@
+name: Send email
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "blog/posts/*.md"
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install babashka
+        uses: DeLaGuardo/setup-clojure@13.4
+        with:
+          bb: latest
+
+      - name: Send campaigns
+        env:
+          LISTMONK_API_KEY: ${{ secrets.LISTMONK_API_KEY }}
+          LISTMONK_API_USER: ${{ secrets.LISTMONK_API_USER }}
+          LISTMONK_URL: ${{ vars.LISTMONK_URL }}
+          LISTMONK_LIST_ID: ${{ vars.LISTMONK_LIST_ID }}
+        run: bb blog.clj send-unsent
+
+      - name: Commit sent record
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add blog/.sent
+          git diff --cached --quiet || git commit -m "Mark campaigns as sent" && git push
