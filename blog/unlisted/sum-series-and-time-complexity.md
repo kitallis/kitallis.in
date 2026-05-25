@@ -229,7 +229,7 @@ We need to solve for `k`, but it's stuck as a non-trivial exponent on top, but s
   </mrow>
 </math>
 
-Since <math display="inline"><msub><mi>log</mi><mn>2</mn></msub><mo>(</mo><mi>cut_off</mi><mo>)</mo></math> is constant, we get <math display="inline"><mi>O</mi><mo>(</mo><mi>log</mi><mi>log</mi><mi>n</mi><mo>)</mo></math>... and that's that. Doubling (or halving) to a cutoff is <math display="inline"><mi>log</mi><mo>(</mo><mi>n</mi><mo>)</mo></math>, doing it to the exponent is <math display="inline"><mi>log</mi><mo>(</mo><mi>log</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>)</mo></math>—a quick rule of thumb to intuit this.
+Since <math display="inline"><msub><mi>log</mi><mn>2</mn></msub><mo>(</mo><mi>cut_off</mi><mo>)</mo></math> is constant, we get <math display="inline"><mi>O</mi><mo>(</mo><mi>log</mi><mi>log</mi><mi>n</mi><mo>)</mo></math>... and that's that. Doubling (or halving) to a cutoff is <math display="inline"><mi>log</mi><mo>(</mo><mi>n</mi><mo>)</mo></math>, doing it to the exponent is <math display="inline"><mi>log</mi><mo>(</mo><mi>log</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>)</mo></math>: a quick rule of thumb to intuit this.
 
 <hr>
 
