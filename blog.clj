@@ -125,6 +125,7 @@
               (render post-template
                       {:title title
                        :date display-date
+                       :slug slug
                        :content html
                        :draft-tag (post-tag post)}))))
     ;; rss (published posts only, unlisted excluded)
