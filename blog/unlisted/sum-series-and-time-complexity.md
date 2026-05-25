@@ -98,9 +98,9 @@ end
 
 After some dubious scratch math, I managed to arrive at a no-prior-inspiration analysis. The only _prior_ is the definition of logarithm itself <math display="inline"><msup><mn>2</mn><mi>x</mi></msup><mo>=</mo><mi>n</mi></math>, x = <math display="inline"><msub><mi>log</mi><mn>2</mn></msub><mo>(</mo><mi>n</mi><mo>)</mo></math>. Or more generally, <math display="inline"><msup><mi>B</mi><mi>x</mi></msup><mo>=</mo><mi>n</mi></math>, x = <math display="inline"><msub><mi>log</mi><mi>B</mi></msub><mo>(</mo><mi>n</mi><mo>)</mo></math>, where B is the base.
 
-In the code above, we start with `n` and repeatedly take square-roots. Square roots are simply fractional powers, <math display="inline"><msup><mi>n</mi><mfrac><mn>1</mn><mn>2</mn></mfrac></msup></math>.
+In the code above, we start with `n` and repeatedly take square roots. Square roots are simply fractional powers, <math display="inline"><msup><mi>n</mi><mfrac><mn>1</mn><mn>2</mn></mfrac></msup></math>.
 
-The loop runs until we hit just over `2`. Let's say it runs k times (since we don't really know yet, by just looking at it). It goes like this, for n=65536, it'd be k=4:
+The loop runs until we hit just over `2`. Let's say it runs `k` times (since we don't really know yet, by just looking at it). It goes like this, for n=65536, it'd be k=4:
 
 | iteration | value | is also |
 |---|---|---|
