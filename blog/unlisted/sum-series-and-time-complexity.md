@@ -306,7 +306,7 @@ We're summing the series <math display="inline"><munderover><mo>∑</mo><mrow><m
 
 <div class="section-break">side note</div>
 
-At some point in all of this, for the fun of it, [Nid](https://bsky.app/profile/nid90.bsky.social) and I worked out a simple algebraic expansion that feels more symmetric than blindly applying the [Gauss pairing trick](https://en.wikipedia.org/wiki/Gauss_sum), which every LLM appears to want you to do.
+At some point in all of this, for the fun of it (and partly inspired by the [infamous numberphile](https://www.youtube.com/watch?v=w-I6XTVZXww) video), [Nid](https://bsky.app/profile/nid90.bsky.social) and I worked out a simple algebraic expansion for a series sum that feels more symmetric than blindly applying the [Gauss pairing trick](https://en.wikipedia.org/wiki/Gauss_sum), which every LLM appears to want you to do.
 
 ![apple-pencil.jpeg](/blog/images/whiteboard-sum-series.jpeg)
 
