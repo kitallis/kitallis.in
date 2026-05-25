@@ -403,4 +403,4 @@ This is also essentially the Gauss sum, but without an explicit pairwise reverse
 
 None of this stuff is new, of course. I started this whole thing off just lazily handing code snippets to LLMs to analyze out of curiosity, and enjoyed the back-and-forth so much that it became the whole point: a pedagogy mode to find links that I never bothered to examine before.
 
-This is my preferred way of using LLMs these days. I've been working on a [code-review plugin for emacs & magit](https://github.com/adjaecent/magit-hutch) with agents, in a pure pedagogical style. I hand-write all the code and use agents to validate, correct and guide me in the right direction.
+This is my preferred way of using LLMs these days. I've been working on a [code-review plugin for emacs & magit](https://github.com/adjaecent/magit-hutch) with agents in a pedagogical style. I hand-write all the code and use agents to validate, correct and guide me in the right direction.
