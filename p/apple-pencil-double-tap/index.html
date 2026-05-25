@@ -7,6 +7,7 @@
   <title>apple pencil double tap — kitallis.in</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="alternate" type="application/rss+xml" title="blog — kitallis.in" href="/rss.xml" />
+  <link rel="stylesheet" href="/assets/prism.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -24,6 +25,7 @@
     a:hover { color: #fff; border-color: #888; }
     nav { margin-bottom: 2rem; }
     .draft-tag { color: #b58900; font-size: 0.85em; }
+    .unlisted-tag { color: #6c71c4; font-size: 0.85em; }
     article h1 { margin-bottom: 0.25rem; }
     article time { color: #888; display: block; margin-bottom: 2rem; }
     .content p { margin-bottom: 1rem; }
@@ -74,6 +76,8 @@
     }
     .content tbody tr:last-child td { border-bottom: none; }
     hr { border: none; border-top: 1px solid #333; margin: 2rem 0; }
+    .section-break { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; color: #555; font-size: 0.85em; }
+    .section-break::before, .section-break::after { content: ''; flex: 1; border-top: 1px solid #333; }
     footer { font-size: 0.75em; color: #888; }
     footer a { color: #888; }
     .subscribe { margin-left: auto; }
@@ -113,6 +117,13 @@
       </nav>
     </footer>
   </main>
+  <script src="/assets/prism.min.js" data-manual></script>
+  <script>
+    document.querySelectorAll('code[class]').forEach(function(el) {
+      if (!el.className.startsWith('language-')) el.className = 'language-' + el.className;
+    });
+    Prism.highlightAll();
+  </script>
   <script data-goatcounter="https://stats.kitallis.in/count"
           async src="//stats.kitallis.in/count.js"></script>
 </body>
