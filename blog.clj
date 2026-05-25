@@ -10,6 +10,7 @@
 (def blog-dir "blog")
 (def posts-dir (str blog-dir "/posts"))
 (def drafts-dir (str blog-dir "/drafts"))
+(def unlisted-dir (str blog-dir "/unlisted"))
 (def images-dir (str blog-dir "/images"))
 (def templates-dir (str blog-dir "/templates"))
 (def port 1313)
@@ -74,14 +75,22 @@
                       (mapv #(parse-post % true))))]
     (into (vec posts) drafts)))
 
+(defn load-unlisted []
+  (when (fs/exists? unlisted-dir)
+    (->> (fs/glob unlisted-dir "*.md")
+         (mapv #(assoc (parse-post % false) :unlisted? true)))))
+
 (def draft-tag-template (slurp (str templates-dir "/draft-tag.html")))
+(def unlisted-tag-template (slurp (str templates-dir "/unlisted-tag.html")))
 
-(defn draft-tag [draft?]
-  (if draft? draft-tag-template ""))
+(defn post-tag [{:keys [draft? unlisted?]}]
+  (cond draft? draft-tag-template
+        unlisted? unlisted-tag-template
+        :else ""))
 
-(defn post-link [{:keys [title display-date slug draft?]}]
+(defn post-link [{:keys [title display-date slug] :as post}]
   (render post-link-template
-          {:slug slug :date display-date :title title :draft-tag (draft-tag draft?)}))
+          {:slug slug :date display-date :title title :draft-tag (post-tag post)}))
 
 (defn clean! []
   (when (fs/exists? "index.html")
@@ -100,14 +109,16 @@
 (defn build! [include-drafts?]
   (clean!)
   (let [posts (load-posts include-drafts?)
+        unlisted (or (load-unlisted) [])
         sorted (sort-by :date #(compare %2 %1) posts)
-        n-drafts (count (filter :draft? posts))]
-    ;; index (root page)
+        n-drafts (count (filter :draft? posts))
+        n-unlisted (count unlisted)]
+    ;; index (root page) — unlisted posts intentionally excluded
     (spit "index.html"
           (render index-template
                   {:posts (str/join "\n      " (map post-link sorted))}))
-    ;; posts
-    (doseq [{:keys [slug title display-date html draft?] :as post} posts]
+    ;; posts + unlisted (both get a page, unlisted just aren't linked)
+    (doseq [{:keys [slug title display-date html] :as post} (concat posts unlisted)]
       (let [dir (str "p/" slug)]
         (fs/create-dirs dir)
         (spit (str dir "/index.html")
@@ -115,8 +126,8 @@
                       {:title title
                        :date display-date
                        :content html
-                       :draft-tag (draft-tag draft?)}))))
-    ;; rss (published posts only)
+                       :draft-tag (post-tag post)}))))
+    ;; rss (published posts only, unlisted excluded)
     (let [published (remove :draft? sorted)
           rss (render rss-template
                       {:items (str/join "\n    "
@@ -133,8 +144,8 @@
     (fs/create-dirs "subscribe")
     (spit "subscribe/index.html" newsletter-template)
     (println (str "Built " (count posts) " posts"
-                  (when (pos? n-drafts)
-                    (str " (" n-drafts " drafts)"))))))
+                  (when (pos? n-drafts) (str " (" n-drafts " drafts)"))
+                  (when (pos? n-unlisted) (str " (" n-unlisted " unlisted)"))))))
 
 ;; -- New draft --
 
@@ -171,7 +182,7 @@
 
 (defn serve! []
   (build! true)
-  (let [watch-dirs [posts-dir drafts-dir images-dir templates-dir]]
+  (let [watch-dirs [posts-dir drafts-dir unlisted-dir images-dir templates-dir]]
     (future
       (println "Watching for changes...")
       (loop [ts (System/currentTimeMillis)]
