@@ -8,7 +8,7 @@ My highly sophisticated rule of thumb for eyeballing time complexity is to find 
 ```ruby
 left = 0
 (0...n).each do |right|
-  while terrible_condition
+  while bad
     left += 1
   end
 end
@@ -120,7 +120,7 @@ In other words, we're doing,
 | <math display="inline"><msup><mrow><mo>(</mo><msup><mn>2</mn><mn>16</mn></msup><mo>)</mo></mrow><mfrac><mn>1</mn><mn>16</mn></mfrac></msup></math> | 2 | → <math display="inline"><msup><mn>2</mn><mn>1</mn></msup></math> |
 | <math display="inline"><msup><mrow><mo>(</mo><msup><mn>2</mn><mn>16</mn></msup><mo>)</mo></mrow><mfrac><mn>1</mn><mn>32</mn></mfrac></msup></math> | 1 | → &lt;stop&gt; |
 
-This is just, <math display="inline"><msup><mi>(n)</mi><mfrac><mn>1</mn><msup><mn>2</mn><mi>k</mi></msup></mfrac></msup></math> where, n=<math display="inline"><msup><mn>2</mn><mn>16</mn></msup></math> (our original starting number). We're reducing the fractional exponent k times to arrive roughly above `2`, our target cut-off point. The point of writing the reduction in the form of a fixed 2^16 is so we can treat the expression as `n`, because that's the input size that we'll measure the time complexity against.
+This is just, <math display="inline"><msup><mi>(n)</mi><mfrac><mn>1</mn><msup><mn>2</mn><mi>k</mi></msup></mfrac></msup></math> where, n=<math display="inline"><msup><mn>2</mn><mn>16</mn></msup></math> (our original starting number). We're reducing the fractional exponent `k` times to arrive roughly above `2`, our target cut-off point. The point of writing the reduction in the form of a fixed 2^16 is so we can treat the expression as `n`, because that's the input size that we'll measure the time complexity against. `k` is what we're solving for, not its value at any particular `n`, but how it grows as `n` does.
 
 It's also important to note that we're not interested in finding the scalar value of `k`, we're interested in knowing how much more time things take as `n` grows.
 
@@ -233,7 +233,7 @@ Since <math display="inline"><msub><mi>log</mi><mn>2</mn></msub><mo>(</mo><mi>cu
 
 <hr>
 
-Going back to sum of series, it's important to note that we're applying them to count operations and nothing else.
+Going back to series sums — we apply them to count operations, and nothing else.
 
 ```ruby
 total = 0
