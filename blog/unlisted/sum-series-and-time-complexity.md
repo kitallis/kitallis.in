@@ -122,8 +122,6 @@ In other words, we're doing,
 
 This is just, <math display="inline"><msup><mi>(n)</mi><mfrac><mn>1</mn><msup><mn>2</mn><mi>k</mi></msup></mfrac></msup></math> where, n=<math display="inline"><msup><mn>2</mn><mn>16</mn></msup></math> (our original starting number). We're reducing the fractional exponent `k` times to arrive roughly above `2`, our target cut-off point. The point of writing the reduction in the form of a fixed 2^16 is so we can treat the expression as `n`, because that's the input size that we'll measure the time complexity against. `k` is what we're solving for, not its value at any particular `n`, but how it grows as `n` does.
 
-It's also important to note that we're not interested in finding the scalar value of `k`, we're interested in knowing how much more time things take as `n` grows.
-
 So it'd be fair to say that our loop represents this inequality:
 
 <math display="inline">
