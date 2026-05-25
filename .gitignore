@@ -1,3 +1,7 @@
 .clj-kondo/
 .lsp/
 .claude/settings.local.json
+p/
+index.html
+rss.xml
+rss/
