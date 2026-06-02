@@ -145,7 +145,7 @@
         (let [campaign (api :post "/campaigns"
                             {:name title
                              :subject title
-                             :body html
+                             :body (prepare-html html)
                              :content_type "html"
                              :type "regular"
                              :lists [list-id]})
