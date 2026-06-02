@@ -2,6 +2,7 @@
 
 (require '[babashka.fs :as fs]
          '[clojure.string :as str]
+         '[clojure.data.xml :as xml]
          '[markdown.core :as md]
          '[org.httpkit.client :as http]
          '[cheshire.core :as json])
@@ -65,6 +66,42 @@
         (System/exit 1))
       (json/parse-string body true))))
 
+;; -- HTML prep --
+
+(defn escape-html [s]
+  (-> s
+      (str/replace "&" "&amp;")
+      (str/replace "<" "&lt;")
+      (str/replace ">" "&gt;")))
+
+(defn math-node->html [node]
+  (if (string? node)
+    (escape-html node)
+    (let [{:keys [tag content]} node
+          children (->> content
+                        (mapv math-node->html)
+                        (remove #(and (string? %) (str/blank? %)))
+                        vec)]
+      (case tag
+        :msup       (str (first children) "<sup>" (second children) "</sup>")
+        :msub       (str (first children) "<sub>" (second children) "</sub>")
+        :mfrac      (str "(" (first children) "/" (second children) ")")
+        :mrow       (apply str children)
+        :munderover (str (first children) "<sub>" (second children) ".." (nth children 2) "</sub>")
+        :munder     (str (first children) "<sub>" (second children) "</sub>")
+        :mover      (str (first children) "<sup>" (second children) "</sup>")
+        :math       (apply str children)
+        (apply str children)))))
+
+(defn prepare-html [html]
+  (-> html
+      (str/replace #"src=\"(/[^\"]+)\"" "src=\"https://kitallis.in$1\"")
+      (str/replace #"<div class=\"section-break\">[^<]*</div>" "<hr>")
+      (str/replace #"(?s)<math[^>]*>.*?</math>"
+                   (fn [match]
+                     (try (math-node->html (xml/parse-str match))
+                          (catch Exception _ match))))))
+
 ;; -- Commands --
 
 (defn send! [slug]
@@ -83,14 +120,14 @@
     (let [campaign (api :post "/campaigns"
                         {:name (:title post)
                          :subject (:title post)
-                         :body (:html post)
+                         :body (prepare-html (:html post))
                          :content_type "html"
                          :type "regular"
                          :lists [list-id]})
           id (get-in campaign [:data :id])]
       (println (str "Created campaign #" id ": " (:title post)))
       (println "Start campaign? [y/n]")
-      (when (= "y" (str/trim (read-line)))
+      (when (= "y" (str/trim (or (read-line) "")))
         (api :put (str "/campaigns/" id "/status") {:status "running"})
         (mark-sent! slug)
         (println "Campaign sent.")))))

@@ -308,7 +308,7 @@ We're summing the series <math display="inline"><munderover><mo>∑</mo><mrow><m
 
 At some point in all of this, for the fun of it (and partly inspired by the [infamous numberphile](https://www.youtube.com/watch?v=w-I6XTVZXww) video), [Nid](https://bsky.app/profile/nid90.bsky.social) and I worked out a simple algebraic expansion for a series sum that feels more symmetric than blindly applying the [Gauss pairing trick](https://en.wikipedia.org/wiki/Gauss_sum), which every LLM appears to want you to do.
 
-![apple-pencil.jpeg](/blog/images/whiteboard-sum-series.jpeg)
+![whiteboard math](/blog/images/whiteboard-sum-series.jpeg)
 
 This is also essentially the Gauss sum, but without an explicit pairwise reverse sum. This is more about reducing the series in a shape of `n` and finding a recursive copy of the original sum.
 
