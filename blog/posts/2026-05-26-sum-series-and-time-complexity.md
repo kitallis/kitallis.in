@@ -231,7 +231,7 @@ Since <math display="inline"><msub><mi>log</mi><mn>2</mn></msub><mo>(</mo><mi>cu
 
 <hr>
 
-Going back to series sums — we apply them to count operations, and nothing else.
+Going back to series sums, use them to count operations.
 
 ```ruby
 total = 0
@@ -314,6 +314,6 @@ This is also essentially the Gauss sum, but without an explicit pairwise reverse
 
 <div class="section-break">end of side note</div>
 
-None of this stuff is new, of course, and I don't think any of this is particularly useful. Program runtime optimization is a different art-form of measuring and profiling, it's rare that you're actually formally evaluating scaling laws for piecemeal algorithms. I started this whole thing off just lazily handing code snippets to LLMs to theoretically analyse out of curiosity, and enjoyed the back-and-forth so much that it became the whole point: a pedagogy mode to find links that I never examined before.
+None of this stuff is new, of course, and I don't think any of it is particularly useful. Program runtime optimization is a different art-form of measuring and profiling; it's rare that you're actually formally evaluating scaling laws for piecemeal algorithms. I started this whole thing off one weekend just lazily handing code snippets to LLMs to theoretically analyse out of curiosity, and enjoyed the back-and-forth so much that it became the whole point: a pedagogy mode to find links that I never examined before.
 
 This is my preferred way of using LLMs these days. I've been working on a [code-review plugin for emacs & magit](https://github.com/adjaecent/magit-hutch) with agents, pedagogical style. I hand-write all the code and use agents to validate, correct and guide me in the right direction.
