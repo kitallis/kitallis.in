@@ -7,3 +7,5 @@ make draft "title"      # new draft in blog/drafts/
 make send <slug>        # send campaign for a post
 make send-unsent        # send campaigns for all unsent posts
 ```
+
+Build output goes to `pub/`, which is gitignored and what Cloudflare Pages publishes.

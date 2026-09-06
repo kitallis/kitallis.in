@@ -13,7 +13,11 @@
 (def unlisted-dir (str blog-dir "/unlisted"))
 (def images-dir (str blog-dir "/images"))
 (def templates-dir (str blog-dir "/templates"))
+(def pub-dir "pub")
 (def port 1313)
+
+;; Everything the browser fetches at runtime, mirrored into pub/ at its serving path.
+(def static-paths ["assets" "blog/images" "hero" "jp" "favicon.ico" "robots.txt"])
 
 ;; -- Templates --
 
@@ -133,34 +137,34 @@
           {:slug slug :date display-date :title title :draft-tag (post-tag post)}))
 
 (defn clean! []
-  (when (fs/exists? "index.html")
-    (fs/delete "index.html"))
-  (when (fs/exists? "rss.xml")
-    (fs/delete "rss.xml"))
-  (when (fs/exists? "rss")
-    (fs/delete-tree "rss"))
-  (when (fs/exists? "subscribe")
-    (fs/delete-tree "subscribe"))
-  (when (fs/exists? (str blog-dir "/index.html"))
-    (fs/delete (str blog-dir "/index.html")))
-  (when (fs/exists? "p")
-    (fs/delete-tree "p")))
+  (when (fs/exists? pub-dir)
+    (fs/delete-tree pub-dir)))
+
+(defn copy-static! []
+  (doseq [path static-paths
+          :when (fs/exists? path)]
+    (let [dest (str pub-dir "/" path)]
+      (fs/create-dirs (fs/parent dest))
+      (if (fs/directory? path)
+        (fs/copy-tree path dest)
+        (fs/copy path dest)))))
 
 (defn build! [include-drafts?]
   (clean!)
+  (fs/create-dirs pub-dir)
   (let [posts (load-posts include-drafts?)
         unlisted (or (load-unlisted) [])
         sorted (sort-by :date #(compare %2 %1) posts)
         n-drafts (count (filter :draft? posts))
         n-unlisted (count unlisted)]
     ;; index (root page) — unlisted posts intentionally excluded
-    (spit "index.html"
+    (spit (str pub-dir "/index.html")
           (inline-svgs
            (render (template "index.html")
                    {:posts (str/join "\n      " (map post-link sorted))})))
     ;; posts + unlisted (both get a page, unlisted just aren't linked)
     (doseq [{:keys [slug title display-date html] :as post} (concat posts unlisted)]
-      (let [dir (str "p/" slug)]
+      (let [dir (str pub-dir "/p/" slug)]
         (fs/create-dirs dir)
         (spit (str dir "/index.html")
               (inline-svgs
@@ -180,12 +184,13 @@
                                                 :pub-date (->rfc822 date)
                                                 :content html}))
                                      published))})]
-      (spit "rss.xml" rss)
-      (fs/create-dirs "rss")
-      (spit "rss/index.xml" rss))
-    ;; newsletter page
-    (fs/create-dirs "subscribe")
-    (spit "subscribe/index.html" (inline-svgs (template "newsletter.html")))
+      (spit (str pub-dir "/rss.xml") rss)
+      (fs/create-dirs (str pub-dir "/rss"))
+      (spit (str pub-dir "/rss/index.xml") rss))
+    ;; subscribe page
+    (fs/create-dirs (str pub-dir "/subscribe"))
+    (spit (str pub-dir "/subscribe/index.html") (inline-svgs (template "subscribe.html")))
+    (copy-static!)
     (println (str "Built " (count posts) " posts"
                   (when (pos? n-drafts) (str " (" n-drafts " drafts)"))
                   (when (pos? n-unlisted) (str " (" n-unlisted " unlisted)"))))))
@@ -236,7 +241,7 @@
             (build! true))
           (recur (if changed? (System/currentTimeMillis) ts))))))
   (println (str "Serving at http://localhost:" port))
-  (server/exec {:port port :dir "."}))
+  (server/exec {:port port :dir pub-dir}))
 
 ;; -- CLI --
 
