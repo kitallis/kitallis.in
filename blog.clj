@@ -13,11 +13,9 @@
 (def unlisted-dir (str blog-dir "/unlisted"))
 (def images-dir (str blog-dir "/images"))
 (def templates-dir (str blog-dir "/templates"))
+(def static-dir "static")
 (def pub-dir "pub")
 (def port 1313)
-
-;; Everything the browser fetches at runtime, mirrored into pub/ at its serving path.
-(def static-paths ["assets" "blog/images" "hero" "jp" "favicon.ico" "robots.txt"])
 
 ;; -- Templates --
 
@@ -140,14 +138,16 @@
   (when (fs/exists? pub-dir)
     (fs/delete-tree pub-dir)))
 
-(defn copy-static! []
-  (doseq [path static-paths
-          :when (fs/exists? path)]
-    (let [dest (str pub-dir "/" path)]
-      (fs/create-dirs (fs/parent dest))
-      (if (fs/directory? path)
-        (fs/copy-tree path dest)
-        (fs/copy path dest)))))
+(defn copy-static!
+  "static/ ships as-is at the site root; post images keep their /blog/images/ urls."
+  []
+  (doseq [child (fs/list-dir static-dir)]
+    (let [dest (str pub-dir "/" (fs/file-name child))]
+      (if (fs/directory? child)
+        (fs/copy-tree child dest)
+        (fs/copy child dest))))
+  (fs/create-dirs (str pub-dir "/" blog-dir))
+  (fs/copy-tree images-dir (str pub-dir "/" images-dir)))
 
 (defn build! [include-drafts?]
   (clean!)
@@ -230,7 +230,7 @@
 
 (defn serve! []
   (build! true)
-  (let [watch-dirs [posts-dir drafts-dir unlisted-dir images-dir templates-dir "assets"]]
+  (let [watch-dirs [posts-dir drafts-dir unlisted-dir images-dir templates-dir static-dir]]
     (future
       (println "Watching for changes...")
       (loop [ts (System/currentTimeMillis)]
