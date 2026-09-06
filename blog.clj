@@ -17,17 +17,13 @@
 
 ;; -- Templates --
 
-(def index-template (slurp (str templates-dir "/index.html")))
-(def post-template (slurp (str templates-dir "/post.html")))
-(def post-link-template (slurp (str templates-dir "/post-link.html")))
-(def rss-template (slurp (str templates-dir "/rss.xml")))
-(def rss-item-template (slurp (str templates-dir "/rss-item.xml")))
-(def frontmatter-template (slurp (str templates-dir "/frontmatter.md")))
-(def newsletter-template (slurp (str templates-dir "/newsletter.html")))
-(defn render [template vars]
+(defn template [filename]
+  (slurp (str templates-dir "/" filename)))
+
+(defn render [tmpl vars]
   (reduce-kv (fn [html k v]
                (str/replace html (str "{{" (name k) "}}") (or v "")))
-             template vars))
+             tmpl vars))
 
 ;; -- Parsing --
 
@@ -47,7 +43,7 @@
 (defn parse-post [file draft?]
   (let [content (slurp (str file))
         filename (str (fs/file-name file))
-        {:keys [metadata html]} (md/md-to-html-string-with-meta content)
+        {:keys [metadata html]} (md/md-to-html-string-with-meta content :footnotes? true :heading-anchors true)
         has-date? (re-find #"^\d{4}-\d{2}-\d{2}-" filename)
         filename-date (when has-date? (subs filename 0 10))
         date (if-let [d (:date metadata)]
@@ -63,6 +59,53 @@
      :name-part name-part
      :draft? draft?
      :html html}))
+
+;; -- Inline SVG --
+
+(defn- add-viewbox
+  "Monodraw & co. emit width/height but no viewBox, which blocks responsive scaling."
+  [svg]
+  (let [tag (re-find #"(?s)<svg\b[^>]*>" svg)
+        w (when tag (second (re-find #"\swidth=\"(\d+(?:\.\d+)?)(?:px)?\"" tag)))
+        h (when tag (second (re-find #"\sheight=\"(\d+(?:\.\d+)?)(?:px)?\"" tag)))]
+    (if (and w h (not (re-find #"viewBox=" tag)))
+      (str/replace-first svg #"<svg\b" (str "<svg viewBox=\"0 0 " w " " h "\""))
+      svg)))
+
+(defn- svg-file->markup [src alt]
+  (let [path (str/replace src #"^/" "")]
+    (when (and (str/ends-with? (str/lower-case src) ".svg")
+               (fs/exists? path))
+      (-> (slurp path)
+          (str/replace #"(?s)^\s*<\?xml.*?\?>\s*" "")
+          (str/replace #"(?s)^\s*<!DOCTYPE.*?>\s*" "")
+          (add-viewbox)
+          (str/replace-first #"<svg\b"
+                             (str "<svg class=\"inline-svg\" "
+                                  (if (str/blank? alt)
+                                    "aria-hidden=\"true\""
+                                    (str "role=\"img\" aria-label=\""
+                                         (str/replace alt "\"" "&quot;") "\""))))))))
+
+(defn add-heading-anchors
+  "Append a click-to-link anchor to each h2/h3 that markdown-clj gave an id."
+  [html]
+  (str/replace html
+               #"(?s)<(h[23]) id=\"([^\"]+)\">(.*?)</\1>"
+               (fn [[_ tag id inner]]
+                 (str "<" tag " id=\"" id "\">" inner
+                      "<a class=\"anchor\" href=\"#" id "\" aria-label=\"Link to this section\">#</a>"
+                      "</" tag ">"))))
+
+(defn inline-svgs
+  "Replace <img src=\"....svg\"> with the file's markup, so it can be styled by CSS."
+  [html]
+  (str/replace html
+               #"<img\s[^>]*>"
+               (fn [tag]
+                 (let [src (second (re-find #"src=\"([^\"]+)\"" tag))
+                       alt (or (second (re-find #"alt=\"([^\"]*)\"" tag)) "")]
+                   (or (some-> src (svg-file->markup alt)) tag)))))
 
 ;; -- Build --
 
@@ -80,16 +123,13 @@
     (->> (fs/glob unlisted-dir "*.md")
          (mapv #(assoc (parse-post % false) :unlisted? true)))))
 
-(def draft-tag-template (slurp (str templates-dir "/draft-tag.html")))
-(def unlisted-tag-template (slurp (str templates-dir "/unlisted-tag.html")))
-
 (defn post-tag [{:keys [draft? unlisted?]}]
-  (cond draft? draft-tag-template
-        unlisted? unlisted-tag-template
+  (cond draft? (template "draft-tag.html")
+        unlisted? (template "unlisted-tag.html")
         :else ""))
 
 (defn post-link [{:keys [title display-date slug] :as post}]
-  (render post-link-template
+  (render (template "post-link.html")
           {:slug slug :date display-date :title title :draft-tag (post-tag post)}))
 
 (defn clean! []
@@ -115,25 +155,27 @@
         n-unlisted (count unlisted)]
     ;; index (root page) — unlisted posts intentionally excluded
     (spit "index.html"
-          (render index-template
-                  {:posts (str/join "\n      " (map post-link sorted))}))
+          (inline-svgs
+           (render (template "index.html")
+                   {:posts (str/join "\n      " (map post-link sorted))})))
     ;; posts + unlisted (both get a page, unlisted just aren't linked)
     (doseq [{:keys [slug title display-date html] :as post} (concat posts unlisted)]
       (let [dir (str "p/" slug)]
         (fs/create-dirs dir)
         (spit (str dir "/index.html")
-              (render post-template
-                      {:title title
-                       :date display-date
-                       :slug slug
-                       :content html
-                       :draft-tag (post-tag post)}))))
+              (inline-svgs
+               (render (template "post.html")
+                       {:title title
+                        :date display-date
+                        :slug slug
+                        :content (add-heading-anchors html)
+                        :draft-tag (post-tag post)})))))
     ;; rss (published posts only, unlisted excluded)
     (let [published (remove :draft? sorted)
-          rss (render rss-template
+          rss (render (template "rss.xml")
                       {:items (str/join "\n    "
                                 (map (fn [{:keys [title slug date html]}]
-                                       (render rss-item-template
+                                       (render (template "rss-item.xml")
                                                {:title title :slug slug
                                                 :pub-date (->rfc822 date)
                                                 :content html}))
@@ -143,7 +185,7 @@
       (spit "rss/index.xml" rss))
     ;; newsletter page
     (fs/create-dirs "subscribe")
-    (spit "subscribe/index.html" newsletter-template)
+    (spit "subscribe/index.html" (inline-svgs (template "newsletter.html")))
     (println (str "Built " (count posts) " posts"
                   (when (pos? n-drafts) (str " (" n-drafts " drafts)"))
                   (when (pos? n-unlisted) (str " (" n-unlisted " unlisted)"))))))
@@ -169,7 +211,7 @@
     (when (fs/exists? file)
       (println (str "Already exists: " file))
       (System/exit 1))
-    (spit file (render frontmatter-template {:title title :date today}))
+    (spit file (render (template "frontmatter.md") {:title title :date today}))
     (println (str "Created " file))))
 
 ;; -- Serve --
@@ -183,7 +225,7 @@
 
 (defn serve! []
   (build! true)
-  (let [watch-dirs [posts-dir drafts-dir unlisted-dir images-dir templates-dir]]
+  (let [watch-dirs [posts-dir drafts-dir unlisted-dir images-dir templates-dir "assets"]]
     (future
       (println "Watching for changes...")
       (loop [ts (System/currentTimeMillis)]

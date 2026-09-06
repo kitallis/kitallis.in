@@ -16,6 +16,12 @@
   <link rel="stylesheet" href="/assets/prism.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    @view-transition { navigation: auto; }
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+        animation: none !important;
+      }
+    }
     body {
       font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-weight: 300;
@@ -25,6 +31,15 @@
       min-height: 100vh;
       padding: 3rem 2rem;
       line-height: 1.6;
+      text-wrap: pretty;
+      font-optical-sizing: auto;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, h4 {
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
     }
     main { max-width: 700px; margin: 0 auto; }
     a { color: #c9c9c9; text-decoration: none; border-bottom: 1px solid #444; }
@@ -32,8 +47,11 @@
     nav { margin-bottom: 2rem; }
     .draft-tag { color: #b58900; font-size: 0.85em; }
     .unlisted-tag { color: #6c71c4; font-size: 0.85em; }
-    article h1 { margin-bottom: 0.25rem; }
+    article h1 { font-size: 1.75em; line-height: 1.15; margin-bottom: 0.25rem; }
     article time { color: #888; display: block; margin-bottom: 2rem; }
+    .content h2 { font-size: 1.3em; margin: 2.25rem 0 0.5rem; }
+    .content h3 { font-size: 1.1em; margin: 1.75rem 0 0.5rem; }
+    .content h4 { font-size: 1em; margin: 1.5rem 0 0.5rem; }
     .content p { margin-bottom: 1rem; }
     .content ul, .content ol { margin: 0 0 1rem 1.5rem; }
     .content li { margin-bottom: 0.25rem; }
@@ -41,6 +59,7 @@
       border-left: 2px solid #444;
       padding-left: 1rem;
       color: #999;
+      line-height: 1.5;
       margin-bottom: 1rem;
     }
     .content pre {
@@ -48,6 +67,7 @@
       padding: 1rem;
       border-radius: 4px;
       overflow-x: auto;
+      line-height: 1.45;
       margin-bottom: 1rem;
     }
     .content code {
@@ -58,12 +78,32 @@
     }
     .content pre code { background: none; padding: 0; }
     .content img { max-width: 100%; border-radius: 4px; margin: 1rem 0; }
+    .content .inline-svg { display: block; max-width: 100%; height: auto; margin: 1rem 0; }
+    .content .inline-svg path, .content .inline-svg text { fill: currentColor; }
+    .content .inline-svg [stroke]:not([stroke="none"]) { stroke: currentColor; }
     .content hr { border: none; border-top: 1px solid #333; margin: 2rem 0; }
+    .content h2, .content h3 { position: relative; scroll-margin-top: 1rem; }
+    .content h2 .anchor, .content h3 .anchor {
+      position: absolute; left: -1rem; width: 1rem;
+      border: none; color: #555; opacity: 0;
+    }
+    .content h2:hover .anchor, .content h3:hover .anchor,
+    .content .anchor:focus { opacity: 1; }
+    .content sup a { border: none; }
+    .content .footnotes {
+      margin-top: 3rem; padding-top: 1rem;
+      border-top: 1px solid #333;
+      font-size: 0.85em; color: #999;
+      line-height: 1.5;
+    }
+    .content .footnotes li { margin-bottom: 0.5rem; }
+    .content .footnotes li:target { color: #fff; }
     .content table {
       width: 100%;
       border-collapse: collapse;
       margin: 1rem 0 1.5rem;
       font-size: 0.9em;
+      line-height: 1.4;
       border: 1px solid #333;
       border-radius: 4px;
     }
@@ -92,20 +132,20 @@
   </style>
   <link
     rel="preload"
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..600&display=swap"
     as="style"
     onload="this.onload=null;this.rel='stylesheet'"
   />
   <noscript>
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..600&display=swap"
       rel="stylesheet"
     />
   </noscript>
 </head>
 <body>
   <main>
-    <nav><a href="/" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a></nav>
+    <nav><a href="/" aria-label="Home"><img src="/blog/images/icon-home.svg" alt="" /></a></nav>
     <article>
       <h1>{{title}}{{draft-tag}}</h1>
       <time>{{date}}</time>
@@ -119,7 +159,7 @@
         <a href="mailto:mail@kitallis.in">mail</a>
         <a href="https://github.com/kitallis">github</a>
         <a href="https://bsky.app/profile/repartee.party">bluesky</a>
-        <span class="subscribe"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M22 8c0-2.3-.8-4.3-2-6"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/></svg> <a href="/rss.xml">rss</a> / <a href="/subscribe/">email</a></span>
+        <span class="subscribe"><img src="/blog/images/icon-bell.svg" alt="subscribe bell icon" /><a href="/rss.xml">rss</a> / <a href="/subscribe/">email</a></span>
       </nav>
     </footer>
   </main>
