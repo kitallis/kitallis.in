@@ -31,8 +31,6 @@ Then bulk-apply all queued suggestions with `A`. The application is scope-aware,
 
 That's it! There are of course a few interesting things going on behind the scenes, some of which I'll cover in the next few sections. But getting started is hopefully pretty simple and intuitive for emacs users.
 
-The output from all this work is persisted durably under `refs/hutch/id` and can be separately committed as a means of sharing (with `magit-post-commit-hook`) or for repainting later. If you squint hard enough, it might appear like a change identifier for a [stacked-diff review tool](https://blog.tangled.org/stacking), but its purpose is to keep reviews in the git tree, rather than identify changesets for human reviews. We don't really care about multi-party human reviews, it's all local.
-
 ## patches over comments
 
 A big UX handicap of showing review comments and suggested patches in-buffer is that there is no existing connective tissue of a commenting system. With GitHub, though, the review UI collapses outdated comments on new commits and most review bots sit over the [suggestion](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/incorporating-feedback-in-your-pull-request#applying-suggested-changes) mechanic if they have changes to suggest.
@@ -75,7 +73,7 @@ Out of these, `surrounding_context` is the more interesting one. It wraps over [
 
 All the findings from the model are submitted to the agent at once. On the write side of things, `verify_block` locally verifies diffs, and along with other comments and LGTM notices, submits them through a `submit_review` tool call. `submit_review` itself runs through some post-processing work, like gating hallucinations about files and line numbers, trimming the length of descriptions and downgrading patches to comments if they don't apply cleanly.
 
-The tools, and the ones that are enabled by default, are carefully chosen, and respect guardrails, token usage, and time.
+Once the submission lands, the output from all this work is persisted durably under `refs/hutch/id` and can be separately committed as a means of sharing (with `magit-post-commit-hook`) or for repainting later. If you squint hard enough, it might appear like a change identifier for a stacked-diff review tool, but its purpose is to keep reviews in the git tree, rather than identify changesets for human reviews. We don't really care about multi-party human reviews, it's all local.
 
 ## evaluating
 
@@ -106,13 +104,15 @@ ORDER BY total_ms DESC;
 -- submit_review        1      42.9
 ```
 
-With this set up, we take a mix of strategies from [Martian’s code review](https://github.com/withmartian/code-review-benchmark) benchmark and the [CR-Bench preprint](https://arxiv.org/html/2603.11078v1) and compute Precision, Recall, and Fβ scores. The evals are described in more detail in the [eval/README.org](https://github.com/adjaecent/magit-hutch/blob/main/eval/README.org) section. But broadly, we land somewhere around the #16 mark on Martian’s Offline Benchmark leaderboard, which is competitive for a no-memory, single-shot agent. 
+With this set up, we take a mix of strategies from [Martian’s code review](https://github.com/withmartian/code-review-benchmark) benchmark and the [CR-Bench preprint](https://arxiv.org/html/2603.11078v1) and compute Precision, Recall, and Fβ scores. The evals are described in more detail in the [eval/README.org](https://github.com/adjaecent/magit-hutch/blob/main/eval/README.org) section. But broadly, we run the bench against 40 PRs, 132 goldens, and use GPT 5.2 as a classifying judge. Looking at the numbers, I believe we would land somewhere around the #16 mark on Martian’s Offline Benchmark leaderboard, which is competitive for a no-memory, single-shot agent. 
 
-Outside of classified scoring, there's a few interesting things about the agent itself:
+Outside of classified scoring, there's a few interesting things around the agent itself:
 
 ![hutch-complementarity.png](/blog/images/hutch-complementarity.svg)
 
 Different models tend to catch different bugs. Out of 132 goldens, each model hits 40-50 goldens, with an overlap of 18 hits across all three models. Which means hypothetically, if all three ran combined, it would catch ~55% more bugs than just one model alone.
+
+Pretty lousy agreeability across the models on what a bug is, I'd say.
 
 ![hutch-rounds-by-model.svg](/blog/images/hutch-rounds-by-model.svg)
 
@@ -120,7 +120,7 @@ GPT 5.5 tends to hit my default round limit (80) a lot more than the other model
 
 ![hutch-tokens-by-model.svg](/blog/images/hutch-tokens-by-model.svg)
 
-On token efficiency, Opus is much cheaper on output tokens used per good finding by a respectable margin, but burns 3x more context on inputs used, possibly due to a lot of tool-use accumulation and re-checking things.
+On token efficiency, Opus is much cheaper on output tokens used per good finding by a respectable margin, but burns 3x more context on inputs used, possibly due to the growing context Hutch resends each round.
 
 ## dead on arrival
 
