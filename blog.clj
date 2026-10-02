@@ -74,7 +74,17 @@
       (str/replace-first svg #"<svg\b" (str "<svg viewBox=\"0 0 " w " " h "\""))
       svg)))
 
-(defn- svg-file->markup [src alt]
+(defn- namespace-ids
+  "Prefix ids so several inlined SVGs (e.g. Vega's clip0, clip1…) can't collide in one page."
+  [svg prefix]
+  (-> svg
+      (str/replace #"(\s)id=\"([^\"]+)\"" (fn [[_ ws id]] (str ws "id=\"" prefix "-" id "\"")))
+      (str/replace #"url\(#([^)]+)\)" (fn [[_ id]] (str "url(#" prefix "-" id ")")))
+      (str/replace #"href=\"#([^\"]+)\"" (fn [[_ id]] (str "href=\"#" prefix "-" id "\"")))))
+
+(defn- svg-file->markup
+  "mono? opts into recolouring the SVG with the text colour (for black-only diagrams)."
+  [src alt mono?]
   (let [path (str/replace src #"^/" "")]
     (when (and (str/ends-with? (str/lower-case src) ".svg")
                (fs/exists? path))
@@ -82,8 +92,9 @@
           (str/replace #"(?s)^\s*<\?xml.*?\?>\s*" "")
           (str/replace #"(?s)^\s*<!DOCTYPE.*?>\s*" "")
           (add-viewbox)
+          (namespace-ids (fs/strip-ext (fs/file-name path)))
           (str/replace-first #"<svg\b"
-                             (str "<svg class=\"inline-svg\" "
+                             (str "<svg class=\"inline-svg" (when mono? " mono") "\" "
                                   (if (str/blank? alt)
                                     "aria-hidden=\"true\""
                                     (str "role=\"img\" aria-label=\""
@@ -100,14 +111,16 @@
                       "</" tag ">"))))
 
 (defn inline-svgs
-  "Replace <img src=\"....svg\"> with the file's markup, so it can be styled by CSS."
+  "Replace <img src=\"....svg\"> with the file's markup, so it can be styled by CSS.
+  A markdown title of \"mono\" — ![alt](x.svg \"mono\") — recolours it with the text colour."
   [html]
   (str/replace html
                #"<img\s[^>]*>"
                (fn [tag]
                  (let [src (second (re-find #"src=\"([^\"]+)\"" tag))
-                       alt (or (second (re-find #"alt=\"([^\"]*)\"" tag)) "")]
-                   (or (some-> src (svg-file->markup alt)) tag)))))
+                       alt (or (second (re-find #"alt=\"([^\"]*)\"" tag)) "")
+                       mono? (= "mono" (second (re-find #"title=\"([^\"]*)\"" tag)))]
+                   (or (some-> src (svg-file->markup alt mono?)) tag)))))
 
 ;; -- Build --
 
