@@ -54,7 +54,7 @@ src/utils.clj
 
 I've noticed that a lot of older (or cheaper) models tend to recall the `SEARCH` block from memory when asked for diffs, instead of copying it verbatim from `read_file`, `read_diff` or `surrounding_context` calls, invariably botching them. So we get them verified before submission. If `SEARCH` is missing or matches more than once, the finding is downgraded to a plain comment. On a unique hit, Hutch locally creates a unified diff:
 
-![SEARCH/REPLACE blocks are verified against the file, then emitted as a unified diff](/blog/images/hutch-patch-loop.svg)
+![SEARCH/REPLACE blocks are verified against the file, then emitted as a unified diff](/blog/images/hutch-patch-loop.svg "mono")
 
 Once a series of udiffs and comments are rendered, they can be marked and bulk applied. Hutch applies them per-file, lowest hunk first (bottom-up) so line positions are minimally disturbed. Each finding runs its own `git apply` and a bad application marks itself `invalid` so the rest can continue to land.
 
@@ -108,17 +108,19 @@ ORDER BY total_ms DESC;
 
 With this set up, we take a mix of strategies from [Martian’s code review](https://github.com/withmartian/code-review-benchmark) benchmark and the [CR-Bench preprint](https://arxiv.org/html/2603.11078v1) and compute Precision, Recall, and Fβ scores. The evals are described in more detail in the [eval/README.org](https://github.com/adjaecent/magit-hutch/blob/main/eval/README.org) section. But broadly, we land somewhere around the #16 mark on Martian’s Offline Benchmark leaderboard, which is competitive for a no-memory, single-shot agent. 
 
-Outside of this, a couple of interesting observations:
+Outside of classified scoring, there's a few interesting things about the agent itself:
 
-![hutch-findings-histogram-eval.png](/blog/images/hutch-findings-histogram.png)
+![hutch-complementarity.png](/blog/images/hutch-complementarity.svg)
 
-Noise disproportionately increases as number of findings decreases. That means there's a higher chance of bug hits and valid suggestions, if the models in general have a lot to say about the changes. Likely pointing to either simpler errors or contamination at play.
+Different models tend to catch different bugs. Out of 132 goldens, each model hits 40-50 goldens, with an overlap of 18 hits across all three models. Which means hypothetically, if all three ran combined, it would catch ~55% more bugs than just one model alone.
 
-![hutch-precision-rate-eval.png](/blog/images/hutch-precision-rate.png)
+![hutch-rounds-by-model.svg](/blog/images/hutch-rounds-by-model.svg)
 
-Neither model has a normal-shaped precision curve, both are bimodal-ish. Opus 4.8 has strong middle hold, whereas GPT 5.5 gets more perfect precision right, and more likely to entirely miss on the ones it doesn't have findings for.
+GPT 5.5 tends to hit my default round limit (80) a lot more than the other models for roughly the same hit rate. Opus 4.8 is around 3x faster in terms of turns taken to complete.
 
-`<token efficiency, correct the data above>`
+![hutch-tokens-by-model.svg](/blog/images/hutch-tokens-by-model.svg)
+
+On token efficiency, Opus is much cheaper on output tokens used per good finding by a respectable margin, but burns 3x more context on inputs used, possibly due to a lot of tool-use accumulation and re-checking things.
 
 ## dead on arrival
 
