@@ -82,6 +82,14 @@
       (str/replace #"url\(#([^)]+)\)" (fn [[_ id]] (str "url(#" prefix "-" id ")")))
       (str/replace #"href=\"#([^\"]+)\"" (fn [[_ id]] (str "href=\"#" prefix "-" id "\"")))))
 
+(defn- add-svg-title
+  "A leading <title> is the SVG's hover tooltip; the alt replaces any the file already has."
+  [svg alt]
+  (if (str/blank? alt)
+    svg
+    (str/replace-first svg #"(?s)(<svg\b[^>]*>)(\s*<title>.*?</title>)?"
+                       (fn [[_ open]] (str open "<title>" alt "</title>")))))
+
 (defn- svg-file->markup
   "mono? opts into recolouring the SVG with the text colour (for black-only diagrams)."
   [src alt mono?]
@@ -93,6 +101,7 @@
           (str/replace #"(?s)^\s*<!DOCTYPE.*?>\s*" "")
           (add-viewbox)
           (namespace-ids (fs/strip-ext (fs/file-name path)))
+          (add-svg-title alt)
           (str/replace-first #"<svg\b"
                              (str "<svg class=\"inline-svg" (when mono? " mono") "\" "
                                   (if (str/blank? alt)
@@ -110,9 +119,17 @@
                       "<a class=\"anchor\" href=\"#" id "\" aria-label=\"Link to this section\">#</a>"
                       "</" tag ">"))))
 
+(defn- alt-as-title
+  "Browsers only show title on hover, so reuse the alt rather than writing it twice."
+  [tag alt]
+  (if (or (str/blank? alt) (re-find #"\stitle=\"" tag))
+    tag
+    (str/replace-first tag #"<img\b" (str "<img title=\"" alt "\""))))
+
 (defn inline-svgs
   "Replace <img src=\"....svg\"> with the file's markup, so it can be styled by CSS.
-  A markdown title of \"mono\" — ![alt](x.svg \"mono\") — recolours it with the text colour."
+  A markdown title of \"mono\" — ![alt](x.svg \"mono\") — recolours it with the text colour.
+  The alt doubles as the hover tooltip for both inlined SVGs and plain images."
   [html]
   (str/replace html
                #"<img\s[^>]*>"
@@ -120,7 +137,8 @@
                  (let [src (second (re-find #"src=\"([^\"]+)\"" tag))
                        alt (or (second (re-find #"alt=\"([^\"]*)\"" tag)) "")
                        mono? (= "mono" (second (re-find #"title=\"([^\"]*)\"" tag)))]
-                   (or (some-> src (svg-file->markup alt mono?)) tag)))))
+                   (or (some-> src (svg-file->markup alt mono?))
+                       (alt-as-title tag alt))))))
 
 ;; -- Build --
 
