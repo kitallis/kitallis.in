@@ -118,7 +118,7 @@ Pretty lousy agreement across the models on what a bug is, I'd say.
 
 ![Three bar charts of agent rounds per PR across 40 PRs, sorted ascending. opus-4.8: median 8 rounds, max 26. glm-5.2: median 11, max 39. gpt-5.5: median 35, max 81, with several PRs near the 80-round limit.](/blog/images/hutch-rounds-by-model.svg)
 
-GPT 5.5 tends to hit my default round limit (80) a lot more than the other models for roughly the same hit rate. Opus 4.8 is around 3x faster in terms of turns taken to complete.
+GPT 5.5 tends to hit my default round limit (80) a lot more than the other models for roughly the same hit rate. Opus 4.8 takes 3x fewer turns to complete.
 
 ![Three bar charts of output tokens per useful finding, one bar per PR, sorted ascending. opus-4.8: 31 PRs, median about 2,600, max about 13,000. glm-5.2: 34 PRs, median about 3,600, max about 15,000. gpt-5.5: 34 PRs, median about 3,000, max about 27,500.](/blog/images/hutch-tokens-by-model.svg)
 
