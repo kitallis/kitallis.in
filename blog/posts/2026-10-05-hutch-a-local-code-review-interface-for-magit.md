@@ -13,7 +13,7 @@ So as a long-time emacs user, I present yet another attempt at wedging LLMs, age
 
 ## quick tour
 
-Open up Magit, and hit the dispatcher binding (usually `d`) and you'll see a `Hutch code review` action put up next to the DWIM binding. Hutch operates three different scopes: staged changes, un-pushed changes, and changes between current branch and working branch. By default, it's staged changes only, since that's most useful.
+Open up Magit, and hit the dispatcher binding (usually `d`) and you'll see a `Hutch code review` action put up next to the DWIM binding. Hutch operates on three different scopes: staged changes, un-pushed changes, and changes between current branch and working branch. By default, it's staged changes only, since that's most useful.
 
 ![Staged changes for Hutch](/blog/images/hutch-staged-changes.png)
 
@@ -73,7 +73,7 @@ Out of these, `surrounding_context` is the more interesting one. It wraps over [
 
 All the findings from the model are submitted to the agent at once. On the write side of things, `verify_block` locally verifies diffs, and along with other comments and LGTM notices, submits them through a `submit_review` tool call. `submit_review` itself runs through some post-processing work, like gating hallucinations about files and line numbers, trimming the length of descriptions and downgrading patches to comments if they don't apply cleanly.
 
-Once the submission lands, the output from all this work is persisted durably under `refs/hutch/id` and can be separately committed as a means of sharing (with `magit-post-commit-hook`) or for repainting later. If you squint hard enough, it might appear like a change identifier for a stacked-diff review tool, but its purpose is to keep reviews in the git tree, rather than identify changesets for human reviews. We don't really care about multi-party human reviews, it's all local.
+Once the submission lands, the output from all this work is persisted durably under `refs/hutch/id` and can be separately committed as a means of sharing (with `magit-post-commit-hook`) or for repainting later. If you squint hard enough, it might appear like a change identifier for a stacked-diff [review tool](https://blog.tangled.org/stacking), but its purpose is to keep reviews in the git tree, rather than identify changesets for human reviews. We don't really care about multi-party human reviews, it's all local.
 
 ## evaluating
 
