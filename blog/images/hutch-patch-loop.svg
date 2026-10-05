@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="463" height="716">
+<title>SEARCH/REPLACE blocks are verified against the file, then emitted as a unified diff</title>
+<desc>Flowchart in two stages. Agent loop: the agent calls tools (read_*), then verifies old_lines. If verification is AMBIGUOUS, it fixes old_lines and loops back to the tools step. If OK, it submits the review: comments and patches. Post loop: each patch goes through a patch verification gate. If it passes (OK), hutch emits a unified diff and renders it in the UI. If it fails (FAIL), the patch is downgraded to a plain comment, which is also rendered in the UI.</desc>
 <path d="M 2.878906 13.319336 L 2.878906 6.412109 L 6.729980 6.412109 L 6.729980 7.335938 L 3.738281 7.335938 L 3.738281 13.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
 <path d="M 2.878906 26.319336 L 2.878906 12.300781 L 3.738281 12.300781 L 3.738281 26.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
 <path d="M 2.878906 39.319336 L 2.878906 25.300781 L 3.738281 25.300781 L 3.738281 39.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
