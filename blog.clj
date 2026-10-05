@@ -42,6 +42,29 @@
 (defn ->display-date [date-str]
   (.format (java.time.LocalDate/parse date-str) display-date-fmt))
 
+(def site-url "https://kitallis.in")
+
+(defn- attr-escape [s]
+  (-> s (str/replace "\"" "&quot;") (str/replace "<" "&lt;") (str/replace ">" "&gt;")))
+
+(defn- first-paragraph
+  "Plain text of the first non-empty <p>, trimmed to fit a link preview."
+  [html]
+  (some->> (re-seq #"(?s)<p>(.*?)</p>" html)
+           (map #(-> (second %) (str/replace #"<[^>]+>" "") (str/replace #"\s+" " ") str/trim))
+           (remove str/blank?)
+           first
+           (#(if (> (count %) 200) (str (str/trim (subs % 0 197)) "…") %))))
+
+(defn- first-image
+  "Link previews (Slack, X, iMessage) don't render SVG, so only raster images qualify."
+  [html]
+  (some->> (re-seq #"<img\s[^>]*src=\"([^\"]+)\"" html)
+           (map second)
+           (filter #(re-find #"(?i)\.(png|jpe?g|gif|webp)$" %))
+           first
+           (#(if (str/starts-with? % "http") % (str site-url %)))))
+
 (defn parse-post [file draft?]
   (let [content (slurp (str file))
         filename (str (fs/file-name file))
@@ -60,6 +83,8 @@
      :slug name-part
      :name-part name-part
      :draft? draft?
+     :description (or (:description metadata) (first-paragraph html) (:title metadata))
+     :image (first-image html)
      :html html}))
 
 ;; -- Inline SVG --
@@ -194,13 +219,16 @@
            (render (template "index.html")
                    {:posts (str/join "\n      " (map post-link sorted))})))
     ;; posts + unlisted (both get a page, unlisted just aren't linked)
-    (doseq [{:keys [slug title display-date html] :as post} (concat posts unlisted)]
+    (doseq [{:keys [slug title display-date description image html] :as post} (concat posts unlisted)]
       (let [dir (str pub-dir "/p/" slug)]
         (fs/create-dirs dir)
         (spit (str dir "/index.html")
               (inline-svgs
                (render (template "post.html")
                        {:title title
+                        :description (attr-escape description)
+                        :image (or image (str site-url "/hero/IMG_0002.jpg"))
+                        :twitter-card (if image "summary_large_image" "summary")
                         :date display-date
                         :slug slug
                         :content (add-heading-anchors html)
