@@ -1,15 +1,15 @@
 ---
-title: "hutch: a local code-review interface for magit"
-date: 2026-10-06
+title: "hutch: local code reviews in emacs for the mildly disenfranchised"
+date: 2026-10-05
 ---
 
-I haven't had a real job in four years. I closed down a [startup](https://tramline.app) I've been building just last month. During all these years, I spent most of that time at the back end of the frontier of AI agents. But I've finally caught up now. And we're here today, some [500 days](https://en.wikipedia.org/wiki/List_of_large_language_models#2025) after they've really started picking up, and coding agents are genuinely more productive than, previously, [instructed](https://www.youtube.com/watch?v=U_cSLPv34xk).
+I haven't had a real job in four years. I closed down a [startup](https://tramline.app) I'd been building, just last month. During all these years, I spent most of that time at the back end of the frontier of AI agents. But I've finally caught up now. And we're here today, some [500 days](https://en.wikipedia.org/wiki/List_of_large_language_models#2025) after they've really started picking up, and coding agents are genuinely more productive than, previously, [instructed](https://www.youtube.com/watch?v=U_cSLPv34xk).
 
-Even though I still prefer the pedagogical aspect of AI more than the task-completing automaton aspects, the latter has driven all sorts of tooling around reviewing code, and not just writing and deploying it. The typical review agent party-line is: agents jump in, before your colleagues do, spray logorrhea across twenty pull requests before you have had a chance to wake up and look at your phone. This works, sometimes, for some people. But if you're like me, you still have humans looking at code before it is deployed to users, and for that, it's overall better if you respect those people and their time. This is the case, regardless of where you sit on the balance of game-changer to curmudgeon.
+Even though I still prefer the pedagogical aspect of AI over the task-completing automaton aspects, the latter has driven all sorts of tooling around reviewing code, and not just writing and deploying it. The typical review agent party-line is: agents jump in, before your colleagues do, spray logorrhea across twenty pull requests before you have had a chance to wake up and look at your phone. This works, sometimes, for some people. But if you're like me, you still have humans looking at code before it is deployed to users, and for that, it's overall better if you respect those people and their time. This is the case, regardless of where you sit on the balance of game-changer to curmudgeon.
 
 All that is to say, no matter which direction agents take to get better with time, I hope we still _care_ about things. Not in the way of formalizing care, with high-fidelity agent instructions and prompts or some superior upholding of taste sort of thing, but something as simple as announcing: _hey I'm still here, and I understand all this_.
 
-So as a long-time emacs user, I present yet another attempt at wedging LLMs, agents and coding harnesses, now inside your text buffers (!) with [Hutch](https://github.com/adjaecent/magit-hutch). It's a small, Magit-induced code-review interface, that fits a standard Magit commit-push workflow _locally_ and hopefully helps reclaim some load created upstream.
+So as a long-time emacs user, I present yet another attempt at wedging LLMs, agents and coding harnesses, now inside your text buffers (!) with [Hutch](https://github.com/adjaecent/magit-hutch). It's a small, Magit-induced code-review interface that fits a standard Magit commit-push workflow _locally_ and hopefully helps reclaim some load created upstream.
 
 ## quick tour
 
@@ -35,7 +35,7 @@ That's it! Getting started should hopefully be pretty simple and intuitive for e
 
 A big UX handicap of showing review comments and suggested patches in-buffer is that there is no existing connective tissue of a commenting system. With GitHub, though, the review UI collapses outdated comments on new commits and most review bots sit over the [suggestion](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/incorporating-feedback-in-your-pull-request#applying-suggested-changes) mechanic if they have changes to suggest.
 
-Hutch is made with a bias towards patches, rather than just prosaic comments. According to the [Aider leaderboard](https://aider.chat/docs/leaderboards) (and through some of my own experiments), the `SEARCH/REPLACE` diffs are a lot more obedient across different models rather than just asking the model to author correct patches with precise line numbers.
+Hutch is made with a bias towards patches, rather than just prosaic comments. According to the [Aider leaderboard](https://aider.chat/docs/leaderboards) (and through some of my own experiments), the `SEARCH/REPLACE` diffs are a lot more obedient across different models than just asking the model to author correct patches with precise line numbers.
 
 For an [Aider-style diff](https://aider.chat/docs/more/edit-formats.html), you have to ensure there's enough surrounding context for the `SEARCH` to be unique, and ideally also preserve indentation. In Hutch's case, the tool's function schema naturally decomposes the _file, search, and replace_ fields:
 
@@ -58,7 +58,7 @@ Once a series of udiffs and comments are rendered, they can be marked and bulk a
 
 All this patching and commenting infrastructure pulls its weight, since with only a couple of keystrokes, you hopefully get less reading and parsing work and more actionable triaging. None of this guarantees patches-always of course, and it shouldn't.
 
-With more powerful models, a simpler diffing method might generally work pretty well. But for a tool that's built to work across different and cheaper models, it's essential to be maximally supportive. In general, I feel like a key point of much of the agentic infrastructure we build is to have knobs for optimizing token:cost ratios. This could often mean thorny workarounds for good enough models.
+With more powerful models, a simpler diffing method might generally work pretty well. But for a tool that's built to work across different and cheaper models, it's essential to be maximally supportive. In general, I feel like a key point of much of the agentic infrastructure we build is to have knobs for optimizing token:cost ratios. This could often mean thorny workarounds for good-enough models.
 
 ## barely enough tooling
 
@@ -69,7 +69,7 @@ Hutch has a fairly minimal toolset for pulling context:
 3. `search_codebase`
 4. `surrounding_context`
 
-Out of these, `surrounding_context` is the more interesting one. It wraps over [Tree-sitter](https://batsov.com/articles/2026/02/27/building-emacs-major-modes-with-treesitter-lessons-learned/#why-tree-sitter) and uses grammars that are installed. It works by letting the model widen out to the enclosing definition of a relevant line and further out, as needed. With my tests, the overall read token consumption compared to simply blasting `read_file` was anecdotally lower with comparable levels of review quality[^anecdotal-claim-about-tree-sitter].
+Out of these, `surrounding_context` is the more interesting one. It wraps over [Tree-sitter](https://batsov.com/articles/2026/02/27/building-emacs-major-modes-with-treesitter-lessons-learned/#why-tree-sitter) and uses grammars that are installed. It works by letting the model widen out to the enclosing definition of a relevant line and further out, as needed. In my tests, the overall read token consumption compared to simply blasting `read_file` was anecdotally lower with comparable levels of review quality[^anecdotal-claim-about-tree-sitter].
 
 All the findings from the model are submitted to the agent at once. On the write side of things, `verify_block` locally verifies diffs, and along with other comments and LGTM notices, submits them through a `submit_review` tool call. `submit_review` itself runs through some post-processing work, like gating hallucinations about files and line numbers, trimming the length of descriptions and downgrading patches to comments if they don't apply cleanly.
 
@@ -108,13 +108,13 @@ ORDER BY total_ms DESC;
 
 With this set up, we take a mix of strategies from [Martian’s code review](https://github.com/withmartian/code-review-benchmark) benchmark and the [CR-Bench preprint](https://arxiv.org/html/2603.11078v1) and compute Precision, Recall, and Fβ scores. The evals are described in more detail[^explain-eval-nuances] in the [eval/README.org](https://github.com/adjaecent/magit-hutch/blob/main/eval/README.org) section. But broadly, we run the bench against 40 PRs, 132 goldens, and use GPT 5.2 as a classifying judge. The eval pipeline goes off and runs queries directly on the traces. Looking at the numbers, I believe we land somewhere around the #16 mark on Martian’s Offline Benchmark [leaderboard](https://codereview.withmartian.com/?mode=offline), which is pretty competitive for a no-memory, single-shot agent.
 
-Outside of classified scoring, there's a few interesting things about the agent itself:
+Outside of classified scoring, there are a few interesting things about the agent itself:
 
 ![Stacked bar chart of distinct goldens hit per model, split into unique, shared with one other model, and shared with both. opus-4.8: 15 unique, 17 shared with one, 18 shared with both (50 total). glm-5.2: 13, 19, 18 (50). gpt-5.5: 6, 16, 18 (40). The union across all three is 78.](/blog/images/hutch-complementarity.svg)
 
-Different models tend to catch different bugs. Out of 132 goldens, each model hits 40-50 goldens, with an overlap of 18 hits across all three models. Which means hypothetically, if all three ran combined, it would catch ~55% more bugs than just one model alone.
+Different models tend to catch different bugs. Out of 132 goldens, each model hits 40-50 goldens, with an overlap of 18 hits across all three models. Which means hypothetically, if all three ran combined, it would catch ~55% more bugs than one model alone.
 
-Pretty lousy agreeability across the models on what a bug is, I'd say.
+Pretty lousy agreement across the models on what a bug is, I'd say.
 
 ![Three bar charts of agent rounds per PR across 40 PRs, sorted ascending. opus-4.8: median 8 rounds, max 26. glm-5.2: median 11, max 39. gpt-5.5: median 35, max 81, with several PRs near the 80-round limit.](/blog/images/hutch-rounds-by-model.svg)
 
@@ -122,11 +122,11 @@ GPT 5.5 tends to hit my default round limit (80) a lot more than the other model
 
 ![Three bar charts of output tokens per useful finding, one bar per PR, sorted ascending. opus-4.8: 31 PRs, median about 2,600, max about 13,000. glm-5.2: 34 PRs, median about 3,600, max about 15,000. gpt-5.5: 34 PRs, median about 3,000, max about 27,500.](/blog/images/hutch-tokens-by-model.svg)
 
-On token efficiency, Opus is much cheaper on output tokens used per good finding by a respectable margin, but burns 3x more context on inputs used, possibly due to the growing context Hutch resends each round.
+On token efficiency, Opus is much cheaper on output tokens used per good finding by a respectable margin, but burns 3x more context on inputs, possibly due to the growing context Hutch resends each round.
 
 ## dead on arrival
 
-This is all probably too late, as I've been told. No one really writes or reviews code, uses editors or version control by hand any longer. I made this for myself and for workflows that I still practice. I don't want to purport any arguments about whether one should or shouldn't use LLMs with emacs. The tool has more to do with a certain kind of workflow, that now gets unlocked rather than the overreach of agents in niche locations.
+This is all probably too late, as I've been told. No one really writes or reviews code, uses editors or version control by hand any longer. I made this for myself and for workflows that I still practice. I don't want to purport any arguments about whether one should or shouldn't use LLMs with emacs. The tool has more to do with unlocking a certain kind of workflow than the overreach of agents in niche locations.
 
 If this continues to be useful, I'd like to add a conversational mode for every finding (like CodeRabbit) and perhaps maintain a context tree learnt from and committable to the codebase to improve review quality and speed.
 
