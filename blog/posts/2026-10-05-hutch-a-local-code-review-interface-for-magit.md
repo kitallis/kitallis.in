@@ -3,9 +3,9 @@ title: "hutch: local code reviews in emacs for the mildly disenfranchised"
 date: 2026-10-05
 ---
 
-I haven't had a real job in four years. I closed down a [startup](https://tramline.app) I'd been building, just last month. During all these years, I spent most of that time at the back end of the frontier of AI agents. But I've finally caught up. It's been some [500 days](https://en.wikipedia.org/wiki/List_of_large_language_models#2025) since coding agents have really picked up, and they're genuinely more productive than, previously, [instructed](https://www.youtube.com/watch?v=U_cSLPv34xk).
+I haven't had a real job in four years. I closed down a [startup](https://tramline.app) I'd been building, just last month. During all those years, I spent most of my time at the back end of the frontier of AI agents. But I have finally caught up, now that coding agents have really picked up over the last [500 days](https://en.wikipedia.org/wiki/List_of_large_language_models#2025). They are genuinely more productive than, previously, [instructed](https://www.youtube.com/watch?v=U_cSLPv34xk).
 
-Even though I still prefer the pedagogical aspect of AI over the task-completing automaton aspects, the latter has driven all sorts of tooling around reviewing code, and not just writing and deploying it. The typical review agent party-line is: agents jump in, before your colleagues do, spray logorrhea across twenty pull requests before you have had a chance to wake up and look at your phone. This works, sometimes, for some people. But if you're like me, you still have humans reviewing code before it ships to users, and it's better to respect those people and their time. This is the case, regardless of where you sit on the balance of game-changer to curmudgeon.
+Even though I still prefer the pedagogical aspect of AI over the task-completing automaton, the latter is where most of my work happens. Since we've collectively realized that simply shooting code out the door isn't necessarily wise, we now have background agents reviewing code too. The typical review agent party-line is: agents jump in, before your colleagues do, bury twenty pull requests in logorrhea before you have had a chance to wake up and look at your phone. This works, sometimes, for some people. But if you're like me, you still have humans reviewing code before it ships to users, and it's better to respect those people and their time. This is the case, regardless of where you sit on the balance of game-changer to curmudgeon.
 
 All that is to say, no matter which direction agents take to get better with time, I hope we still _care_ about things. Not in the way of formalizing care, with high-fidelity agent instructions and prompts or some superior upholding of taste sort of thing, but something as simple as announcing: _hey I'm still here, and I understand all this_.
 
@@ -13,7 +13,7 @@ So as a long-time emacs user, I present yet another attempt at wedging LLMs, age
 
 ## quick tour
 
-Open up Magit, and hit the dispatcher binding (usually `d`) and you'll see a `Hutch code review` action put up next to the DWIM binding. Hutch operates on three different scopes: staged changes, un-pushed changes, and changes between current branch and working branch. By default, it's staged changes only, since that's most useful.
+Open up Magit, hit the dispatcher binding (usually `d`) and you'll see a `Hutch code review` action put up next to the DWIM binding. Hutch operates on three different scopes: staged changes, un-pushed changes, and changes between current branch and working branch. By default, it's staged changes only, since that's most useful.
 
 ![Staged changes for Hutch](/blog/images/hutch-staged-changes.png)
 
@@ -29,7 +29,7 @@ Then bulk-apply all queued suggestions with `A`. The application is scope-aware,
 
 ![Applied fix in Hutch](/blog/images/hutch-applied-fix.png)
 
-That's it! Getting started should hopefully be pretty simple and intuitive for existing emacs users. There are of course a few interesting things going on behind the scenes, some of which I'll cover in the next few sections.
+That's it! Getting started should hopefully be pretty simple and intuitive for existing emacs users. There are a handful of interesting things going on behind the scenes, some of which I'll cover in the next few sections.
 
 ## patches over comments
 
@@ -126,7 +126,7 @@ On token efficiency, Opus is much cheaper on output tokens used per good finding
 
 ## dead on arrival
 
-This is all probably too late, as I've been told. No one really writes or reviews code, uses editors or version control by hand any longer. I made this for myself and for workflows that I still practice. I don't want to purport any arguments about whether one should or shouldn't use LLMs with emacs. The tool has more to do with unlocking a certain kind of workflow than the overreach of agents in niche locations.
+This is probably all too late, as I've been told. No one really writes or reviews code, uses editors or version control by hand anymore. I made this for myself and for workflows that I still practice. I don't want to purport any arguments about whether one should or shouldn't use LLMs with emacs. The tool has more to do with unlocking a certain kind of workflow than the overreach of agents in niche locations.
 
 If this continues to be useful, I'd like to add a conversational mode for every finding (like CodeRabbit) and perhaps maintain a context tree learnt from and committable to the codebase to improve review quality and speed.
 
