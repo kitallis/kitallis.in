@@ -29,7 +29,7 @@ Then bulk-apply all queued suggestions with `A`. The application is scope-aware,
 
 ![Applied fix in Hutch](/blog/images/hutch-applied-fix.png)
 
-That's it! Getting started should hopefully be pretty simple and intuitive for existing emacs users. There are a handful of interesting things going on behind the scenes, some of which I'll cover in the next few sections.
+That's it! Getting started should hopefully be pretty simple and intuitive for existing emacs users. There are a handful of other interesting things going on behind the scenes, some of which I'll cover in the next few sections.
 
 ## patches over comments
 
