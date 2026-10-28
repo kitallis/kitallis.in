@@ -65,6 +65,23 @@
            first
            (#(if (str/starts-with? % "http") % (str site-url %)))))
 
+;; -- Admonitions --
+
+(def ^:private admonition-types
+  {"NOTE" "Note" "TIP" "Tip" "IMPORTANT" "Important" "WARNING" "Warning" "CAUTION" "Caution"})
+
+(defn add-admonitions
+  "Turn GitHub-style alerts — a blockquote opening with [!NOTE] — into styled callouts.
+  Types: NOTE, TIP, IMPORTANT, WARNING, CAUTION."
+  [html]
+  (str/replace html
+               #"(?s)<blockquote>\s*<p>\s*\[!([A-Za-z]+)\]\s*(.*?)</blockquote>"
+               (fn [[whole type rest]]
+                 (if-let [label (admonition-types (str/upper-case type))]
+                   (str "<div class=\"admonition " (str/lower-case type) "\">"
+                        "<p class=\"admonition-title\">" label "</p><p>" rest "</div>")
+                   whole))))
+
 (defn parse-post [file draft?]
   (let [content (slurp (str file))
         filename (str (fs/file-name file))
@@ -85,7 +102,7 @@
      :draft? draft?
      :description (or (:description metadata) (first-paragraph html) (:title metadata))
      :image (first-image html)
-     :html html}))
+     :html (add-admonitions html)}))
 
 ;; -- Inline SVG --
 

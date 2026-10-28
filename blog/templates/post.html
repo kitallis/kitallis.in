@@ -67,6 +67,20 @@
       line-height: 1.5;
       margin-bottom: 1rem;
     }
+    .content .admonition {
+      --accent: #268bd2;
+      border-left: 2px solid var(--accent);
+      background: color-mix(in oklch, var(--accent) 7%, transparent);
+      padding: 0.75rem 1rem 0.25rem;
+      border-radius: 0 4px 4px 0;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .content .admonition.tip { --accent: #859900; }
+    .content .admonition.important { --accent: #6c71c4; }
+    .content .admonition.warning { --accent: #b58900; }
+    .content .admonition.caution { --accent: #dc322f; }
+    .content .admonition-title { color: var(--accent); font-weight: 500; margin-bottom: 0.4rem; }
     .content pre {
       background: #1a1a1a;
       padding: 1rem;

@@ -13,6 +13,11 @@ All that is to say, no matter what direction agents take to get better over time
 
 So as a long-time emacs user, I present yet another attempt at wedging LLMs, agents and coding harnesses, now inside your text buffers (!) with [Hutch](https://github.com/adjaecent/magit-hutch). It's a small, Magit-induced code-review interface that fits a standard Magit commit-push workflow _locally_ and hopefully helps reclaim some load created upstream.
 
+> [!NOTE]
+> I set out to write Hutch entirely without using any coding agents. But along the way, I did end up using them for most of the UI and the tool implementation code. The core design, agent loops, state management, and git ops are all fully authored by me.
+> 
+> All commits to Hutch are always reviewed by Hutch itself.
+
 ## quick tour
 
 Open up Magit, hit the dispatcher binding (usually `d`) and you'll see a `Hutch code review` action put up next to the DWIM binding. Hutch operates on three different scopes: staged changes, un-pushed changes, and changes between current branch and working branch. By default, it's staged changes only, since that's most useful.
