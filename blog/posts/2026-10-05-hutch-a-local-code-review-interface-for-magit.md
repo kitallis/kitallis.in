@@ -3,11 +3,11 @@ title: "hutch: local code reviews in emacs for the mildly disenfranchised"
 date: 2026-10-05
 ---
 
-I haven't had a real job in four years. Last month, I closed down a [startup](https://tramline.app) I'd been _actually_ building instead of spending my time playing at the frontier of AI agents. But I've finally caught up! Coding agents are genuinely more productive now, than previously, [instructed](https://www.youtube.com/watch?v=U_cSLPv34xk).
+I haven't had a real job in four years. Which is a fairly long time. I suppose I have been _working_, but not in the traditional sense of having a person who tells you what to do and then gives you money at the end of the month. I'd been torso-deep building a [startup](https://tramline.app) that some people used and paid us money for (sometimes after lots of convincing, aka selling). At the time, I was too occupied to pay much attention to the frontier of AI technology. But I finally caught up! And it appears that coding agents are genuinely more productive now, than previously, [instructed](https://www.youtube.com/watch?v=U_cSLPv34xk).
 
-And yet I’d much rather my daily AI use be largely pedagogical, but I'm unable to get myself to let go of these task-completing automatons to get most of my work done. I am, however, happy that we've realized that simply pushing code out the door isn't the end-all, and it's been funny to see all the [orchestration](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04) and [guardrailing](https://github.com/cursor/plugins/tree/main/pstack) attempts bolted on to cautiously steer all this generated code.
+The thing is, I’d much rather my daily AI use be pedagogical. But like everyone else, I'm unable to get myself to let go of these task-completing automatons to get literally all of my work done. I am, however, happy that we've realized that simply pushing code out the door isn't the end-all. You can produce an astonishing amount of code now, and it's a lot of fun watching all the [orchestration](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04) and [guardrailing](https://github.com/cursor/plugins/tree/main/pstack) attempts bolted on to cautiously steer all this.
 
-The ones in particular, and of interest to this piece, are code review agents. The typical review agent party-line is to jump in, bury twenty pull requests in logorrhea (before your colleagues do) and leave you to spend the rest of your day wading through them. This works, sometimes, for some people. But if you're like me, and you still have humans reviewing things, it's better to respect those people and their time. This is the case, regardless of where you sit on the balance of game-changer to curmudgeon.
+Of these attempts, and of interest to this piece, are code review agents. The typical review agent party-line is to jump in, bury twenty pull requests in logorrhea (before your colleagues do) and leave you to spend the rest of your day wading through them. This works, sometimes, for some people. But if you're like me, and you still have humans reviewing things, it's better to respect those people and their time. This is the case, regardless of where you sit on the balance of game-changer to curmudgeon.
 
 All that is to say, no matter what direction agents take to get better over time, I hope we still _care_ about things. Not in the way of formalizing care, with high-fidelity agent instructions and prompts or some superior upholding of taste sort of thing, but something as simple as announcing: _hey I'm still here, and I understand all this_.
 
@@ -28,7 +28,7 @@ Once a review starts, you'll see a nice little progress bar in a new `*magit-hut
 
 ![Hutch reviewing changes](/blog/images/hutch-reviewing.png)
 
-Each finding has a type (suggestion, comment or LGTM), a file name, relevant line numbers, a title and a description. Suggestions additionally have a patch diff. Hutch piggybacks on [Magit](https://magit.vc) and [Transient](https://github.com/magit/transient) to render these menus so it behaves much like its own interface; keyboard-driven sub-menus, diff coloring, and highlighting. Suggestions are special since they can be applied. To mark a suggestion for application, you queue it with `m`.
+Each finding has a type (suggestion, comment or LGTM), a file name, relevant line numbers, a title and a description. Suggestions additionally have a patch diff. Hutch piggybacks on [Magit](https://magit.vc) and [Transient](https://github.com/magit/transient) to render these menus so it behaves much like its own interface: keyboard-driven sub-menus, diff coloring, and highlighting. Suggestions are special since they can be applied. To mark a suggestion for application, you queue it with `m`.
 
 ![Queued fix in Hutch](/blog/images/hutch-queued-fix.png)
 
@@ -44,7 +44,7 @@ A big UX handicap of showing review comments and suggested patches in-buffer is 
 
 Hutch is made with a bias towards patches, rather than just prosaic comments. According to the [Aider leaderboard](https://aider.chat/docs/leaderboards) (and through some of my own experiments), the `SEARCH/REPLACE` diffs are a lot more obedient across different models than just asking the model to author correct patches with precise line numbers.
 
-For an [Aider-style diff](https://aider.chat/docs/more/edit-formats.html), you have to ensure there's enough surrounding context for the `SEARCH` to be unique, and ideally also preserve indentation. In Hutch's case, the tool's function schema naturally decomposes the _file, search, and replace_ fields:
+For an [Aider-style diff](https://aider.chat/docs/more/edit-formats.html), you have to ensure there's enough surrounding context for the `SEARCH` to be unique, and ideally also preserve indentation. In Hutch's case, the tool's function schema naturally decomposes the input into the _file, search, and replace_ fields:
 
 ```diff
 src/utils.clj
@@ -61,7 +61,7 @@ I've noticed that a lot of older (or cheaper) models tend to recall the `SEARCH`
 
 ![SEARCH/REPLACE blocks are verified against the file, then emitted as a unified diff](/blog/images/hutch-patch-loop.svg "mono")
 
-Once a series of udiffs and comments are rendered, they can be marked and bulk applied. Hutch applies them per-file, lowest hunk first (bottom-up) so line positions are minimally disturbed. Each finding runs its own `git apply` and a bad application marks itself `invalid` so the rest can continue to land.
+Once the udiffs and comments are rendered, they can be marked and bulk applied. Hutch applies them per-file, lowest hunk first (bottom-up) so line positions are minimally disturbed. Each finding runs its own `git apply` and a bad application marks itself `invalid` so the rest can continue to land.
 
 All this patching and commenting infrastructure pulls its weight, since with only a couple of keystrokes, you hopefully get less reading and parsing work and more actionable triaging. None of this guarantees patches-always of course, and it shouldn't.
 
@@ -80,7 +80,7 @@ Out of these, `surrounding_context` is the more interesting one. It wraps over [
 
 All the findings from the model are submitted to the agent at once. On the write side of things, `verify_block` locally verifies diffs, and along with other comments and LGTM notices, submits them through a `submit_review` tool call. `submit_review` itself runs through some post-processing work, like gating hallucinations about files and line numbers, trimming the length of descriptions and downgrading patches to comments if they don't apply cleanly.
 
-Once the submission lands, the output from all this work is persisted durably under `refs/hutch/id` and can be separately committed as a means of sharing (with `magit-post-commit-hook`) or for repainting later. If you squint hard enough, it might appear like a change identifier for a stacked-diff [review tool](https://blog.tangled.org/stacking), but its purpose is to keep reviews in the git tree, rather than identify changesets for human reviews. We don't really care about multi-party human reviews, it's all local.
+Once the submission lands, the output from all this work is persisted durably under `refs/hutch/id` and can be separately committed as a means of sharing (with `magit-post-commit-hook`) or for repainting later. If you squint hard enough, it might appear like a change identifier for a stacked-diff [review tool](https://blog.tangled.org/stacking), but its purpose is to keep reviews in the git tree, rather than identify changesets for human reviews. We don't really care about multi-party human reviews; it's all local.
 
 ## evaluating
 
@@ -113,13 +113,13 @@ ORDER BY total_ms DESC;
 -- submit_review        1      42.9
 ```
 
-With this set up, we take a mix of strategies from [Martian’s code review](https://github.com/withmartian/code-review-benchmark) benchmark and the [CR-Bench preprint](https://arxiv.org/html/2603.11078v1) and compute Precision, Recall, and Fβ scores. The evals are described in more detail[^explain-eval-nuances] in the [eval/README.org](https://github.com/adjaecent/magit-hutch/blob/main/eval/README.org) section. But broadly, we run the bench against 40 PRs, 132 goldens, and use GPT 5.2 as a classifying judge. The eval pipeline goes off and runs queries directly on the traces. Looking at the numbers, I believe we land somewhere around the #16 mark on Martian’s Offline Benchmark [leaderboard](https://codereview.withmartian.com/?mode=offline), which is pretty competitive for a no-memory, single-shot agent.
+With this set up, we take a mix of strategies from [Martian’s code review](https://github.com/withmartian/code-review-benchmark) benchmark and the [CR-Bench preprint](https://arxiv.org/html/2603.11078v1) and compute Precision, Recall, and Fβ scores. The evals are described in more detail[^explain-eval-nuances] in the [eval/README.org](https://github.com/adjaecent/magit-hutch/blob/main/eval/README.org) section. But broadly, we run the bench against 40 PRs, 132 goldens, using GPT 5.2 as a classifying judge. The eval pipeline goes off and runs queries directly on the traces. Looking at the numbers, I believe we land somewhere around the #16 mark on Martian’s Offline Benchmark [leaderboard](https://codereview.withmartian.com/?mode=offline), which is pretty competitive for a no-memory, single-shot agent.
 
 Outside of classified scoring, there are a few interesting things about the agent itself:
 
 ![Stacked bar chart of distinct goldens hit per model, split into unique, shared with one other model, and shared with both. opus-4.8: 15 unique, 17 shared with one, 18 shared with both (50 total). glm-5.2: 13, 19, 18 (50). gpt-5.5: 6, 16, 18 (40). The union across all three is 78.](/blog/images/hutch-complementarity.svg)
 
-Different models tend to catch different bugs. Out of 132 goldens, each model hits 40-50 goldens, with an overlap of 18 hits across all three models. Which means hypothetically, if all three ran combined, it would catch ~55% more bugs than one model alone.
+Different models tend to catch different bugs. Out of 132 goldens, each model hits 40-50 goldens, with an overlap of 18 hits across all three models, which means hypothetically that if all three ran combined, they would catch ~55% more bugs than one model alone.
 
 Pretty lousy agreement across the models on what a bug is, I'd say.
 
@@ -133,9 +133,7 @@ On token efficiency, Opus is much cheaper on output tokens used per good finding
 
 ## dead on arrival
 
-This is probably all too late, as I've been told. No one really writes or reviews code, uses editors or version control by hand anymore. I made this for myself and for workflows that I still practice. I don't want to purport any arguments about whether one should or shouldn't use LLMs with emacs. The tool has more to do with unlocking a certain kind of workflow than the overreach of agents in niche locations.
-
-If this continues to be useful, I'd like to add a conversational mode for every finding (like CodeRabbit) and perhaps maintain a context tree learnt from and committable to the codebase to improve review quality and speed.
+This is probably all too late, as I've been told. No one really writes or reviews code, uses editors or version control by hand anymore. I made this for myself and for workflows that I still practice. I don't want to make any arguments about whether one should or shouldn't use LLMs with emacs. The tool has more to do with unlocking a certain kind of workflow than the overreach of agents in niche locations.
 
 [^hat-tip-gptel]: In the example, I use GLM-5.2 as the underlying model, but this is configurable to whatever backend the excellent [gptel](https://github.com/karthink/gptel) project supports.
 
